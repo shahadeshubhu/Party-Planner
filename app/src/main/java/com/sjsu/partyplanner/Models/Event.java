@@ -9,4 +9,5 @@ public class Event {
   Date date;
   ArrayList<Item> partyNeededItem;
   ArrayList<User> guesses;
+  boolean isOwner;
 }
