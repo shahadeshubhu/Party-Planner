@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.concurrent.Executor;
+import com.sjsu.partyplanner.Models.User;
 
 public class UserController {
 
@@ -84,4 +85,17 @@ public class UserController {
 
 
 
+    private boolean isEmailExist(){
+      return false;
+    }
+
+    public User registerNewUser(){
+      
+      //check if email exist
+      return null;
+    }
+
+    public User getUser(String email, String password){
+      return null;
+    }
 }
