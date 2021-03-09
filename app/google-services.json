@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "989307063233",
+    "project_id": "party-planner-app-f8fc7",
+    "storage_bucket": "party-planner-app-f8fc7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:989307063233:android:5ec9e1d89b7d24f6e8bd40",
+        "android_client_info": {
+          "package_name": "com.sjsu.partyplanner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "989307063233-ittbv404dek54ef3csj0q3l780k6h9b0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfixr36EkW_8CQTS0AM6X3_OXrdzmjF_c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "989307063233-ittbv404dek54ef3csj0q3l780k6h9b0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:989307063233:android:3ee619a3a2d8f8bde8bd40",
+        "android_client_info": {
+          "package_name": "edu.sjsu.android.partyplannertest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "989307063233-ittbv404dek54ef3csj0q3l780k6h9b0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfixr36EkW_8CQTS0AM6X3_OXrdzmjF_c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "989307063233-ittbv404dek54ef3csj0q3l780k6h9b0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
