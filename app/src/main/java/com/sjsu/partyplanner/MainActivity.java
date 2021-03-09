@@ -34,6 +34,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
   }
+  public void toEventDetail(View view){
+    Intent intent = new Intent(this, DetailActivity.class);
+    startActivity(intent);
+  }
 
   private boolean validateInput(String firstName, String lastName, String email, String pwd, String confirmPwd){
     String emailAcceptedPattern = "[a-zA-z0-9._-]+@[a-z]+\\.+[a-z]+";

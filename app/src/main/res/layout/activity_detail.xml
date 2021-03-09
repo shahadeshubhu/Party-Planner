@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".DetailActivity">
+
+        <!--        <Button-->
+<!--            android:id="@+id/guessBtnPopUp1"-->
+<!--            android:layout_width="83dp"-->
+<!--            android:layout_height="39dp"-->
+<!--            android:layout_marginStart="36dp"-->
+<!--            android:text="Guests"-->
+<!--            android:onClick="showGuests"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            tools:layout_editor_absoluteY="166dp" />-->
+
+        <TextView
+            android:id="@+id/eventTitle"
+            android:layout_width="213dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="28dp"
+            android:text="Title Event"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/guessBtnPopUp"
+            android:layout_width="83dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:onClick="showGuests"
+            android:text="Guests"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/eventTitle" />
+
+        <FrameLayout
+            android:id="@+id/eventDetailDisplay"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:layout_marginTop="228dp"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="0dp"></FrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
