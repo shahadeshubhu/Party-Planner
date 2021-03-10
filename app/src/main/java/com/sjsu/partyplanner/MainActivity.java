@@ -2,6 +2,7 @@ package com.sjsu.partyplanner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -21,11 +22,12 @@ public class MainActivity extends AppCompatActivity {
 
 
   public void registerUser() {
-    String fName = "";
-    String lName = "";
-    String email = "";
-    String pwd = "";
-    String confirmPwd = "";
+    String fName = ((EditText) findViewById(R.id.fNameTB)).getText().toString();
+    String lName = ((EditText) findViewById(R.id.lNameTB)).getText().toString();
+    String email = ((EditText) findViewById(R.id.emailTB)).getText().toString();
+    String pwd = ((EditText) findViewById(R.id.passTB)).getText().toString();
+    String confirmPwd = ((EditText) findViewById(R.id.confirmPassTB)).getText().toString();
+
     if (!validateInput(fName, lName, email, pwd, confirmPwd)) {
       Toast.makeText(this,"Wrong Input", Toast.LENGTH_LONG);
     }else{
@@ -78,74 +80,32 @@ public class MainActivity extends AppCompatActivity {
   // BUTTON CLICKS ---------------------------------------
 
   /**
-   * Sign Up Screen
    * onClick method for 'login'
    * Goes to the login screen
    */
   public void loginPageClick(View view) {
-
+    toastMsg("Go to login page");
+    startActivity(new Intent(MainActivity.this, LoginActivity.class));
   }
 
   /**
-   * Sign Up Screen
    * onClick method for the signup button
    * Signs up the user and goes to the home page
    */
   public void signupClick(View view) {
-
-  }
-
-
-  /**
-   * Login Screen
-   * onClick method for the log in button
-   * Logs the user in and goes to the home page
-   */
-  public void loginClick(View view) {
-
+    toastMsg("Sign Up Button");
+    registerUser();
   }
 
   /**
-   * Login Screen
-   * onClick method for 'sign up'
-   * Goes to the 'sign up' page
+   * Testing onClick methods
+   * @param msg to toast
    */
-  public void signupPageClick(View view) {
-
+  public void toastMsg(String msg) {
+    Toast toast = Toast.makeText(this, msg, Toast.LENGTH_LONG);
+    toast.show();
   }
 
 
-  /**
-   * Login Screen
-   * onClick method for 'forgot password'
-   * Goes to the 'reset password' page
-   */
-  public void forgotPWClick(View view) {
-
-  }
-
-  /**
-   * Login Screen
-   * onClick method for Google Icon
-   */
-  public void googleClick(View view) {
-
-  }
-
-  /**
-   * Login Screen
-   * onClick method for Twitter Icon
-   */
-  public void twitterClick(View view) {
-
-  }
-
-  /**
-   * Login Screen
-   * onClick method for Facebook Icon
-   */
-  public void facebookClick(View view) {
-
-  }
 
 }
