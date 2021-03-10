@@ -41,7 +41,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signUpText"
-        app:srcCompat="@drawable/signupContainer" />
+        app:srcCompat="@drawable/signup_container" />
 
     <EditText
         android:id="@+id/fNameTB"

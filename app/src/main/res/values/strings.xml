@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">PartyPlanner</string>
+    <string name="login">Login</string>
+    <string name="signup">Sign Up</string>
+    <string name="fName">First Name</string>
+    <string name="lName">Last Name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirmPW">Confirm Password</string>
+    <string name="existingAccount">Already have an account?</string>
+    <string name="forgotPW">Forgot your password?</string>
+    <string name="noAccount">Don\'t have an account?</string>
+
+
+
+    <string name="logo">App Logo</string>
+    <string name="googleIcon">Google Icon</string>
+    <string name="twitterIcon">Twitter Icon</string>
+    <string name="facebookIcon">Facebook Icon</string>
+    <string name="loginContainer">Login Container</string>
+    <string name="signupContainer">Sign Up Container</string>
 </resources>
