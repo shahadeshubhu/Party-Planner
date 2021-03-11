@@ -18,6 +18,7 @@ public class RegistrationActivity extends AppCompatActivity {
   private ActivityRegistrationBinding binding;
   private UserController controller;
   public static final int REQUIRED_PWD_LEN = 8;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -175,7 +176,10 @@ public class RegistrationActivity extends AppCompatActivity {
     return isValid;
   }
 
-
+  public void toDashboard(){
+    Intent intent = new Intent(this, DetailActivity.class);
+    startActivity(intent);
+  }
   // ERROR METHOD?
   public void testingUserSign()
   {

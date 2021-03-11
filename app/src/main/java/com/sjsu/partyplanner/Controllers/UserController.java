@@ -12,6 +12,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import com.sjsu.partyplanner.Models.User;
+import com.sjsu.partyplanner.RegistrationActivity;
 
 public class UserController {
 
@@ -41,11 +42,17 @@ public class UserController {
                         {
                             currentUser = mAuth.getCurrentUser();
                             Log.d("#UC createAccount", "success");
+//                            TODO: get UID and save the first name, lastname,
+                            if(activity instanceof RegistrationActivity){
+                                RegistrationActivity reActivity = (RegistrationActivity) activity;
+                                reActivity.toDashboard();
+                            }
 
                         }
                         else
                         {
-                            Log.d("#UC createAccount", "false");
+                            task.getException();
+                            Log.d("#UC createAccount",  ""+task.getException());
                             success[0] = false;
                         }
                     }
