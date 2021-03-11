@@ -45,7 +45,7 @@
             android:layout_height="500dp"
             android:layout_marginTop="228dp"
             app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="0dp"></FrameLayout>
+            tools:layout_editor_absoluteX="0dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
