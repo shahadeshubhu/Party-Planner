@@ -18,8 +18,7 @@ public class DetailActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     detailBinding = ActivityDetailBinding.inflate(getLayoutInflater());
-    View view = detailBinding.getRoot();
-    setContentView(view);
+    setContentView( detailBinding.getRoot());
     fragmentTransaction = getSupportFragmentManager().beginTransaction();
   }
 

@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "989307063233-0349v594sll81fjntnmnr8vssc4mm1fh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sjsu.partyplanner",
+            "certificate_hash": "d77b3d13927db6add09c2bd05d398eec3fa635b6"
+          }
+        },
+        {
           "client_id": "989307063233-ittbv404dek54ef3csj0q3l780k6h9b0.apps.googleusercontent.com",
           "client_type": 3
         }

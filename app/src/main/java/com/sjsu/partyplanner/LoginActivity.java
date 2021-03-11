@@ -29,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
      */
     public void signupPageClick(View view) {
         toastMsg("Go to sign up page");
-        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        startActivity(new Intent(LoginActivity.this, RegistrationActivity.class));
     }
 
 

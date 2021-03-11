@@ -1,6 +1,7 @@
 package com.sjsu.partyplanner.Controllers;
 
 import android.app.Activity;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -10,7 +11,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.concurrent.Executor;
 import com.sjsu.partyplanner.Models.User;
 
 public class UserController {
@@ -32,21 +32,27 @@ public class UserController {
     {
         final boolean[] success = new boolean[1];
         success[0] = true;
+        Log.d("#UC createAccount", email + password);
+
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful())
                         {
                             currentUser = mAuth.getCurrentUser();
+                            Log.d("#UC createAccount", "success");
+
                         }
                         else
                         {
+                            Log.d("#UC createAccount", "false");
                             success[0] = false;
                         }
                     }
                     });
 
         return success[0];
+
     }
 
 
