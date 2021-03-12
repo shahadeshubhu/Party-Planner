@@ -19,48 +19,44 @@ public class UserController {
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
 
-
     public UserController()
     {
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
-
+        if(currentUser != null)
+            Log.d("#UC currentUser", ""+currentUser.getEmail());
     }
 
 
     // ** need to add a mechanism to see if it was successful or not.
-    public boolean createAccount(Activity activity, String email, String password)
+    public void createAccount(RegistrationActivity activity, String email, String password)
     {
-        final boolean[] success = new boolean[1];
-        success[0] = true;
         Log.d("#UC createAccount", email + password);
 
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful())
-                        {
+                        if (task.isSuccessful()) {
                             currentUser = mAuth.getCurrentUser();
-                            Log.d("#UC createAccount", "success");
-//                            TODO: get UID and save the first name, lastname,
-                            if(activity instanceof RegistrationActivity){
-                                RegistrationActivity reActivity = (RegistrationActivity) activity;
-                                reActivity.toDashboard();
+                            if (currentUser != null) {
+                                Log.d("#UC createAccount", currentUser.getUid());
+                                //      TODO: get UID and save the first name, lastname,
                             }
+                            activity.handleSuccess();
+                        } else {
 
-                        }
-                        else
-                        {
-                            task.getException();
-                            Log.d("#UC createAccount",  ""+task.getException());
-                            success[0] = false;
+                            Exception e = task.getException();
+
+                            if (e != null) {
+                                activity.handleError(e.getMessage());
+                            }
+                            Log.d("#UC createAccount", "" + task.getException());
                         }
                     }
-                    });
-
-        return success[0];
+        });
 
     }
+
 
 
     public boolean signInUser(Activity activity, String email, String password)
@@ -100,12 +96,6 @@ public class UserController {
 
     private boolean isEmailExist(){
       return false;
-    }
-
-    public User registerNewUser(){
-      
-      //check if email exist
-      return null;
     }
 
     public User getUser(String email, String password){

@@ -2,6 +2,7 @@ package com.sjsu.partyplanner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseUser;
 import com.sjsu.partyplanner.Controllers.UserController;
 import com.sjsu.partyplanner.databinding.ActivityRegistrationBinding;
 
@@ -29,6 +31,19 @@ public class RegistrationActivity extends AppCompatActivity {
     controller = new UserController();
   }
 
+
+  public void handleSuccess(){
+    Intent intent = new Intent(this, DetailActivity.class);
+    startActivity(intent);
+  }
+
+  @SuppressLint("SetTextI18n")
+  public void handleError(String message){
+    if (message == null || message.length()<=0){
+      binding.errorMsg.setText("Fail to register a new user");
+    }else
+      binding.errorMsg.setText(message);
+  }
 
   public void registerUser(View view) {
     String fName = ((EditText) findViewById(R.id.fNameTB)).getText().toString();
@@ -65,7 +80,7 @@ public class RegistrationActivity extends AppCompatActivity {
         String currentInput = binding.fNameTB.getText().toString();
         if(currentInput.length() <= 0){
           binding.fNameTB.setBackground(getResources().getDrawable(R.drawable.text_box_error));
-          Log.d("error field", "first name is required");
+          binding.errorMsg.setText("First name is required");
         }else{
           binding.fNameTB.setBackground(getResources().getDrawable(R.drawable.textbox_background));
         }
@@ -87,7 +102,7 @@ public class RegistrationActivity extends AppCompatActivity {
         String currentInput = binding.lNameTB.getText().toString();
         if(currentInput.length() <= 0){
           binding.lNameTB.setBackground(getResources().getDrawable(R.drawable.text_box_error));
-          Log.d("error field", "first name is required");
+          binding.errorMsg.setText("Last name is required");
         }else{
           binding.lNameTB.setBackground(getResources().getDrawable(R.drawable.textbox_background));
         }
@@ -110,7 +125,7 @@ public class RegistrationActivity extends AppCompatActivity {
         String emailAcceptedPattern = "[a-zA-z0-9._-]+@[a-z]+\\.+[a-z]+";
         if(currentInput.length() <= 0 || !currentInput.matches(emailAcceptedPattern)){
           binding.emailTB.setBackground(getResources().getDrawable(R.drawable.text_box_error));
-          Log.d("error field", "Email is wrong");
+          binding.errorMsg.setText("Invalid email");
         }else{
           binding.emailTB.setBackground(getResources().getDrawable(R.drawable.textbox_background));
         }
@@ -132,7 +147,8 @@ public class RegistrationActivity extends AppCompatActivity {
         String currentInput = binding.passTB.getText().toString();
         if(currentInput.length() < 8){
           binding.passTB.setBackground(getResources().getDrawable(R.drawable.text_box_error));
-          Log.d("error field", "password must be more than 8 characters");
+          binding.errorMsg.setText(String.format("Password must be at least %d characters", REQUIRED_PWD_LEN));
+
         }else{
           binding.passTB.setBackground(getResources().getDrawable(R.drawable.textbox_background));
         }
@@ -154,7 +170,7 @@ public class RegistrationActivity extends AppCompatActivity {
         String currentInput = binding.confirmPassTB.getText().toString();
         if(currentInput.length() < REQUIRED_PWD_LEN || !currentInput.equals(binding.passTB.getText().toString()) ){
           binding.confirmPassTB.setBackground(getResources().getDrawable(R.drawable.text_box_error));
-          Log.d("error field", "pwd not match is required");
+          binding.errorMsg.setText("Password does not match");
         }else{
           binding.confirmPassTB.setBackground(getResources().getDrawable(R.drawable.textbox_background));
         }
@@ -176,10 +192,6 @@ public class RegistrationActivity extends AppCompatActivity {
     return isValid;
   }
 
-  public void toDashboard(){
-    Intent intent = new Intent(this, DetailActivity.class);
-    startActivity(intent);
-  }
   // ERROR METHOD?
   public void testingUserSign()
   {
