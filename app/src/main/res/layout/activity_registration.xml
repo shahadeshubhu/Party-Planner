@@ -36,10 +36,11 @@
         <ImageView
             android:id="@+id/signupContainer"
             android:layout_width="340dp"
-            android:layout_height="423dp"
-            android:layout_marginTop="5dp"
+            android:layout_height="430dp"
+            android:layout_marginTop="8dp"
             android:contentDescription="@string/signupContainer"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.492"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/signUpText"
             app:srcCompat="@drawable/signup_container" />
@@ -150,9 +151,7 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/signupContainer"
-            app:layout_constraintTop_toBottomOf="@+id/signupContainer"
-            app:layout_constraintVertical_bias="0.162" />
+            app:layout_constraintStart_toStartOf="@+id/signupContainer" />
 
         <TextView
             android:id="@+id/loginTextButton"
@@ -168,35 +167,34 @@
             app:layout_constraintStart_toEndOf="@+id/existingAccountText" />
 
         <TextView
-            android:id="@+id/errorMsg"
-
+            android:id="@+id/signupErrorMsg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/oswald"
             android:textColor="@color/red"
             android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="621dp" />
+            app:layout_constraintStart_toStartOf="@+id/confirmPassTB"
+            app:layout_constraintTop_toBottomOf="@+id/confirmPassTB" />
 
         <Button
             android:id="@+id/signupButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/signup"
-            android:textStyle="bold"
-            android:textSize="25sp"
-            android:fontFamily="@font/iceberg"
             android:background="@drawable/button_background"
+            android:fontFamily="@font/iceberg"
             android:onClick="registerUser"
+            android:text="@string/signup"
+            android:textSize="25sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/signupContainer"
             app:layout_constraintEnd_toEndOf="@+id/signupContainer"
+            app:layout_constraintHorizontal_bias="0.507"
             app:layout_constraintStart_toStartOf="@+id/signupContainer"
-            app:layout_constraintTop_toBottomOf="@+id/confirmPassTB" />
+            app:layout_constraintTop_toBottomOf="@+id/confirmPassTB"
+            app:layout_constraintVertical_bias="0.711" />
 
 
-
-<!--        <Button-->
+        <!--        <Button-->
 <!--            android:id="@+id/detailBtn"-->
 <!--            android:layout_width="wrap_content"-->
 <!--            android:layout_height="wrap_content"-->
