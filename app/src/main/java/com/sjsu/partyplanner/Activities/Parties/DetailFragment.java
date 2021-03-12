@@ -1,4 +1,4 @@
-package com.sjsu.partyplanner;
+package com.sjsu.partyplanner.Activities.Parties;
 
 import androidx.appcompat.app.AppCompatActivity;
 

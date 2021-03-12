@@ -1,24 +1,22 @@
-package com.sjsu.partyplanner;
+package com.sjsu.partyplanner.Activities.Parties;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.sjsu.partyplanner.R;
 import com.sjsu.partyplanner.databinding.ActivityDetailBinding;
 
 public class DetailActivity extends AppCompatActivity {
-  private ActivityDetailBinding detailBinding;
+  private ActivityDetailBinding binding;
   private FragmentTransaction fragmentTransaction;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    detailBinding = ActivityDetailBinding.inflate(getLayoutInflater());
-    setContentView( detailBinding.getRoot());
+    binding = ActivityDetailBinding.inflate(getLayoutInflater());
+    setContentView( binding.getRoot());
     fragmentTransaction = getSupportFragmentManager().beginTransaction();
   }
 

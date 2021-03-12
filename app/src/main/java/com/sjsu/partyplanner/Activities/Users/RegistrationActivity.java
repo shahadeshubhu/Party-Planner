@@ -1,4 +1,4 @@
-package com.sjsu.partyplanner;
+package com.sjsu.partyplanner.Activities.Users;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,8 +12,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseUser;
+import com.sjsu.partyplanner.Activities.Parties.DetailActivity;
 import com.sjsu.partyplanner.Controllers.UserController;
+import com.sjsu.partyplanner.R;
 import com.sjsu.partyplanner.databinding.ActivityRegistrationBinding;
 
 public class RegistrationActivity extends AppCompatActivity {

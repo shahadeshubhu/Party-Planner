@@ -1,11 +1,9 @@
-package com.sjsu.partyplanner;
+package com.sjsu.partyplanner.Activities.Parties;
 
 import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;

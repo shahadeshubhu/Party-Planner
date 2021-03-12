@@ -1,4 +1,4 @@
-package com.sjsu.partyplanner;
+package com.sjsu.partyplanner.Activities.Users;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
+
+import com.sjsu.partyplanner.R;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -20,6 +22,8 @@ public class LoginActivity extends AppCompatActivity {
      * Logs the user in and goes to the home page
      */
     public void loginClick(View view) {
+
+
         toastMsg("Login Button");
     }
 

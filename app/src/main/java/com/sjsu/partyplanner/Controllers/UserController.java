@@ -12,7 +12,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import com.sjsu.partyplanner.Models.User;
-import com.sjsu.partyplanner.RegistrationActivity;
+import com.sjsu.partyplanner.Activities.Users.RegistrationActivity;
 
 public class UserController {
 

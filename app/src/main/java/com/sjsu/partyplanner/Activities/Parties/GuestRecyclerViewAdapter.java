@@ -1,13 +1,10 @@
-package com.sjsu.partyplanner;
+package com.sjsu.partyplanner.Activities.Parties;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.sjsu.partyplanner.databinding.FragmentGuestRowBinding;
 import com.sjsu.partyplanner.dummy.DummyContent.DummyItem;
