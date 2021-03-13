@@ -23,10 +23,16 @@ public class UserController {
     {
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
-        if(currentUser != null)
-            Log.d("#UC currentUser", ""+currentUser.getEmail());
+
     }
 
+    public boolean isSignedIn(){
+        if(currentUser != null) {
+            Log.d("#UC currentUser", "" + currentUser.getEmail());
+            return true;
+        }
+        return false;
+    }
 
     // ** need to add a mechanism to see if it was successful or not.
     public void createAccount(RegistrationActivity activity, String email, String password)

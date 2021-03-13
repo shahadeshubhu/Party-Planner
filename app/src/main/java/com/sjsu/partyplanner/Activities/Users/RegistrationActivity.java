@@ -31,6 +31,16 @@ public class RegistrationActivity extends AppCompatActivity {
     setContentView( binding.getRoot());
     setUpListeners();
     controller = new UserController();
+
+//    TODO: get the user and route to USER detail page
+    if (controller.isSignedIn()){
+      Intent intent = new Intent(this, DetailActivity.class);
+      startActivity(intent);
+    }
+  }
+
+  private void getToUserPage(){
+
   }
 
 
