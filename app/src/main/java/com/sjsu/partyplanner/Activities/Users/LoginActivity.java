@@ -9,6 +9,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Toast;
+
+import com.sjsu.partyplanner.Activities.Parties.DashboardActivity;
 import com.sjsu.partyplanner.Controllers.UserController;
 import com.sjsu.partyplanner.R;
 import com.sjsu.partyplanner.databinding.ActivityLoginBinding;
@@ -32,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
         controller = new UserController();
 
     }
+
 
 
     /**
@@ -87,7 +90,15 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    public void handleSuccess(){
+        Intent intent = new Intent(this, DashboardActivity.class);
+        startActivity(intent);
+    }
 
+    public void handleError(String message){
+        binding.loginErrorMsg.setText("Fail to log in");
+
+    }
 
     //-------------------------------------------------
 
@@ -97,6 +108,7 @@ public class LoginActivity extends AppCompatActivity {
      */
     public void loginClick(View view) {
 
+        controller.signInUser(this, binding.emailLoginTB.getText().toString(), binding.pwLoginTB.getText().toString());
 
         toastMsg("Login Button");
     }
