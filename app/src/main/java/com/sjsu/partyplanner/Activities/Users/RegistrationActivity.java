@@ -13,7 +13,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.sjsu.partyplanner.Activities.Parties.DetailActivity;
+import com.sjsu.partyplanner.Activities.Parties.DashboardActivity;
 import com.sjsu.partyplanner.Controllers.UserController;
 import com.sjsu.partyplanner.R;
 import com.sjsu.partyplanner.databinding.ActivityRegistrationBinding;
@@ -31,14 +31,25 @@ public class RegistrationActivity extends AppCompatActivity {
     setContentView( binding.getRoot());
     setUpListeners();
     controller = new UserController();
+
+//    TODO: get the user and route to USER detail page
+    if (controller.isSignedIn()){
+      Intent intent = new Intent(this, DashboardActivity.class);
+      startActivity(intent);
+    }
   }
 
-
+  /**
+   * Handle next action when task from controller success
+   */
   public void handleSuccess(){
-    Intent intent = new Intent(this, DetailActivity.class);
+    Intent intent = new Intent(this, DashboardActivity.class);
     startActivity(intent);
   }
 
+  /**
+   * Handle error when task from controller failed
+   */
   @SuppressLint("SetTextI18n")
   public void handleError(String message){
     if (message == null || message.length()<=0){
@@ -59,10 +70,6 @@ public class RegistrationActivity extends AppCompatActivity {
     }else{
       controller.createAccount(this,email,pwd);
     }
-  }
-  public void toEventDetail(View view){
-    Intent intent = new Intent(this, DetailActivity.class);
-    startActivity(intent);
   }
 
   /**

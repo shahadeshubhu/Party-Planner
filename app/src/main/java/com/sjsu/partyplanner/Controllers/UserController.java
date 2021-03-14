@@ -11,8 +11,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import com.sjsu.partyplanner.Activities.Users.LoginActivity;
 import com.sjsu.partyplanner.Models.User;
 import com.sjsu.partyplanner.Activities.Users.RegistrationActivity;
+import com.sjsu.partyplanner.databinding.ActivityDashboardBinding;
 
 public class UserController {
 
@@ -23,10 +25,16 @@ public class UserController {
     {
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
-        if(currentUser != null)
-            Log.d("#UC currentUser", ""+currentUser.getEmail());
+
     }
 
+    public boolean isSignedIn(){
+        if(currentUser != null) {
+            Log.d("#UC currentUser", "" + currentUser.getEmail());
+            return true;
+        }
+        return false;
+    }
 
     // ** need to add a mechanism to see if it was successful or not.
     public void createAccount(RegistrationActivity activity, String email, String password)
@@ -59,10 +67,9 @@ public class UserController {
 
 
 
-    public boolean signInUser(Activity activity, String email, String password)
+    public void signInUser(LoginActivity activity, String email, String password)
     {
-        final boolean[] success = new boolean[1];
-        success[0] = true;
+
 
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
             @Override
@@ -71,16 +78,23 @@ public class UserController {
                 if(task.isSuccessful())
                 {
                     currentUser = mAuth.getCurrentUser();
+                    activity.handleSuccess();
+
                 }
                 else
                 {
-                    success[0]= false;
+                    Exception e = task.getException();
+
+                    if (e != null) {
+                        activity.handleError(e.getMessage());
+                    }
+                    Log.d("#UC signIn", "" + task.getException());
                 }
             }
         });
 
-        return success[0];
     }
+
 
     public void signOutUser()
     {
