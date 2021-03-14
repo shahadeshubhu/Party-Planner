@@ -18,4 +18,13 @@
     <string name="facebookIcon">Facebook Icon</string>
     <string name="loginContainer">Login Container</string>
     <string name="signupContainer">Sign Up Container</string>
+    <string name="dashboardContainer">Dashboard Container</string>
+    <string name="partyButton">Party Button</string>
+    <string name="eventButton">Event Button</string>
+    <string name="contactButton">Contact Button</string>
+    <string name="budgetButton">Budget Button</string>
+    <string name="settingsIcon">Settings</string>
+    <string name="mailIcon">Mail</string>
+    <string name="userIcon">User Icon</string>
+
 </resources>
