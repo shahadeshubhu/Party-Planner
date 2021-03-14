@@ -5,7 +5,127 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".Activities.Parties.DashboardActivity">
+        tools:context=".Activities.Parties.DashboardActivity"
+        android:background="@drawable/gradient_background">
+
+
+
+        <ImageView
+            android:id="@+id/logo_dash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:contentDescription="@string/logo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/logo" />
+
+        <TextView
+            android:id="@+id/appname_dash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/iceberg"
+            android:text="@string/app_name"
+            android:textColor="@color/black"
+            android:textSize="50sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/logo_dash" />
+
+        <ImageView
+            android:id="@+id/dashboardContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleY="0.9"
+            android:contentDescription="@string/dashboardContainer"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appname_dash"
+            app:srcCompat="@drawable/login_container" />
+
+        <ImageView
+            android:id="@+id/partiesButton"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="50dp"
+            android:onClick="partyClick"
+            android:contentDescription="@string/partyButton"
+            app:layout_constraintStart_toStartOf="@+id/dashboardContainer"
+            app:layout_constraintTop_toTopOf="@+id/dashboardContainer"
+            app:srcCompat="@drawable/party_box" />
+
+        <ImageView
+            android:id="@+id/eventsButton"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="20dp"
+            android:onClick="eventClick"
+            android:contentDescription="@string/eventButton"
+            app:layout_constraintEnd_toEndOf="@+id/dashboardContainer"
+            app:layout_constraintTop_toTopOf="@+id/dashboardContainer"
+            app:srcCompat="@drawable/event_box" />
+
+        <ImageView
+            android:id="@+id/contactsButton"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:onClick="contactClick"
+            android:contentDescription="@string/contactButton"
+            app:layout_constraintStart_toStartOf="@+id/dashboardContainer"
+            app:layout_constraintTop_toBottomOf="@+id/partiesButton"
+            app:srcCompat="@drawable/contacts_box" />
+
+        <ImageView
+            android:id="@+id/budgetButton"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:onClick="budgetClick"
+            android:contentDescription="@string/budgetButton"
+            app:layout_constraintEnd_toEndOf="@+id/dashboardContainer"
+            app:layout_constraintTop_toBottomOf="@+id/eventsButton"
+            app:srcCompat="@drawable/budget_box" />
+
+        <ImageView
+            android:id="@+id/settings_dash"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:contentDescription="@string/settingsIcon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/settings_icon" />
+
+        <ImageView
+            android:id="@+id/mail_dash"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="5dp"
+            android:contentDescription="@string/mailIcon"
+            app:layout_constraintEnd_toStartOf="@+id/settings_dash"
+            app:layout_constraintTop_toTopOf="@+id/settings_dash"
+            app:srcCompat="@drawable/mail_icon" />
+
+        <ImageView
+            android:id="@+id/user_dash"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="5dp"
+            android:contentDescription="@string/userIcon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/mail_dash"
+            app:srcCompat="@drawable/user_icon" />
+
 
         <TextView
             android:layout_width="206dp"
