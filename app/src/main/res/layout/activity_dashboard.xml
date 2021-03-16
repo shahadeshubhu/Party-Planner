@@ -125,15 +125,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/mail_dash"
             app:srcCompat="@drawable/user_icon" />
-
-
-        <TextView
-            android:layout_width="206dp"
-            android:layout_height="59dp"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="124dp"
-            android:text="DASHBOARD PAGE"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
