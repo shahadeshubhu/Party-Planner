@@ -10,7 +10,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Toast;
 
-import com.sjsu.partyplanner.Activities.Parties.DashboardActivity;
+import com.sjsu.partyplanner.Activities.Dashboard.DashboardActivity;
 import com.sjsu.partyplanner.Controllers.UserController;
 import com.sjsu.partyplanner.R;
 import com.sjsu.partyplanner.databinding.ActivityLoginBinding;
@@ -93,6 +93,7 @@ public class LoginActivity extends AppCompatActivity {
     public void handleSuccess(){
         Intent intent = new Intent(this, DashboardActivity.class);
         startActivity(intent);
+        finish();
     }
 
     public void handleError(String message){
@@ -120,6 +121,7 @@ public class LoginActivity extends AppCompatActivity {
     public void signupPageClick(View view) {
         toastMsg("Go to sign up page");
         startActivity(new Intent(LoginActivity.this, RegistrationActivity.class));
+        finish();
     }
 
 

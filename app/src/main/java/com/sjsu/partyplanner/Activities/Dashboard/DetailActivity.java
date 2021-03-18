@@ -1,4 +1,4 @@
-package com.sjsu.partyplanner.Activities.Parties;
+package com.sjsu.partyplanner.Activities.Dashboard;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
