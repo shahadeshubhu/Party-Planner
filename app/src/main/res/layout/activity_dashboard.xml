@@ -125,6 +125,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/mail_dash"
             app:srcCompat="@drawable/user_icon" />
-        
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

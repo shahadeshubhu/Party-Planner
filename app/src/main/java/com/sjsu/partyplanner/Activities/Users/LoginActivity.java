@@ -97,7 +97,6 @@ public class LoginActivity extends AppCompatActivity {
 
     public void handleError(String message){
         binding.loginErrorMsg.setText("Fail to log in");
-
     }
 
     //-------------------------------------------------

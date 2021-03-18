@@ -68,7 +68,7 @@ public class RegistrationActivity extends AppCompatActivity {
     if (!validateInput(fName, lName, email, pwd, confirmPwd)) {
       Toast.makeText(this,"Wrong Input", Toast.LENGTH_LONG);
     }else{
-      controller.createAccount(this,email,pwd);
+      controller.createAccount(this,email,pwd, fName,lName);
     }
   }
 
@@ -76,7 +76,6 @@ public class RegistrationActivity extends AppCompatActivity {
    * Sets up listeners for the textboxes
    */
   public void setUpListeners(){
-
     // Textbox Drawables
     Drawable normalTB = getResources().getDrawable(R.drawable.textbox_background);
     Drawable errorTB = getResources().getDrawable(R.drawable.text_box_error);

@@ -1,6 +1,5 @@
 package com.sjsu.partyplanner.Controllers;
 
-import android.app.Activity;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -10,34 +9,38 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
 
+import com.google.firebase.database.FirebaseDatabase;
 import com.sjsu.partyplanner.Activities.Users.LoginActivity;
 import com.sjsu.partyplanner.Models.User;
 import com.sjsu.partyplanner.Activities.Users.RegistrationActivity;
-import com.sjsu.partyplanner.databinding.ActivityDashboardBinding;
 
 public class UserController {
 
-    private FirebaseAuth mAuth;
+    private final FirebaseAuth mAuth;
     private FirebaseUser currentUser;
+    private final DatabaseReference mDatabase;
 
     public UserController()
     {
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
-
+        mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
     public boolean isSignedIn(){
         if(currentUser != null) {
             Log.d("#UC currentUser", "" + currentUser.getEmail());
+            currentUser.getDisplayName();
             return true;
         }
         return false;
     }
 
     // ** need to add a mechanism to see if it was successful or not.
-    public void createAccount(RegistrationActivity activity, String email, String password)
+    public void createAccount(RegistrationActivity activity, String email, String password, String firstName, String lastName)
     {
         Log.d("#UC createAccount", email + password);
 
@@ -49,6 +52,9 @@ public class UserController {
                             if (currentUser != null) {
                                 Log.d("#UC createAccount", currentUser.getUid());
                                 //      TODO: get UID and save the first name, lastname,
+                                String userCollectionName = "users";
+                                User user = new User(firstName, lastName);
+                                mDatabase.child(userCollectionName).child(currentUser.getUid()).setValue(user);
                             }
                             activity.handleSuccess();
                         } else {
@@ -64,8 +70,6 @@ public class UserController {
         });
 
     }
-
-
 
     public void signInUser(LoginActivity activity, String email, String password)
     {
@@ -106,13 +110,21 @@ public class UserController {
         return currentUser;
     }
 
-
-
     private boolean isEmailExist(){
       return false;
     }
 
-    public User getUser(String email, String password){
-      return null;
+    public void getUserInfo(){
+        mDatabase.child("users").child(currentUser.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+                    Log.d("firebase", String.valueOf(task.getResult().getValue(User.class)));
+                }
+            }
+        });
     }
 }
