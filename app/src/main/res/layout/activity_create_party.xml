@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.Parties.CreatePartyActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/toolbar_background"
+            android:minHeight="?attr/actionBarSize"
+            app:titleTextAppearance="@style/Toolbar.TitleText"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <TextView
+        android:id="@+id/cpPartyNameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/iceberg"
+        android:text="@string/name"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout2" />
+
+    <EditText
+        android:id="@+id/cpPartyNameTB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/partyName"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/oswald"
+        app:layout_constraintStart_toStartOf="@+id/cpPartyNameText"
+        app:layout_constraintTop_toBottomOf="@+id/cpPartyNameText" />
+
+    <TextView
+        android:id="@+id/cpPartyTypeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/typeOfParty"
+        android:textSize="25sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:fontFamily="@font/iceberg"
+        app:layout_constraintStart_toStartOf="@+id/cpPartyNameText"
+        app:layout_constraintTop_toBottomOf="@+id/cpPartyNameTB" />
+
+    <EditText
+        android:id="@+id/cpPartyTypeTB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/partyType"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/oswald"
+        app:layout_constraintStart_toStartOf="@+id/cpPartyTypeText"
+        app:layout_constraintTop_toBottomOf="@+id/cpPartyTypeText" />
+
+    <TextView
+        android:id="@+id/cpLocationText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/location"
+        android:textSize="25sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:fontFamily="@font/iceberg"
+        app:layout_constraintStart_toStartOf="@+id/cpPartyTypeText"
+        app:layout_constraintTop_toBottomOf="@+id/cpPartyTypeTB" />
+
+    <EditText
+        android:id="@+id/cpLocationTB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/partyLocation"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/oswald"
+        app:layout_constraintStart_toStartOf="@+id/cpLocationText"
+        app:layout_constraintTop_toBottomOf="@+id/cpLocationText" />
+
+    <TextView
+        android:id="@+id/cpPartyDescrText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/partyDescription"
+        android:textSize="25sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:fontFamily="@font/iceberg"
+        app:layout_constraintStart_toStartOf="@+id/cpLocationText"
+        app:layout_constraintTop_toBottomOf="@+id/cpLocationTB" />
+
+    <EditText
+        android:id="@+id/cpPartyDescrTB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/shortPartyDescription"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/oswald"
+        app:layout_constraintStart_toStartOf="@+id/cpPartyDescrText"
+        app:layout_constraintTop_toBottomOf="@+id/cpPartyDescrText" />
+
+    <TextView
+        android:id="@+id/cpDateTimeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/iceberg"
+        android:text="@string/dateTime"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/cpPartyDescrText"
+        app:layout_constraintTop_toBottomOf="@+id/cpPartyDescrTB" />
+
+    <EditText
+        android:id="@+id/cpDateTB"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:focusable="false"
+        android:fontFamily="@font/oswald"
+        android:hint="Date"
+        android:inputType="date"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/cpDateTimeText"
+        app:layout_constraintTop_toBottomOf="@+id/cpDateTimeText" />
+
+    <Button
+        android:id="@+id/cpSelectDateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="5dp"
+        android:fontFamily="@font/oswald"
+        android:text="@string/selectDate"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/cpDateTB"
+        app:layout_constraintStart_toEndOf="@+id/cpDateTB"
+        app:layout_constraintTop_toTopOf="@+id/cpDateTB" />
+
+    <EditText
+        android:id="@+id/cpTimeTB"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:inputType="time"
+        android:hint="Time"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/oswald"
+        android:focusable="false"
+        app:layout_constraintStart_toStartOf="@+id/cpDateTB"
+        app:layout_constraintTop_toBottomOf="@+id/cpDateTB" />
+
+    <Button
+        android:id="@+id/cpSelectTimeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:fontFamily="@font/oswald"
+        android:text="@string/selectTime"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/cpTimeTB"
+        app:layout_constraintStart_toEndOf="@+id/cpTimeTB"
+        app:layout_constraintTop_toTopOf="@+id/cpTimeTB" />
+
+    <Button
+        android:id="@+id/cpGuestButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/addGuests"
+        android:fontFamily="@font/oswald"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:onClick="addClick"
+        app:layout_constraintStart_toStartOf="@+id/cpTimeTB"
+        app:layout_constraintTop_toBottomOf="@+id/cpTimeTB" />
+
+    <Button
+        android:id="@+id/cpTaskButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/addTasks"
+        android:fontFamily="@font/oswald"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:onClick="addClick"
+        app:layout_constraintStart_toStartOf="@+id/cpGuestButton"
+        app:layout_constraintTop_toBottomOf="@+id/cpGuestButton" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,7 +13,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.sjsu.partyplanner.Activities.Parties.DashboardActivity;
+import com.sjsu.partyplanner.Activities.Dashboard.DashboardActivity;
 import com.sjsu.partyplanner.Controllers.UserController;
 import com.sjsu.partyplanner.R;
 import com.sjsu.partyplanner.databinding.ActivityRegistrationBinding;
@@ -36,6 +36,7 @@ public class RegistrationActivity extends AppCompatActivity {
     if (controller.isSignedIn()){
       Intent intent = new Intent(this, DashboardActivity.class);
       startActivity(intent);
+      finish();
     }
   }
 
@@ -45,6 +46,7 @@ public class RegistrationActivity extends AppCompatActivity {
   public void handleSuccess(){
     Intent intent = new Intent(this, DashboardActivity.class);
     startActivity(intent);
+    finish();
   }
 
   /**

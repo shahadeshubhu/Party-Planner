@@ -27,4 +27,21 @@
     <string name="mailIcon">Mail</string>
     <string name="userIcon">User Icon</string>
 
+    <string name="noUpcoming">No Upcoming Parties Planned</string>
+    <string name="noPast">No Past Parties Planned</string>
+
+    <string name="name">Name</string>
+    <string name="partyName">Party Name</string>
+    <string name="typeOfParty">Type of Party</string>
+    <string name="partyType">Party Type</string>
+    <string name="location">Location</string>
+    <string name="partyLocation">Party Location</string>
+    <string name="partyDescription">Party Description</string>
+    <string name="shortPartyDescription">Short Description of the Party</string>
+    <string name="dateTime">Date and Time</string>
+    <string name="selectDate">SELECT DATE</string>
+    <string name="selectTime">SELECT TIME</string>
+    <string name="addGuests">Invite Party Guests</string>
+    <string name="addTasks">Add Party Tasks</string>
+
 </resources>
