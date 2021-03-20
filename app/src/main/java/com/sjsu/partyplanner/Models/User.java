@@ -19,7 +19,7 @@ public class User implements Serializable {
   private String email;
   private String password;
   private boolean isVerified;
-  private ArrayList<Event> events;
+  private ArrayList<Party> parties;
 
   public User(){};
 
@@ -28,7 +28,7 @@ public class User implements Serializable {
     this.lastName = lastName;
     this.email = email;
     this.password = password;
-    this.events = new ArrayList<>();
+    this.parties = new ArrayList<>();
 
   }
 
@@ -69,11 +69,11 @@ public class User implements Serializable {
     this.email = email;
   }
 
-  public void addEvent(Event e){
-    events.add(e);
+  public void addEvent(Party e){
+    parties.add(e);
   }
-  public ArrayList<Event> getEvents(){
-    return events;
+  public ArrayList<Party> getParties(){
+    return parties;
   }
 
   @NotNull

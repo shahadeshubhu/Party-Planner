@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.widget.Toolbar;
@@ -14,18 +15,27 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
+import com.sjsu.partyplanner.Controllers.PartyController;
+import com.sjsu.partyplanner.Controllers.UserController;
+import com.sjsu.partyplanner.Models.Party;
 import com.sjsu.partyplanner.R;
+
+import java.util.ArrayList;
 
 public class PartyActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-
+    private ArrayList<Party> allParties = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_party_page);
+
+
+        PartyController p = new PartyController();
+        p.getParties(this, UserController.currentUser.getUid());
 
         // Toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -61,6 +71,17 @@ public class PartyActivity extends AppCompatActivity {
     // onClick Method: Create Party
     public void createParty (View view) {
         startActivity(new Intent(this, CreatePartyActivity.class));
+    }
+
+
+    public void handleFetchParties(boolean isSuccessful, ArrayList<Party> p){
+        if (isSuccessful){
+            allParties = p;
+            Log.d("parties length", ""+allParties.size());
+
+        }else{
+            //TODO: display some error message
+        }
     }
 
     // Initialize TabLayout

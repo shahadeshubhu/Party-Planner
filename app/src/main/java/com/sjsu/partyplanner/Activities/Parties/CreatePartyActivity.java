@@ -7,6 +7,8 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.service.controls.Control;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,9 +17,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.sjsu.partyplanner.Activities.Users.LoginActivity;
+import com.sjsu.partyplanner.Controllers.PartyController;
+import com.sjsu.partyplanner.Controllers.UserController;
+import com.sjsu.partyplanner.Models.Party;
 import com.sjsu.partyplanner.R;
+import com.sjsu.partyplanner.databinding.ActivityCreatePartyBinding;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class CreatePartyActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -25,13 +34,19 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
     private Button btnDatePicker, btnTimePicker;
     private EditText txtDate, txtTime;
     private int mYear, mMonth, mDay, mHour, mMinute;
+    private PartyController partyController;
 
-    @Override
+    private Calendar pickedDateTime;
+    protected ActivityCreatePartyBinding binding;
+
+  @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_party);
+        pickedDateTime = Calendar.getInstance();
+        binding = ActivityCreatePartyBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        // Toolbar
+    // Toolbar
         setUpToolbar();
 
         // Date/Time Picker
@@ -41,6 +56,8 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
         btnTimePicker = findViewById(R.id.cpSelectTimeButton);
         txtTime = findViewById(R.id.cpTimeTB);
         btnTimePicker.setOnClickListener(this);
+
+        partyController = new PartyController();
     }
 
     // Adds Icons to Toolbar (other than back button)
@@ -57,8 +74,17 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
         switch (item.getItemId()) {
             case R.id.cpCheck:
                 // TODO Create a Party Object and put it into the database.
-                toastMsg("Create Party");
-                return true;
+              Log.d("date", txtDate.getText().toString());
+              Log.d("time", txtTime.getText().toString());
+              Party party = new Party(
+                binding.cpPartyNameTB.getText().toString(),
+                binding.cpPartyTypeTB.getText().toString(),
+                binding.cpLocationTB.getText().toString(),
+                binding.cpPartyDescrTB.getText().toString(),
+                pickedDateTime.getTime(), UserController.currentUser.getUid());
+              partyController.createParty(this, party);
+              toastMsg(binding.cpPartyNameTB.getText().toString());
+              return true;
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -77,21 +103,34 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
+
+  public void handleSuccess(){
+    Intent intent = new Intent(this, PartyActivity.class);
+    startActivity(intent);
+    finish();
+  }
+  public void handleFailure(){
+    //    TODO: Display error message
+  }
+
     // Handles Date and Time Selection
     @Override
     public void onClick(View view) {
-
+        final Calendar c = Calendar.getInstance();
         // Date Picker
         if (view == btnDatePicker) {
             // Get Current Date
-            final Calendar c = Calendar.getInstance();
             mYear = c.get(Calendar.YEAR);
             mMonth = c.get(Calendar.MONTH);
             mDay = c.get(Calendar.DAY_OF_MONTH);
+            Log.d("calendar", ""+c );
 
             DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                     (view1, year, monthOfYear, dayOfMonth) -> {
                         String dateSet = "";
+                        pickedDateTime.set(Calendar.YEAR, year);
+                        pickedDateTime.set(Calendar.MONTH, monthOfYear);
+                        pickedDateTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
                         // Selecting Month
                         if (monthOfYear+1 < 10) dateSet = "0" + (monthOfYear+1) + "/";
@@ -107,21 +146,22 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
                         txtDate.setText(dateSet);
                     }, mYear, mMonth, mDay);
             datePickerDialog.show();
-
         }
 
         // Time Picker
         else if (view == btnTimePicker) {
 
             // Get Current Time
-            final Calendar c = Calendar.getInstance();
+//            final Calendar c = Calendar.getInstance();
             mHour = c.get(Calendar.HOUR_OF_DAY);
             mMinute = c.get(Calendar.MINUTE);
 
             // Launch Time Picker Dialog
             TimePickerDialog timePickerDialog = new TimePickerDialog(this,
                     (view12, hourOfDay, minute) -> {
-                        // Selecting Hour (AM/PM)
+                        pickedDateTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                        pickedDateTime.set(Calendar.MINUTE, minute);
+                      // Selecting Hour (AM/PM)
                         String timeSet = "";
                         if (hourOfDay > 12) { hourOfDay -= 12; timeSet = "PM"; }
                         else if (hourOfDay == 0) { hourOfDay += 12; timeSet = "AM"; }
@@ -132,6 +172,8 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
                         String min = "";
                         if (minute < 10) min = "0" + minute;
                         else min = String.valueOf(minute);
+                        String z = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(pickedDateTime.getTime());
+                        Log.d("calendar", z);
 
                         // Append in a StringBuilder
                         String time = new StringBuilder().append(hourOfDay).append(':').append(min ).append(" ").append(timeSet).toString();
@@ -140,6 +182,12 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
                     }, mHour, mMinute, false);
             timePickerDialog.show();
         }
+      String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(c.getTime());
+      Log.d("calendar", time );
+
+      time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(pickedDateTime.getTime());
+
+
     }
 
     // Sets up Toolbar

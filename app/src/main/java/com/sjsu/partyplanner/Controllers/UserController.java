@@ -20,7 +20,7 @@ import com.sjsu.partyplanner.Activities.Users.RegistrationActivity;
 public class UserController {
 
     private final FirebaseAuth mAuth;
-    private FirebaseUser currentUser;
+    public static FirebaseUser currentUser;
     private final DatabaseReference mDatabase;
 
     public UserController()
