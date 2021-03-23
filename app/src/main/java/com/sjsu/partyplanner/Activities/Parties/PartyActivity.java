@@ -21,18 +21,20 @@ import com.sjsu.partyplanner.Models.Party;
 import com.sjsu.partyplanner.R;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class PartyActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private ArrayList<Party> allParties = new ArrayList<>();
+    private ArrayList<Party> pastParties = new ArrayList<>();
+    private ArrayList<Party> upcomingParties = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_party_page);
-
 
         PartyController p = new PartyController();
         p.getParties(this, UserController.currentUser.getUid());
@@ -75,10 +77,21 @@ public class PartyActivity extends AppCompatActivity {
 
 
     public void handleFetchParties(boolean isSuccessful, ArrayList<Party> p){
+        Date now = new Date();
+        Log.d("current time", now.toString());
+        ArrayList<Party> allParties = new ArrayList<>();
         if (isSuccessful){
             allParties = p;
+            for(Party party : allParties){
+                if(party.getDate().compareTo(now) < 0) {
+                    pastParties.add(party);
+                }else{
+                    upcomingParties.add(party);
+                }
+            }
             Log.d("parties length", ""+allParties.size());
-
+            Log.d("upcommingP length", ""+upcomingParties.size());
+            Log.d("pastParties length", ""+pastParties.size());
         }else{
             //TODO: display some error message
         }
@@ -88,7 +101,7 @@ public class PartyActivity extends AppCompatActivity {
     private void initializeTabLayout() {
         tabLayout = (TabLayout) findViewById(R.id.partiesTabLayout);
         viewPager = findViewById(R.id.partiesViewPager);
-        PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount(), pastParties,upcomingParties);
         viewPager.setAdapter(pagerAdapter);
     }
 
@@ -98,10 +111,14 @@ public class PartyActivity extends AppCompatActivity {
     public class PagerAdapter extends FragmentPagerAdapter {
 
         private int numOfTabs;
+        private ArrayList<Party> pastParties;
+        private ArrayList<Party> upcomingParties;
 
-        public PagerAdapter(FragmentManager fm, int numOfTabs) {
+        public PagerAdapter(FragmentManager fm, int numOfTabs, ArrayList<Party> pastParties,ArrayList<Party> upcomingParties) {
             super(fm, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
             this.numOfTabs = numOfTabs;
+            this.pastParties = pastParties;
+            this.upcomingParties = upcomingParties;
         }
 
         @NonNull

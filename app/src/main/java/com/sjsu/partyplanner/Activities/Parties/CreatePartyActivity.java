@@ -182,12 +182,6 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
                     }, mHour, mMinute, false);
             timePickerDialog.show();
         }
-      String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(c.getTime());
-      Log.d("calendar", time );
-
-      time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(pickedDateTime.getTime());
-
-
     }
 
     // Sets up Toolbar
