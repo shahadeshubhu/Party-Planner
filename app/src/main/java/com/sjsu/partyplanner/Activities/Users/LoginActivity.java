@@ -10,6 +10,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.sjsu.partyplanner.Activities.Dashboard.DashboardActivity;
 import com.sjsu.partyplanner.Controllers.UserController;
 import com.sjsu.partyplanner.R;
@@ -26,6 +27,14 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        // If user is already logged in, go to Dashboard
+        if (FirebaseAuth.getInstance().getCurrentUser() !=null) {
+            startActivity(new Intent(this, DashboardActivity.class));
+            finish();
+        }
+
+
 
         // Set up Error Binding
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
@@ -161,6 +170,9 @@ public class LoginActivity extends AppCompatActivity {
         Toast toast = Toast.makeText(this, msg, Toast.LENGTH_LONG);
         toast.show();
     }
+
+
+
 
 
 

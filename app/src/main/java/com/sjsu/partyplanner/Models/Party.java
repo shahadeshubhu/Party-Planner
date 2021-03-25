@@ -1,12 +1,15 @@
 package com.sjsu.partyplanner.Models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.util.ArrayList;
 import java.util.Date;
 
 @IgnoreExtraProperties
-public class Party {
+public class Party implements Parcelable {
   private String name;
   private String address;
   private String description;
@@ -25,6 +28,47 @@ public class Party {
     this.type = type;
     this.userID = userID;
   }
+
+  // Parcel Stuff------------------------------------------------
+  protected Party(Parcel in) {
+    name = in.readString();
+    address = in.readString();
+    description = in.readString();
+    type = in.readString();
+    userID = in.readString();
+  }
+
+  @Override
+  public void writeToParcel(Parcel dest, int flags) {
+    dest.writeString(name);
+    dest.writeString(address);
+    dest.writeString(description);
+    dest.writeString(type);
+    dest.writeString(userID);
+  }
+
+  @Override
+  public int describeContents() {
+    return 0;
+  }
+
+  public static final Creator<Party> CREATOR = new Creator<Party>() {
+    @Override
+    public Party createFromParcel(Parcel in) {
+      return new Party(in);
+    }
+
+    @Override
+    public Party[] newArray(int size) {
+      return new Party[size];
+    }
+  };
+
+  // END OF PARCEL STUFF
+
+
+
+
 
   public void setName(String name) {
     this.name = name;

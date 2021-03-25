@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".Activities.Parties.CreatePartyActivity">
@@ -24,7 +24,6 @@
                 app:titleTextAppearance="@style/Toolbar.TitleText"
                 tools:layout_editor_absoluteX="0dp"
                 tools:layout_editor_absoluteY="0dp" />
-
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -68,18 +67,20 @@
             app:layout_constraintStart_toStartOf="@+id/cpPartyNameText"
             app:layout_constraintTop_toBottomOf="@+id/cpPartyNameTB" />
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/cpPartyTypeTB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
             android:hint="@string/partyType"
+            android:ems="10"
             android:textSize="20sp"
             android:textColor="@color/black"
             android:fontFamily="@font/oswald"
+            tools:layout_editor_absoluteX="150dp"
+            tools:layout_editor_absoluteY="186dp"
             app:layout_constraintStart_toStartOf="@+id/cpPartyTypeText"
             app:layout_constraintTop_toBottomOf="@+id/cpPartyTypeText" />
+
 
         <TextView
             android:id="@+id/cpLocationText"
@@ -226,6 +227,8 @@
             android:onClick="addClick"
             app:layout_constraintStart_toStartOf="@+id/cpGuestButton"
             app:layout_constraintTop_toBottomOf="@+id/cpGuestButton" />
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

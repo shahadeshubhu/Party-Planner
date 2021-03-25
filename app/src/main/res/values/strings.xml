@@ -27,8 +27,8 @@
     <string name="mailIcon">Mail</string>
     <string name="userIcon">User Icon</string>
 
-    <string name="noUpcoming">No Upcoming Parties Planned</string>
-    <string name="noPast">No Past Parties Planned</string>
+    <string name="noParties">No Parties Planned</string>
+    <string name="noTasks">No Tasks Planned</string>
 
     <string name="name">Name</string>
     <string name="partyName">Party Name</string>
@@ -43,5 +43,11 @@
     <string name="selectTime">SELECT TIME</string>
     <string name="addGuests">Invite Party Guests</string>
     <string name="addTasks">Add Party Tasks</string>
+
+    <string name="taskName">Task Name</string>
+    <string name="taskCategory">Task Category</string>
+    <string name="note">Note</string>
+    <string name="taskNote">Task Note</string>
+    <string name="subtasks">Subtasks</string>
 
 </resources>

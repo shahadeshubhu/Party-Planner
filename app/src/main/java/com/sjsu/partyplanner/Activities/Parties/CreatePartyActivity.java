@@ -13,6 +13,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -39,6 +41,14 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
     private Calendar pickedDateTime;
     protected ActivityCreatePartyBinding binding;
 
+    // Autocomplete suggestions:
+    private static final String[] PARTY_TYPES = new String[] {
+            "Birthday Party", "Graduation Party", "Anniversary Party", "Christmas Party", "Easter Party", "Thanksgiving Party", "Costume Party",
+            "Halloween Party", "New Year's Eve Party", "Dance Party", "Housewarming Party", "Pool Party", "Garden Party", "Tea Party",
+            "Fundraising Party", "Dinner Party", "Reception", "Holiday", "Bachelor Party", "Bacherlorette Party",
+            "Farewell Party", "Sleepover", "Pizza Party"
+    };
+
   @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,27 +56,16 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
         binding = ActivityCreatePartyBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-    // Toolbar
+        // Toolbar, Date/Time Picker, Autocomplete Suggestions
         setUpToolbar();
+        setupPickers();
+        setupAutoComplete();
 
-        // Date/Time Picker
-        btnDatePicker = findViewById(R.id.cpSelectDateButton);
-        txtDate = findViewById(R.id.cpDateTB);
-        btnDatePicker.setOnClickListener(this);
-        btnTimePicker = findViewById(R.id.cpSelectTimeButton);
-        txtTime = findViewById(R.id.cpTimeTB);
-        btnTimePicker.setOnClickListener(this);
-
+        // Party Controller
         partyController = new PartyController();
     }
 
-    // Adds Icons to Toolbar (other than back button)
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.create_party_menu, menu);
-        return true;
-    }
+
 
     // Handles Menu Items on Toolbar
     @Override
@@ -111,6 +110,29 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
   }
   public void handleFailure(){
     //    TODO: Display error message
+  }
+
+
+
+
+
+
+
+  // Sets up the autocomplete suggestions for party type
+  public void setupAutoComplete() {
+      ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, PARTY_TYPES);
+      AutoCompleteTextView partyTypeText = (AutoCompleteTextView) findViewById(R.id.cpPartyTypeTB);
+      partyTypeText.setAdapter(adapter);
+  }
+
+  // Sets up the date/time pickers
+  public void setupPickers () {
+      btnDatePicker = findViewById(R.id.cpSelectDateButton);
+      txtDate = findViewById(R.id.cpDateTB);
+      btnDatePicker.setOnClickListener(this);
+      btnTimePicker = findViewById(R.id.cpSelectTimeButton);
+      txtTime = findViewById(R.id.cpTimeTB);
+      btnTimePicker.setOnClickListener(this);
   }
 
     // Handles Date and Time Selection
@@ -186,8 +208,6 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
       Log.d("calendar", time );
 
       time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(pickedDateTime.getTime());
-
-
     }
 
     // Sets up Toolbar
@@ -198,6 +218,14 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Create Party");
         toolbar.setNavigationOnClickListener(v -> finish());        // Closes Activity
+    }
+
+    // Adds Icons to Toolbar (other than back button)
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.create_party_menu, menu);
+        return true;
     }
 
     public void toastMsg(String msg) {
