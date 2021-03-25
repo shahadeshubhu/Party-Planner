@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.sjsu.partyplanner.Models.Party;
 import com.sjsu.partyplanner.R;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -30,11 +31,6 @@ public class PartiesFragment extends Fragment {
     private View v;
     private RecyclerView rView;
     private ArrayList<Party> parties = new ArrayList<>();       // Get from activity
-
-
-    // Layout Stuff
-    private TextView noPartiesText;
-
 
     // Constructor
     public PartiesFragment() {
@@ -74,11 +70,9 @@ public class PartiesFragment extends Fragment {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_parties, container, false);
 
-
         // Set text to empty string if there are parties
         if(parties != null && parties.size() > 0) {
-            noPartiesText = v.findViewById(R.id.noPP);
-            noPartiesText.setText("");
+            ((TextView) v.findViewById(R.id.noPP)).setText("");
         }
 
         // Recycler View

@@ -40,15 +40,7 @@ public class PartyActivity extends AppCompatActivity {
 
         PartyController p = new PartyController();
         p.getParties(this);
-
-        // Toolbar
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle("Parties");
-        toolbar.setNavigationOnClickListener(v -> finish());    // Goes back to Dashboard
-        // Manage Tab Layout
+        setupToolbar();
     }
 
     // onClick Method: Create Party
@@ -164,6 +156,15 @@ public class PartyActivity extends AppCompatActivity {
         public int getCount() {
             return numOfTabs;
         }
+    }
+
+    private void setupToolbar() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle("Parties");
+        toolbar.setNavigationOnClickListener(v -> finish());    // Goes back to Dashboard
     }
 
 }
