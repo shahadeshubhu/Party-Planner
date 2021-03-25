@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.database.FirebaseDatabase;
 import com.sjsu.partyplanner.Activities.Dashboard.DashboardActivity;
 import com.sjsu.partyplanner.Controllers.UserController;
 import com.sjsu.partyplanner.R;
@@ -26,11 +27,11 @@ public class RegistrationActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    controller = new UserController();
     setContentView(R.layout.activity_registration);
     binding = ActivityRegistrationBinding.inflate(getLayoutInflater());
     setContentView( binding.getRoot());
     setUpListeners();
-    controller = new UserController();
 
 //    TODO: get the user and route to USER detail page
     if (controller.isSignedIn()){
@@ -74,6 +75,11 @@ public class RegistrationActivity extends AppCompatActivity {
     }
   }
 
+  public void loginPageClick(View view){
+    startActivity(new Intent(this, LoginActivity.class));
+    finish();
+  }
+
   /**
    * Sets up listeners for the textboxes
    */
@@ -102,6 +108,8 @@ public class RegistrationActivity extends AppCompatActivity {
         }
       }
     });
+
+
 
     // Last Name TB Listener
     binding.lNameTB.addTextChangedListener(new TextWatcher() {

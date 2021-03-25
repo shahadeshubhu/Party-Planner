@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 import com.sjsu.partyplanner.Activities.Dashboard.DashboardActivity;
 import com.sjsu.partyplanner.Controllers.UserController;
 import com.sjsu.partyplanner.R;
@@ -26,6 +27,8 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        controller = new UserController();
+
         setContentView(R.layout.activity_login);
 
         // If user is already logged in, go to Dashboard
@@ -40,8 +43,6 @@ public class LoginActivity extends AppCompatActivity {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView( binding.getRoot());
         setUpListeners();
-        controller = new UserController();
-
     }
 
 
