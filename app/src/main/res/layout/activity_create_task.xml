@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.Parties.CreateTaskActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/toolbar_background"
+            android:minHeight="?attr/actionBarSize"
+            app:titleTextAppearance="@style/Toolbar.TitleText"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <TextView
+        android:id="@+id/ctTaskName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/iceberg"
+        android:text="@string/name"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout2" />
+
+    <TextView
+        android:id="@+id/ctTaskCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/iceberg"
+        android:text="@string/taskCategory"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/ctTaskName"
+        app:layout_constraintTop_toBottomOf="@+id/ctTaskNameTB" />
+
+    <TextView
+        android:id="@+id/ctNote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/iceberg"
+        android:text="@string/note"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/ctTaskCategory"
+        app:layout_constraintTop_toBottomOf="@+id/ctTaskCategoryDropDown" />
+
+    <TextView
+        android:id="@+id/ctSubtask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/iceberg"
+        android:text="@string/subtasks"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/ctNote"
+        app:layout_constraintTop_toBottomOf="@+id/ctNoteTB" />
+
+    <EditText
+        android:id="@+id/ctTaskNameTB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:fontFamily="@font/oswald"
+        android:hint="@string/taskName"
+        android:inputType="textPersonName"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/ctTaskName"
+        app:layout_constraintTop_toBottomOf="@+id/ctTaskName" />
+
+    <EditText
+        android:id="@+id/ctNoteTB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:fontFamily="@font/oswald"
+        android:hint="@string/taskNote"
+        android:inputType="textPersonName"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/ctNote"
+        app:layout_constraintTop_toBottomOf="@+id/ctNote" />
+
+    <Spinner
+        android:id="@+id/ctTaskCategoryDropDown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="300dp"
+        app:layout_constraintStart_toStartOf="@+id/ctTaskCategory"
+        app:layout_constraintTop_toBottomOf="@+id/ctTaskCategory" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintStart_toStartOf="@+id/ctSubtask"
+        app:layout_constraintTop_toBottomOf="@+id/ctSubtask" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

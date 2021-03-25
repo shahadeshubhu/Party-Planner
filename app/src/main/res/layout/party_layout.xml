@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/pNameLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/partyName"
+        android:textSize="30sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/oswald"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/pTypeLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/partyType"
+        android:textSize="20sp"
+        android:textColor="@color/darkGray"
+        android:fontFamily="@font/oswald"
+        app:layout_constraintStart_toStartOf="@+id/pNameLayout"
+        app:layout_constraintTop_toBottomOf="@+id/pNameLayout" />
+
+    <TextView
+        android:id="@+id/dateTimeLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dateTime"
+        android:textSize="20sp"
+        android:textColor="@color/darkGray"
+        android:fontFamily="@font/oswald"
+        app:layout_constraintStart_toStartOf="@+id/pTypeLayout"
+        app:layout_constraintTop_toBottomOf="@+id/pTypeLayout" />
+</androidx.constraintlayout.widget.ConstraintLayout>
