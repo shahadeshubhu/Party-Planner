@@ -27,9 +27,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        controller = new UserController();
 
         // If user is already logged in, go to Dashboard
-        if (FirebaseAuth.getInstance().getCurrentUser() !=null) {
+        if (controller.isSignedIn()) {
             startActivity(new Intent(this, DashboardActivity.class));
             finish();
         }
@@ -40,7 +41,6 @@ public class LoginActivity extends AppCompatActivity {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView( binding.getRoot());
         setUpListeners();
-        controller = new UserController();
 
     }
 

@@ -9,6 +9,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -26,12 +27,17 @@ public class PartyController {
   private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
   public void createParty(CreatePartyActivity activity, Party p){
+    p.setOwnerID(UserController.associateUserId);
     db.collection(EVENT_DB_NAME).add(p)
       .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
        @Override
-        public void onSuccess(DocumentReference documentReference) {
+        public void onSuccess(DocumentReference partyDocumentReference) {
+         db.collection(UserController.ASSOCIATE_DB_NAME)
+                 .document(UserController.associateUserId)
+                 .update("parties", FieldValue.arrayUnion(partyDocumentReference.getId()));
+
+          Log.d("#EC createEvent success", "DocumentSnapshot written with ID: " + partyDocumentReference.getId());
           activity.handleSuccess();
-          Log.d("#EC createEvent success", "DocumentSnapshot written with ID: " + documentReference.getId());
         }
       })
       .addOnFailureListener(new OnFailureListener() {

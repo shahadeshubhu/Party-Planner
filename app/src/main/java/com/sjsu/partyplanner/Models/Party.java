@@ -17,16 +17,15 @@ public class Party implements Parcelable {
   private Date date;
   private ArrayList<Item> partyNeededItem;
   private ArrayList<User> guesses;
-  private String userID;
+  private String ownerID;
   public Party(){}
 
-  public Party(String name, String type, String location, String des, Date startAt, String userID){
+  public Party(String name, String type, String location, String des, Date startAt){
     this.name = name;
     this.address = location;
     this.date = startAt;
     this.description = des;
     this.type = type;
-    this.userID = userID;
   }
 
   // Parcel Stuff------------------------------------------------
@@ -94,8 +93,8 @@ public class Party implements Parcelable {
     return guesses;
   }
 
-  public String getUserID() {
-    return userID;
+  public String getOwnerID() {
+    return ownerID;
   }
 
   public void setPartyNeededItem(ArrayList<Item> partyNeededItem) {
@@ -130,8 +129,8 @@ public class Party implements Parcelable {
     this.date = date;
   }
 
-  public void setUserID(String userID) {
-    this.userID = userID;
+  public void setOwnerID(String ownerID) {
+    this.ownerID = ownerID;
   }
 
   @Override
@@ -142,7 +141,7 @@ public class Party implements Parcelable {
       ", description='" + description + '\'' +
       ", type='" + type + '\'' +
       ", date=" + date +
-      ", owner=" + userID +
+      ", owner=" + ownerID +
       '}';
   }
 }

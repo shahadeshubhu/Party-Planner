@@ -80,7 +80,7 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
                 binding.cpPartyTypeTB.getText().toString(),
                 binding.cpLocationTB.getText().toString(),
                 binding.cpPartyDescrTB.getText().toString(),
-                pickedDateTime.getTime(), UserController.currentUser.getUid());
+                pickedDateTime.getTime());
               partyController.createParty(this, party);
               toastMsg(binding.cpPartyNameTB.getText().toString());
               return true;
