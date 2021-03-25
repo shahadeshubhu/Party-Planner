@@ -16,18 +16,15 @@ public class User implements Serializable {
   public String uid;
   private String firstName;
   private String lastName;
-  private String email;
-  private String password;
   private boolean isVerified;
   private ArrayList<Party> parties;
 
   public User(){};
 
-  public User(String firstName, String lastName, String email, String password ){
+  public User(String uid, String firstName, String lastName){
     this.firstName = firstName;
     this.lastName = lastName;
-    this.email = email;
-    this.password = password;
+    this.uid = uid;
     this.parties = new ArrayList<>();
 
   }
@@ -35,10 +32,6 @@ public class User implements Serializable {
   public User(String firstName, String lastName){
     this.firstName = firstName;
     this.lastName = lastName;
-  }
-
-  public String getEmail() {
-    return email;
   }
 
   public String getFirstName() {
@@ -49,10 +42,6 @@ public class User implements Serializable {
     return lastName;
   }
 
-  public void setPassword(String password) {
-    this.password = password;
-  }
-
   public void setFirstName(String firstName) {
     this.firstName = firstName;
   }
@@ -61,13 +50,7 @@ public class User implements Serializable {
     this.lastName = lastName;
   }
 
-  public String getPassword() {
-    return password;
-  }
 
-  public void setEmail(String email) {
-    this.email = email;
-  }
 
   public void addEvent(Party e){
     parties.add(e);
@@ -82,8 +65,6 @@ public class User implements Serializable {
     return "User{" +
       "firstName='" + firstName + '\'' +
       ", lastName='" + lastName + '\'' +
-      ", email='" + email + '\'' +
-      ", password='" + password + '\'' +
       '}';
   }
 
@@ -93,7 +74,6 @@ public class User implements Serializable {
     user.put("uid", uid);
     user.put("firstName", firstName);
     user.put("lastName", lastName);
-    user.put("email", email);
     return user;
   }
 }

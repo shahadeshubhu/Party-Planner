@@ -14,16 +14,15 @@ public class Party {
   private Date date;
   private ArrayList<Item> partyNeededItem;
   private ArrayList<User> guesses;
-  private String userID;
+  private String ownerID;
   public Party(){}
 
-  public Party(String name, String type, String location, String des, Date startAt, String userID){
+  public Party(String name, String type, String location, String des, Date startAt){
     this.name = name;
     this.address = location;
     this.date = startAt;
     this.description = des;
     this.type = type;
-    this.userID = userID;
   }
 
   public void setName(String name) {
@@ -50,8 +49,8 @@ public class Party {
     return guesses;
   }
 
-  public String getUserID() {
-    return userID;
+  public String getOwnerID() {
+    return ownerID;
   }
 
   public void setPartyNeededItem(ArrayList<Item> partyNeededItem) {
@@ -86,8 +85,8 @@ public class Party {
     this.date = date;
   }
 
-  public void setUserID(String userID) {
-    this.userID = userID;
+  public void setOwnerID(String ownerID) {
+    this.ownerID = ownerID;
   }
 
   @Override
@@ -98,7 +97,7 @@ public class Party {
       ", description='" + description + '\'' +
       ", type='" + type + '\'' +
       ", date=" + date +
-      ", owner=" + userID +
+      ", owner=" + ownerID +
       '}';
   }
 }
