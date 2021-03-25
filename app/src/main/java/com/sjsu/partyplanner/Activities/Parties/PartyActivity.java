@@ -22,34 +22,34 @@ import com.sjsu.partyplanner.R;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Objects;
 
 public class PartyActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private ArrayList<Party> allParties = new ArrayList<>();
+    private ArrayList<Party> pastParties = new ArrayList<>();
+    private ArrayList<Party> upcomingParties = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_party_page);
 
-        // Party Controller
         PartyController p = new PartyController();
         p.getParties(this, UserController.currentUser.getUid());
 
         // Toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Parties");
         toolbar.setNavigationOnClickListener(v -> finish());    // Goes back to Dashboard
 
         // Manage Tab Layout
         initializeTabLayout();
+
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -66,6 +66,8 @@ public class PartyActivity extends AppCompatActivity {
                 // Empty
             }
         });
+
+
     }
 
     // onClick Method: Create Party
@@ -73,39 +75,50 @@ public class PartyActivity extends AppCompatActivity {
         startActivity(new Intent(this, CreatePartyActivity.class));
     }
 
-    // Handle Fetch Parties
+
     public void handleFetchParties(boolean isSuccessful, ArrayList<Party> p){
+        Date now = new Date();
+        Log.d("current time", now.toString());
+        ArrayList<Party> allParties = new ArrayList<>();
         if (isSuccessful){
             allParties = p;
+            for(Party party : allParties){
+                if(party.getDate().compareTo(now) < 0) {
+                    pastParties.add(party);
+                }else{
+                    upcomingParties.add(party);
+                }
+            }
             Log.d("parties length", ""+allParties.size());
-
+            Log.d("upcommingP length", ""+upcomingParties.size());
+            Log.d("pastParties length", ""+pastParties.size());
         }else{
             //TODO: display some error message
         }
     }
 
-
-
-
     // Initialize TabLayout
     private void initializeTabLayout() {
         tabLayout = (TabLayout) findViewById(R.id.partiesTabLayout);
         viewPager = findViewById(R.id.partiesViewPager);
-        PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount(), pastParties,upcomingParties);
         viewPager.setAdapter(pagerAdapter);
     }
 
     /**
      * Inner Class for ViewPager Adapter
-     * Sets up the Fragment
      */
     public class PagerAdapter extends FragmentPagerAdapter {
 
         private int numOfTabs;
+        private ArrayList<Party> pastParties;
+        private ArrayList<Party> upcomingParties;
 
-        public PagerAdapter(FragmentManager fm, int numOfTabs) {
+        public PagerAdapter(FragmentManager fm, int numOfTabs, ArrayList<Party> pastParties,ArrayList<Party> upcomingParties) {
             super(fm, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
             this.numOfTabs = numOfTabs;
+            this.pastParties = pastParties;
+            this.upcomingParties = upcomingParties;
         }
 
         @NonNull
@@ -113,7 +126,6 @@ public class PartyActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-
                     //TODO: get parties from database
                     //TODO: set data to fragment (not working right now)
 

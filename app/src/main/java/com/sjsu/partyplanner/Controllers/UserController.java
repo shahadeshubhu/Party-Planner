@@ -51,7 +51,6 @@ public class UserController {
                             currentUser = mAuth.getCurrentUser();
                             if (currentUser != null) {
                                 Log.d("#UC createAccount", currentUser.getUid());
-                                //      TODO: get UID and save the first name, lastname,
                                 String userCollectionName = "users";
                                 User user = new User(firstName, lastName);
                                 mDatabase.child(userCollectionName).child(currentUser.getUid()).setValue(user);
