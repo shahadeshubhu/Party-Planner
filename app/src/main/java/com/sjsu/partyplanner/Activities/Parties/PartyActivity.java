@@ -37,19 +37,13 @@ public class PartyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_party_page);
 
         PartyController p = new PartyController();
-        p.getParties(this, UserController.currentUser.getUid());
+        //p.getParties(this, UserController.currentUser.getUid());
 
-        // Toolbar
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle("Parties");
-        toolbar.setNavigationOnClickListener(v -> finish());    // Goes back to Dashboard
-
-        // Manage Tab Layout
+        // Toolbar, Manage Tab Layout
+        setupToolbar();
         initializeTabLayout();
 
+        // Gets Tab Position
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -131,9 +125,9 @@ public class PartyActivity extends AppCompatActivity {
 
                     // TEMP PARTIES
                     ArrayList<Party> upParties = new ArrayList<Party>();
-                    upParties.add(new Party("Pname", "PType", "PLocation", "PDescription", new Date(), "userID"));
-                    upParties.add(new Party("Pname2", "PType2", "PLocation", "PDescription", new Date(), "userID"));
-                    upParties.add(new Party("Pname3", "PType3", "PLocation", "PDescription", new Date(), "userID"));
+                    upParties.add(new Party("Pname", "PType", "PLocation", "PDescription", new Date()));
+                    upParties.add(new Party("Pname2", "PType2", "PLocation", "PDescription", new Date()));
+                    upParties.add(new Party("Pname3", "PType3", "PLocation", "PDescription", new Date()));
 
                     // Create Bundle of Parties
                     Bundle uBundle = new Bundle();
@@ -150,9 +144,9 @@ public class PartyActivity extends AppCompatActivity {
 
                     // TEMP PARTYIES
                     ArrayList<Party> pastParties = new ArrayList<Party>();
-                    pastParties.add(new Party("O Pname", "PType", "PLocation", "PDescription", new Date(), "userID"));
-                    pastParties.add(new Party("O Pname2", "PType2", "PLocation", "PDescription", new Date(), "userID"));
-                    pastParties.add(new Party("O Pname3", "PType3", "PLocation", "PDescription", new Date(), "userID"));
+                    pastParties.add(new Party("O Pname", "PType", "PLocation", "PDescription", new Date()));
+                    pastParties.add(new Party("O Pname2", "PType2", "PLocation", "PDescription", new Date()));
+                    pastParties.add(new Party("O Pname3", "PType3", "PLocation", "PDescription", new Date()));
 
                     // Create Bundle of Parties
                     Bundle pBundle = new Bundle();
@@ -174,6 +168,15 @@ public class PartyActivity extends AppCompatActivity {
         public int getCount() {
             return numOfTabs;
         }
+    }
+
+    private void setupToolbar() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle("Parties");
+        toolbar.setNavigationOnClickListener(v -> finish());    // Goes back to Dashboard
     }
 
 }

@@ -34,7 +34,6 @@ public class Party implements Parcelable {
     address = in.readString();
     description = in.readString();
     type = in.readString();
-    userID = in.readString();
   }
 
   @Override
@@ -43,7 +42,6 @@ public class Party implements Parcelable {
     dest.writeString(address);
     dest.writeString(description);
     dest.writeString(type);
-    dest.writeString(userID);
   }
 
   @Override

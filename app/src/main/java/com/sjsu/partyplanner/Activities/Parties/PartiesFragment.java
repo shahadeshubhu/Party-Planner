@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.sjsu.partyplanner.Models.Party;
 import com.sjsu.partyplanner.R;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -30,11 +31,6 @@ public class PartiesFragment extends Fragment {
     private RecyclerView rView;
     private ArrayList<Party> parties;       // Get from activity
 
-
-    // Layout Stuff
-    private TextView noPartiesText;
-
-
     // Constructor
     public PartiesFragment() {
         // Required empty public constructor
@@ -48,15 +44,15 @@ public class PartiesFragment extends Fragment {
         parties = new ArrayList<Party>();
 
         // TESTING
-        parties.add(new Party("O Pname", "PType", "PLocation", "PDescription", new Date(), "userID"));
-        parties.add(new Party("O Pname2", "PType2", "PLocation", "PDescription", new Date(), "userID"));
-        parties.add(new Party("O Pname3", "PType3", "PLocation", "PDescription", new Date(), "userID"));
-        parties.add(new Party("O Pname", "PType", "PLocation", "PDescription", new Date(), "userID"));
-        parties.add(new Party("O Pname2", "PType2", "PLocation", "PDescription", new Date(), "userID"));
-        parties.add(new Party("O Pname3", "PType3", "PLocation", "PDescription", new Date(), "userID"));
-        parties.add(new Party("O Pname", "PType", "PLocation", "PDescription", new Date(), "userID"));
-        parties.add(new Party("O Pname2", "PType2", "PLocation", "PDescription", new Date(), "userID"));
-        parties.add(new Party("O Pname3", "PType3", "PLocation", "PDescription", new Date(), "userID"));
+        parties.add(new Party("O Pname", "PType", "PLocation", "PDescription", new Date()));
+        parties.add(new Party("O Pname2", "PType2", "PLocation", "PDescription", new Date()));
+        parties.add(new Party("O Pname3", "PType3", "PLocation", "PDescription", new Date()));
+        parties.add(new Party("O Pname", "PType", "PLocation", "PDescription", new Date()));
+        parties.add(new Party("O Pname2", "PType2", "PLocation", "PDescription", new Date()));
+        parties.add(new Party("O Pname3", "PType3", "PLocation", "PDescription", new Date()));
+        parties.add(new Party("O Pname", "PType", "PLocation", "PDescription", new Date()));
+        parties.add(new Party("O Pname2", "PType2", "PLocation", "PDescription", new Date()));
+        parties.add(new Party("O Pname3", "PType3", "PLocation", "PDescription", new Date()));
         // AFTER TESTING
 
 
@@ -65,7 +61,11 @@ public class PartiesFragment extends Fragment {
         // Gets ArrayList
         Bundle extras = getActivity().getIntent().getExtras();
         if (extras != null) {
-            //parties.add(extras.getParcelableArrayList("key"));
+            ArrayList<Party> newParties = extras.getParcelableArrayList("key");
+            for (int i = 0; i < extras.size() - 1; i++) {
+                parties.add(newParties.get(i));
+            }
+
         }
 
     }
@@ -76,11 +76,9 @@ public class PartiesFragment extends Fragment {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_parties, container, false);
 
-
         // Set text to empty string if there are parties
         if(parties != null && parties.size() > 0) {
-            noPartiesText = v.findViewById(R.id.noPP);
-            noPartiesText.setText("");
+            ((TextView) v.findViewById(R.id.noPP)).setText("");
         }
 
         // Recycler View

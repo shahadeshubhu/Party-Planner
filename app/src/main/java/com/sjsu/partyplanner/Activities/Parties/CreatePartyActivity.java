@@ -96,8 +96,6 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
             toastMsg("Invite Guests");
         }
         else if (view == findViewById(R.id.cpTaskButton)) {
-            //TODO Send to Add Tasks Page
-            toastMsg("Add Tasks");
             startActivity(new Intent(this, TaskListActivity.class));
         }
     }
@@ -111,6 +109,17 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
   public void handleFailure(){
     //    TODO: Display error message
   }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
