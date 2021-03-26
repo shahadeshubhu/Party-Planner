@@ -7,6 +7,7 @@ public class Task {
     private String taskID;
     private String name;
     private String taskCategory;
+    private String note;
     private ArrayList<Subtask> subtasks;
     private String partyID;
     private STATUS taskStatus;
@@ -19,13 +20,19 @@ public class Task {
     }
 
     // Constructor
-    public Task(String name, String taskCategory, ArrayList<Subtask> subtasks, String partyID) {
+    public Task(String taskID, String name, String taskCategory, String note, ArrayList<Subtask> subtasks, String partyID) {
+        this.taskID = taskID;
         this.name = name;
+        this.note = note;
         this.taskCategory = taskCategory;
         this.subtasks = subtasks;
         this.partyID = partyID;
         this.taskStatus = getTaskStatus();
     }
+
+    public String getNote() { return note; };
+
+    public String getTaskID() { return taskID; };
 
     /**
      * Gets the task name (task adapter)

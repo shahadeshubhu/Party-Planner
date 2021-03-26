@@ -3,6 +3,8 @@ package com.sjsu.partyplanner.Activities.Parties;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -16,7 +18,7 @@ import com.sjsu.partyplanner.databinding.ActivityTaskListBinding;
 
 import java.util.ArrayList;
 
-public class TaskListActivity extends AppCompatActivity {
+public class TaskListActivity extends AppCompatActivity implements TaskAdapter.TaskClick {
 
     private ActivityTaskListBinding binding;
     private Toolbar toolbar;
@@ -51,9 +53,9 @@ public class TaskListActivity extends AppCompatActivity {
         ArrayList<Subtask> subtask2 = new ArrayList<Subtask>();
 
 
-        taskList.add(new Task("TaskName", "category", st, "partyID"));
-        taskList.add(new Task("dsfaf", "sda", subtasks, "dsdsd"));
-        taskList.add(new Task("nane", "gorew", subtask2, "idparty"));
+        taskList.add(new Task("ID", "TaskName", "category", "note", st, "partyID"));
+        taskList.add(new Task("IPD", "dsfaf", "sda","note", subtasks, "dsdsd"));
+        taskList.add(new Task("TASKID", "nane", "gorew","note", subtask2, "idparty"));
 
         // TESTING TASK LIST
 
@@ -62,7 +64,6 @@ public class TaskListActivity extends AppCompatActivity {
         //Recycler
         setUpRecycler();
 
-
         // Gets rid of extra text
         if(taskList.size() > 0) {
             binding.noTasksTL.setText("");
@@ -70,6 +71,21 @@ public class TaskListActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Sets up RecyclerView
+     */
+    private void setUpRecycler() {
+        binding.tasklistRecycler.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        binding.tasklistRecycler.setLayoutManager(layoutManager);
+
+        // TODO: FIX ONCLICK LISTENER
+        TaskAdapter ta = new TaskAdapter(taskList, this);
+
+        RecyclerView.Adapter<TaskAdapter.ViewHolder> mAdapter = ta;
+
+        binding.tasklistRecycler.setAdapter(mAdapter);
+    }
 
     /**
      * Starts 'Create Task' activity
@@ -80,7 +96,7 @@ public class TaskListActivity extends AppCompatActivity {
     }
 
     // Sets up Toolbar
-    public void setUpToolbar() {
+    private void setUpToolbar() {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -90,14 +106,33 @@ public class TaskListActivity extends AppCompatActivity {
     }
 
     /**
-     * Sets up RecyclerView
+     * Task Item Click method for recycler view
+     * @param v
+     * @param position
      */
-    public void setUpRecycler() {
-        binding.tasklistRecycler.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        binding.tasklistRecycler.setLayoutManager(layoutManager);
-        RecyclerView.Adapter<TaskAdapter.ViewHolder> mAdapter = new TaskAdapter(taskList);
-        binding.tasklistRecycler.setAdapter(mAdapter);
+    @Override
+    public void onTaskClick(View v, int position) {
+
+        TextView status = findViewById(R.id.tStatusLayout);
+
+        Task task = taskList.get(position);
+        Intent intent = new Intent(getApplicationContext(), TaskDetailActivity.class);
+        intent.putExtra("id", task.getTaskID());
+        intent.putExtra("name", task.getName());
+        intent.putExtra("category", task.getTaskCategory());
+        intent.putExtra("note", task.getNote());
+        intent.putExtra("status", task.getStatus());
+        intent.putExtra("statusColor", status.getCurrentTextColor());
+
+        intent.putExtra("completed", task.getCompletedSubtasks());
+        intent.putExtra("total", task.getTotalSubtasks());
+
+        startActivity(intent);
     }
 
+
+    public void toastMsg(String msg) {
+        Toast toast = Toast.makeText(this, msg, Toast.LENGTH_LONG);
+        toast.show();
+    }
 }

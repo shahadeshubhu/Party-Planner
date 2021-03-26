@@ -1,5 +1,6 @@
 package com.sjsu.partyplanner.Activities.Parties;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,6 +15,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.sjsu.partyplanner.Models.Party;
+import com.sjsu.partyplanner.Models.Task;
+import com.sjsu.partyplanner.PartyDetailActivity;
 import com.sjsu.partyplanner.R;
 
 import java.lang.reflect.Array;
@@ -25,7 +28,7 @@ import java.util.Date;
  * Use the {@link PartiesFragment} factory method to
  * create an instance of this fragment.
  */
-public class PartiesFragment extends Fragment {
+public class PartiesFragment extends Fragment implements PartyAdapter.PartyClick {
 
     // RecyclerView
     private View v;
@@ -77,10 +80,31 @@ public class PartiesFragment extends Fragment {
 
         // Recycler View
         rView = v.findViewById(R.id.partyRecyclerView);
-        PartyAdapter pAdapter = new PartyAdapter(getContext(), parties);
+        PartyAdapter pAdapter = new PartyAdapter(getContext(), parties, this);
         rView.setLayoutManager(new LinearLayoutManager(getActivity()));
         rView.setAdapter(pAdapter);
 
         return v;
+    }
+
+    /**
+     * Party Item Click method for recycler view
+     * @param v
+     * @param position
+     */
+    @Override
+    public void onPartyClick(View v, int position) {
+
+        Party party = parties.get(position);
+
+        Intent intent = new Intent(getContext(), PartyDetailActivity.class);
+        intent.putExtra("id", "NO PARTY ID YET");
+        intent.putExtra("name", party.getName());
+        intent.putExtra("type", party.getType());
+        intent.putExtra("location", party.getAddress());
+        intent.putExtra("datetime", (party.getDate()).toString());
+        intent.putExtra("description", party.getDescription());
+
+        startActivity(intent);
     }
 }
