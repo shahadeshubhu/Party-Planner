@@ -14,12 +14,15 @@ import com.sjsu.partyplanner.R;
 
 import java.util.ArrayList;
 
-public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>  {
+public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
     private ArrayList<Task> mTasks;
+    private TaskClick listener;
 
-    public TaskAdapter(ArrayList<Task> mTasks) {
+    // Constructor
+    public TaskAdapter(ArrayList<Task> mTasks, TaskClick listener) {
         this.mTasks = mTasks;
+        this.listener = listener;
     }
 
     @NonNull
@@ -27,7 +30,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>  {
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.task_layout, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, listener);
     }
 
     @Override
@@ -41,16 +44,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>  {
 
         // Changes text color based on status
         int completed = task.getCompletedSubtasks();
-
-        if (completed == task.getTotalSubtasks()) {
-            holder.tStatus.setTextColor(Color.parseColor("#037d50"));      // Dark Green
-        }
-        else if (completed == 0) {
-            holder.tStatus.setTextColor(Color.RED);
-        }
-        else {
-            holder.tStatus.setTextColor(Color.BLUE);
-        }
+        if (completed == task.getTotalSubtasks()) { holder.tStatus.setTextColor(Color.parseColor("#037d50")); }     // Dark Green
+        else if (completed == 0) { holder.tStatus.setTextColor(Color.RED); }
+        else { holder.tStatus.setTextColor(Color.BLUE); }
     }
 
     @Override
@@ -58,19 +54,33 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>  {
         return mTasks.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView tName;
         private TextView tStatus;
-        private TextView tCompleted;    // completedSubtasks/total
+        private TextView tCompleted;    // completed subtasks / total
+        private TaskClick rvClick;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull final View itemView, TaskClick rvClick) {
             super(itemView);
-
             tName = itemView.findViewById(R.id.tNameLayout);
             tStatus = itemView.findViewById(R.id.tStatusLayout);
             tCompleted = itemView.findViewById(R.id.tSubtaskLayout);
 
+            // OnClickListener
+            this.rvClick = rvClick;
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            rvClick.onTaskClick(v, getAdapterPosition());
         }
     }
+
+    // Interface onClick Method
+    public interface TaskClick {
+        void onTaskClick(View v, int position);
+    }
+
 }
