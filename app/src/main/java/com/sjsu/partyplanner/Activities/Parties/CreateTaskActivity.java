@@ -28,7 +28,6 @@ public class CreateTaskActivity extends AppCompatActivity implements AdapterView
     private String taskCategory;
 
     private ActivityCreateTaskBinding binding;
-    private RecyclerView rView;
     private ArrayList<Subtask> subtaskList;
 
     @Override
@@ -44,12 +43,28 @@ public class CreateTaskActivity extends AppCompatActivity implements AdapterView
         setUpToolbar();
         setUpSpinner();
 
+        //TODO: Subtask recyclerview is not scrolling
 
         //T----TESTING WITH SUBTASKS RECYCLERVIEW
         subtaskList = new ArrayList<Subtask>();
-        subtaskList.add(new Subtask("dfasdfadsfaf", "dsfafdasfNAME", "taskID"));
+        subtaskList.add(new Subtask("1", "11", "taskID"));
+        subtaskList.add(new Subtask("2", "22", "taskID"));
+        subtaskList.add(new Subtask("3", "33", "taskID"));
+        subtaskList.add(new Subtask("4", "44", "taskID"));
+        subtaskList.add(new Subtask("1", "11", "taskID"));
+        subtaskList.add(new Subtask("2", "22", "taskID"));
+        subtaskList.add(new Subtask("3", "33", "taskID"));
+        subtaskList.add(new Subtask("4", "44", "taskID"));
 
-        //rView = findViewById(R.id.ctRecycler);
+       setUpRecycler();
+
+
+    }
+
+
+
+    public void setUpRecycler() {
+
         binding.ctRecycler.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         binding.ctRecycler.setLayoutManager(layoutManager);
@@ -57,19 +72,6 @@ public class CreateTaskActivity extends AppCompatActivity implements AdapterView
         binding.ctRecycler.setAdapter(mAdapter);
     }
 
-
-    /**
-     * Sets up RecyclerView
-     */
-    /*
-    public void setUpRecycler() {
-        binding.rView.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        binding.rView.setLayoutManager(layoutManager);
-        RecyclerView.Adapter<TaskAdapter.ViewHolder> mAdapter = new TaskAdapter(taskList);
-        binding.rView.setAdapter(mAdapter);
-    }
-*/
 
 
 
