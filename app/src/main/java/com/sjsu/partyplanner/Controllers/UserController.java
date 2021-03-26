@@ -28,7 +28,6 @@ public class UserController {
 
     private final FirebaseAuth mAuth;
     public static FirebaseUser currentUser;
-    private final DatabaseReference mDatabase;
     public final static String ASSOCIATE_DB_NAME = "AssociateUsers";
     public static User currentUserInfo;
     public static String associateUserId;
@@ -38,13 +37,12 @@ public class UserController {
 
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        getUserInfo();
 
     }
 
     public boolean isSignedIn() {
         if (currentUser != null) {
-            getUserInfo();
             Log.d("#UC currentUser", "" + currentUser.getEmail() + currentUserInfo);
             return true;
         }
@@ -130,6 +128,8 @@ public class UserController {
     }
 
     public void getUserInfo() {
+        Log.d("#getUserInfo", "************************"+currentUser.getUid());
+
         db.collection(ASSOCIATE_DB_NAME)
                 .whereEqualTo("uid", currentUser.getUid())
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -138,7 +138,7 @@ public class UserController {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         currentUserInfo = document.toObject(User.class);
                         associateUserId = document.getId();
-                        Log.d("#getParties", document.getId() + " => " + currentUserInfo.toString());
+                        Log.d("#getUserInfo", document.getId() + " => " + currentUserInfo.toString());
                     }
                 } else {
                     Log.d("#getParties error", "Error getting documents: ", task.getException());

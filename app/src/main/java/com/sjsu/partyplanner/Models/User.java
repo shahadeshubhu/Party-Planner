@@ -17,7 +17,7 @@ public class User implements Serializable {
   private String firstName;
   private String lastName;
   private boolean isVerified;
-  private ArrayList<Party> parties;
+  private ArrayList<String> parties;
 
   public User(){};
 
@@ -51,11 +51,7 @@ public class User implements Serializable {
   }
 
 
-
-  public void addEvent(Party e){
-    parties.add(e);
-  }
-  public ArrayList<Party> getParties(){
+  public ArrayList<String> getParties(){
     return parties;
   }
 

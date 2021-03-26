@@ -2,6 +2,7 @@ package com.sjsu.partyplanner.Models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
@@ -34,7 +35,7 @@ public class Party implements Parcelable {
     address = in.readString();
     description = in.readString();
     type = in.readString();
-    userID = in.readString();
+    ownerID = in.readString();
   }
 
   @Override
@@ -43,7 +44,7 @@ public class Party implements Parcelable {
     dest.writeString(address);
     dest.writeString(description);
     dest.writeString(type);
-    dest.writeString(userID);
+    dest.writeString(ownerID);
   }
 
   @Override
@@ -54,6 +55,7 @@ public class Party implements Parcelable {
   public static final Creator<Party> CREATOR = new Creator<Party>() {
     @Override
     public Party createFromParcel(Parcel in) {
+      Log.d("#####Party","Create From Parce");
       return new Party(in);
     }
 
@@ -64,10 +66,6 @@ public class Party implements Parcelable {
   };
 
   // END OF PARCEL STUFF
-
-
-
-
 
   public void setName(String name) {
     this.name = name;

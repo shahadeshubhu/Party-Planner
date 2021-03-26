@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 
@@ -12,6 +13,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
@@ -29,7 +31,7 @@ public class PartyActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private ArrayList<Party> pastParties = new ArrayList<>();
-    private ArrayList<Party> upcomingParties = new ArrayList<>();
+    private ArrayList<Party> upParties = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +39,7 @@ public class PartyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_party_page);
 
         PartyController p = new PartyController();
-        p.getParties(this, UserController.currentUser.getUid());
+        p.getParties(this);
 
         // Toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -46,9 +48,42 @@ public class PartyActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Parties");
         toolbar.setNavigationOnClickListener(v -> finish());    // Goes back to Dashboard
-
         // Manage Tab Layout
+    }
+
+    // onClick Method: Create Party
+    public void createParty (View view) {
+        startActivity(new Intent(this, CreatePartyActivity.class));
+    }
+
+    public void handleFetchParties(boolean isSuccessful, ArrayList<Party> p){
+        Date now = new Date();
+        Log.d("current time", now.toString());
+        ArrayList<Party> allParties = new ArrayList<>();
+        if (isSuccessful){
+            allParties = p;
+            for(Party party : allParties){
+                if(party.getDate().compareTo(now) < 0) {
+                    pastParties.add(party);
+                }else{
+                    upParties.add(party);
+                }
+            }
+            Log.d("parties length", ""+allParties.size());
+            Log.d("upcommingP length", ""+upParties.size());
+            Log.d("pastParties length", ""+pastParties.size());
+        }else{
+            //TODO: display some error message
+        }
         initializeTabLayout();
+    }
+
+    // Initialize TabLayout
+    private void initializeTabLayout() {
+        tabLayout = (TabLayout) findViewById(R.id.partiesTabLayout);
+        viewPager = findViewById(R.id.partiesViewPager);
+        PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount(), pastParties,upParties);
+        viewPager.setAdapter(pagerAdapter);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -66,43 +101,6 @@ public class PartyActivity extends AppCompatActivity {
                 // Empty
             }
         });
-
-
-    }
-
-    // onClick Method: Create Party
-    public void createParty (View view) {
-        startActivity(new Intent(this, CreatePartyActivity.class));
-    }
-
-
-    public void handleFetchParties(boolean isSuccessful, ArrayList<Party> p){
-        Date now = new Date();
-        Log.d("current time", now.toString());
-        ArrayList<Party> allParties = new ArrayList<>();
-        if (isSuccessful){
-            allParties = p;
-            for(Party party : allParties){
-                if(party.getDate().compareTo(now) < 0) {
-                    pastParties.add(party);
-                }else{
-                    upcomingParties.add(party);
-                }
-            }
-            Log.d("parties length", ""+allParties.size());
-            Log.d("upcommingP length", ""+upcomingParties.size());
-            Log.d("pastParties length", ""+pastParties.size());
-        }else{
-            //TODO: display some error message
-        }
-    }
-
-    // Initialize TabLayout
-    private void initializeTabLayout() {
-        tabLayout = (TabLayout) findViewById(R.id.partiesTabLayout);
-        viewPager = findViewById(R.id.partiesViewPager);
-        PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount(), pastParties,upcomingParties);
-        viewPager.setAdapter(pagerAdapter);
     }
 
     /**
@@ -126,18 +124,10 @@ public class PartyActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    //TODO: get parties from database
-                    //TODO: set data to fragment (not working right now)
-
-                    // TEMP PARTIES
-                    ArrayList<Party> upParties = new ArrayList<Party>();
-                    upParties.add(new Party("Pname", "PType", "PLocation", "PDescription", new Date(), "userID"));
-                    upParties.add(new Party("Pname2", "PType2", "PLocation", "PDescription", new Date(), "userID"));
-                    upParties.add(new Party("Pname3", "PType3", "PLocation", "PDescription", new Date(), "userID"));
-
+                    Log.d("before pass upParties", ""+upcomingParties.size());
                     // Create Bundle of Parties
                     Bundle uBundle = new Bundle();
-                    uBundle.putParcelableArrayList("key", upParties);
+                    uBundle.putParcelableArrayList("key", (ArrayList<? extends Parcelable>) upcomingParties);
 
 
                     // Create Fragment with Arguments
@@ -149,14 +139,14 @@ public class PartyActivity extends AppCompatActivity {
 
 
                     // TEMP PARTYIES
-                    ArrayList<Party> pastParties = new ArrayList<Party>();
-                    pastParties.add(new Party("O Pname", "PType", "PLocation", "PDescription", new Date(), "userID"));
-                    pastParties.add(new Party("O Pname2", "PType2", "PLocation", "PDescription", new Date(), "userID"));
-                    pastParties.add(new Party("O Pname3", "PType3", "PLocation", "PDescription", new Date(), "userID"));
+//                    ArrayList<Party> pastParties = new ArrayList<Party>();
+//                    pastParties.add(new Party("O Pname", "PType", "PLocation", "PDescription", new Date()));
+//                    pastParties.add(new Party("O Pname2", "PType2", "PLocation", "PDescription", new Date()));
+//                    pastParties.add(new Party("O Pname3", "PType3", "PLocation", "PDescription", new Date()));
 
                     // Create Bundle of Parties
                     Bundle pBundle = new Bundle();
-                    pBundle.putParcelableArrayList("key", pastParties);
+                    pBundle.putParcelableArrayList("key", (ArrayList<? extends Parcelable>) pastParties);
 
 
                     // Create Fragment with Arguments

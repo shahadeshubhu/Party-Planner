@@ -104,9 +104,8 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
 
 
   public void handleSuccess(){
-    Intent intent = new Intent(this, PartyActivity.class);
-    startActivity(intent);
-    finish();
+      finish();
+    //TODO: reload the party list to get update party
   }
   public void handleFailure(){
     //    TODO: Display error message

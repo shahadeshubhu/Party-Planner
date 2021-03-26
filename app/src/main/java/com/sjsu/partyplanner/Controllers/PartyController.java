@@ -9,6 +9,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -49,11 +50,10 @@ public class PartyController {
       });
   }
 
-  public void getParties(PartyActivity activity, String userId){
-    Log.d("getParties userId", userId);
+  public void getParties(PartyActivity activity){
+      Log.d("#getParties", ""+ UserController.associateUserId);
 
-    db.collection(EVENT_DB_NAME)
-      .whereEqualTo("userID", userId)
+    db.collection(EVENT_DB_NAME).whereIn(FieldPath.documentId(),UserController.currentUserInfo.getParties())
       .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
         ArrayList<Party> parties = new ArrayList<>();
 
@@ -63,9 +63,10 @@ public class PartyController {
             for (QueryDocumentSnapshot document : task.getResult()) {
               Party p = document.toObject(Party.class);
               parties.add(p);
-              Log.d("#getParties", document.getId() + " => " + p.toString());
             }
             activity.handleFetchParties(true, parties);
+            Log.d("#getParties", ""+ parties.size());
+
           } else {
             Log.d("#getParties error", "Error getting documents: ", task.getException());
             activity.handleFetchParties(false, parties);
