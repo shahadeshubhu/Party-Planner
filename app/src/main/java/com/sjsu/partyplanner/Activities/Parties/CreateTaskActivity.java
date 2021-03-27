@@ -33,10 +33,7 @@ public class CreateTaskActivity extends AppCompatActivity implements AdapterView
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding = ActivityCreateTaskBinding.inflate(getLayoutInflater());
-
-        //setContentView(R.layout.activity_create_task);
         setContentView(binding.getRoot());
 
         // Toolbar, Dropdown
@@ -57,8 +54,6 @@ public class CreateTaskActivity extends AppCompatActivity implements AdapterView
         subtaskList.add(new Subtask("4", "44", "taskID"));
 
        setUpRecycler();
-
-
     }
 
 

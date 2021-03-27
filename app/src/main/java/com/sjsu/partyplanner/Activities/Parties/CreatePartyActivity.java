@@ -7,7 +7,6 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.service.controls.Control;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,16 +18,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.sjsu.partyplanner.Activities.Users.LoginActivity;
 import com.sjsu.partyplanner.Controllers.PartyController;
-import com.sjsu.partyplanner.Controllers.UserController;
 import com.sjsu.partyplanner.Models.Party;
 import com.sjsu.partyplanner.R;
 import com.sjsu.partyplanner.databinding.ActivityCreatePartyBinding;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 public class CreatePartyActivity extends AppCompatActivity implements View.OnClickListener {
 

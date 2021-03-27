@@ -59,4 +59,17 @@
     <string name="completeStatus">Complete</string>
     <string name="subtaskValue">Subtasks: 0/10</string>
 
+
+    <string name="party">Parties</string>
+    <string name="event">Events</string>
+    <string name="contact">Contacts</string>
+    <string name="budget">Budget</string>
+    <string name="partyPlan">Party Planning</string>
+    <string name="profile">Profile</string>
+    <string name="about">About</string>
+    
+    <string name="nav_drawer_open">Open navigation drawer</string>
+    <string name="nav_drawer_close">Close navigation drawer</string>
+    <string name="logout">Log Out</string>
+
 </resources>
