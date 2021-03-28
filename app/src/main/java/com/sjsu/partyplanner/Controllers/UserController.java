@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -30,23 +31,20 @@ public class UserController {
     public static FirebaseUser currentUser;
     public final static String ASSOCIATE_DB_NAME = "AssociateUsers";
     public static User currentUserInfo;
-    public static String associateUserId;
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public UserController() {
 
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
-        getUserInfo();
-
+        Log.d("currentUser", ""+currentUser);
+        if (currentUser != null) {
+            getUserInfo();
+        }
     }
 
     public boolean isSignedIn() {
-        if (currentUser != null) {
-            Log.d("#UC currentUser", "" + currentUser.getEmail() + currentUserInfo);
-            return true;
-        }
-        return false;
+        return currentUser != null;
     }
 
     // ** need to add a mechanism to see if it was successful or not.
@@ -60,21 +58,21 @@ public class UserController {
                     currentUser = mAuth.getCurrentUser();
                     if (currentUser != null) {
                         Log.d("#UC createAccount", currentUser.getUid());
-                        User user = new User(currentUser.getUid(), firstName, lastName);
-                        db.collection(ASSOCIATE_DB_NAME).add(user)
-                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                    @Override
-                                    public void onSuccess(DocumentReference documentReference) {
-                                        activity.handleSuccess();
-                                        Log.d("#EC createEvent success", "DocumentSnapshot written with ID: " + documentReference.getId());
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.w("#EC createEvent fail", "Error adding document", e);
-                                    }
-                                });
+                        User user = new User(firstName, lastName, email);
+                        db.collection(ASSOCIATE_DB_NAME).document(currentUser.getUid())
+                            .set(user)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    activity.handleSuccess();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("#EC createEvent fail", "Error adding document", e);
+                                }
+                            });
                     }
                 } else {
 
@@ -130,14 +128,13 @@ public class UserController {
     public void getUserInfo() {
         Log.d("#getUserInfo", "************************"+currentUser.getUid());
 
-        db.collection(ASSOCIATE_DB_NAME)
-                .whereEqualTo("uid", currentUser.getUid())
-                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection(ASSOCIATE_DB_NAME).whereEqualTo(FieldPath.documentId(), currentUser.getUid())
+            .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         currentUserInfo = document.toObject(User.class);
-                        associateUserId = document.getId();
+                        currentUserInfo.setUid(document.getId());
                         Log.d("#getUserInfo", document.getId() + " => " + currentUserInfo.toString());
                     }
                 } else {

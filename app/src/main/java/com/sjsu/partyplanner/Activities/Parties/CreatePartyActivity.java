@@ -61,8 +61,6 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
         partyController = new PartyController();
     }
 
-
-
     // Handles Menu Items on Toolbar
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

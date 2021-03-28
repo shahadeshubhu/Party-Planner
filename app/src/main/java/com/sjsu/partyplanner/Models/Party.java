@@ -17,7 +17,8 @@ public class Party implements Parcelable {
   private String type;
   private Date date;
   private ArrayList<Item> partyNeededItem;
-  private ArrayList<User> guesses;
+  private ArrayList<Task> tasks = new ArrayList<>();
+  private ArrayList<User> guests;
   private String ownerID;
   public Party(){}
 
@@ -87,8 +88,8 @@ public class Party implements Parcelable {
     return partyNeededItem;
   }
 
-  public ArrayList<User> getGuesses() {
-    return guesses;
+  public ArrayList<User> getGuests() {
+    return guests;
   }
 
   public String getOwnerID() {
@@ -99,8 +100,8 @@ public class Party implements Parcelable {
     this.partyNeededItem = partyNeededItem;
   }
 
-  public void setGuesses(ArrayList<User> guesses) {
-    this.guesses = guesses;
+  public void setGuests(ArrayList<User> guests) {
+    this.guests = guests;
   }
 
   public void setType(String type) {
