@@ -25,10 +25,13 @@ public class TaskDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_task_detail);
-        //setContentView(binding.getRoot());
 
         binding = ActivityTaskDetailBinding.inflate(getLayoutInflater());
+
+        //setContentView(R.layout.activity_task_detail);
+        setContentView(binding.getRoot());
+
+
 
         // Toolbar, TextViews
         setUpToolbar();

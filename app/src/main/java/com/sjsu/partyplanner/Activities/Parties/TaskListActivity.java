@@ -79,11 +79,8 @@ public class TaskListActivity extends AppCompatActivity implements TaskAdapter.T
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         binding.tasklistRecycler.setLayoutManager(layoutManager);
 
-        // TODO: FIX ONCLICK LISTENER
         TaskAdapter ta = new TaskAdapter(taskList, this);
-
         RecyclerView.Adapter<TaskAdapter.ViewHolder> mAdapter = ta;
-
         binding.tasklistRecycler.setAdapter(mAdapter);
     }
 

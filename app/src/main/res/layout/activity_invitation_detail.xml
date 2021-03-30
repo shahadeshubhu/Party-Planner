@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.Parties.PartyDetailActivity">
-
+    tools:context=".Activities.Dashboard.InvitationDetailActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout2"
@@ -52,6 +51,17 @@
         app:layout_constraintTop_toBottomOf="@+id/id_pName" />
 
     <TextView
+        android:id="@+id/id_pHost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/iceberg"
+        android:text="@string/hostName"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="@+id/id_pType"
+        app:layout_constraintTop_toBottomOf="@+id/id_pType" />
+
+
+    <TextView
         android:id="@+id/id_pDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -61,8 +71,8 @@
         android:textColor="@color/black"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/id_pType"
-        app:layout_constraintTop_toBottomOf="@+id/id_pType" />
+        app:layout_constraintStart_toStartOf="@+id/id_pHost"
+        app:layout_constraintTop_toBottomOf="@+id/id_pHost" />
 
 
     <TextView
@@ -126,26 +136,33 @@
         app:layout_constraintTop_toBottomOf="@+id/id_datetime" />
 
     <Button
-        android:id="@+id/pdTaskButton"
+        android:id="@+id/id_acceptButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:layout_marginBottom="20dp"
-        android:text="@string/taskList"
+        android:fontFamily="@font/iceberg"
+        android:text="@string/accept"
+        android:textSize="30sp"
+        android:textStyle="bold"
         android:onClick="onClick"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/id_dateTimeText" />
 
     <Button
-        android:id="@+id/pdGuestButton"
+        android:id="@+id/id_declineButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:text="@string/guestList"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/iceberg"
+        android:text="@string/decline"
+        android:textSize="30sp"
+        android:textStyle="bold"
         android:onClick="onClick"
-        app:layout_constraintBottom_toTopOf="@+id/pdTaskButton"
+        app:layout_constraintBottom_toBottomOf="@+id/id_acceptButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/id_acceptButton" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,12 +3,9 @@ package com.sjsu.partyplanner;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 public class PartyDetailActivity extends AppCompatActivity {
 
@@ -62,11 +59,11 @@ public class PartyDetailActivity extends AppCompatActivity {
 
     // Sets up TextViews
     private void setTV() {
-        name = findViewById(R.id.pdNameText);
-        type = findViewById(R.id.pdTypeText);
-        description = findViewById(R.id.pdDescriptionText);
-        location = findViewById(R.id.pdLocationText);
-        dateTime = findViewById(R.id.pdDateTimeText);
+        name = findViewById(R.id.id_pName);
+        type = findViewById(R.id.id_pType);
+        description = findViewById(R.id.id_pDescriptionText);
+        location = findViewById(R.id.id_locationText);
+        dateTime = findViewById(R.id.id_dateTimeText);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {

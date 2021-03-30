@@ -2,22 +2,47 @@ package com.sjsu.partyplanner.Activities.Dashboard;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.widget.Toast;
+import android.view.View;
 
+import com.sjsu.partyplanner.Models.Invitation;
 import com.sjsu.partyplanner.R;
+import java.util.ArrayList;
+import com.sjsu.partyplanner.databinding.ActivityInvitationListBinding;
 
-public class InvitationListActivity extends AppCompatActivity {
 
+public class InvitationListActivity extends AppCompatActivity implements InvitationAdapter.InvitationClick {
+
+    private ActivityInvitationListBinding binding;
     private Toolbar toolbar;
+    private ArrayList<Invitation> invites;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_invitation_list);
+        binding = ActivityInvitationListBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        setUpToolbar();
+
+
+        //TODO: Get input of Invitations List
+        invites = new ArrayList<Invitation>();
+
+
+
+        //Recycler
+        setUpRecycler();
+
+        // Gets rid of extra text
+        if(invites.size() > 0) {
+            binding.noInvitations.setText("");
+        }
+
     }
 
 
@@ -32,8 +57,42 @@ public class InvitationListActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(v -> finish());        // Closes Activity
     }
 
-    public void toastMsg(String msg) {
-        Toast toast = Toast.makeText(this, msg, Toast.LENGTH_LONG);
-        toast.show();
+    /**
+     * Sets up RecyclerView
+     */
+    private void setUpRecycler() {
+        binding.inviteListRecycler.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        binding.inviteListRecycler.setLayoutManager(layoutManager);
+
+        InvitationAdapter ia = new InvitationAdapter(invites, this);
+        RecyclerView.Adapter<InvitationAdapter.ViewHolder> mAdapter = ia;
+        binding.inviteListRecycler.setAdapter(mAdapter);
     }
+
+    @Override
+    public void onInviteClick(View v, int position) {
+
+        Invitation invitation = invites.get(position);
+        invitation.setHasRead();        // The invitation has been read (clicked on before)
+
+        Intent intent = new Intent(getApplicationContext(), InvitationDetailActivity.class);
+
+        //TODO: send invitation over (get party information in the invitation detail activity)
+        // We get the invitation to be able to set whether or not it has been accepted/declined
+        // and get the host name
+
+
+        // DO HERE
+
+
+
+
+
+
+
+    }
+
+
+
 }

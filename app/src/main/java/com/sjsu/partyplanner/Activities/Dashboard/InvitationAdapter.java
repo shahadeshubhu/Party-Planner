@@ -1,30 +1,82 @@
 package com.sjsu.partyplanner.Activities.Dashboard;
 
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.sjsu.partyplanner.Activities.Parties.TaskAdapter;
+import com.sjsu.partyplanner.Models.Invitation;
 import com.sjsu.partyplanner.R;
+import java.util.ArrayList;
 
-public class InvitationAdapter {
+public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.ViewHolder> {
+
+    private ArrayList<Invitation> invites;
+    private InvitationAdapter.InvitationClick listener;
+
+    // Constructor
+    public InvitationAdapter(ArrayList<Invitation> invites, InvitationAdapter.InvitationClick listener) {
+        this.invites = invites;
+        this.listener = listener;
+    }
 
 
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        View view = inflater.inflate(R.layout.invitation_layout, parent, false);
+        return new InvitationAdapter.ViewHolder(view, listener);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
+        final Invitation invite = invites.get(position);
+        // TODO: get party from database using invite's partyID and set it in values
+
+        //holder.pName = ;
+        //holder.pDateTime = ;
+        //holder.pHostName = ;
+
+
+
+        // Changing Text Style/Color based on invitation status
+        if (invite.getHasRead()) {
+            holder.pName.setTypeface(Typeface.DEFAULT);
+
+            // Guest has chosen to go or not to go
+            if(invite.getHasSelected()) {
+                // Guest is going
+                if(invite.isAccepted()) { holder.pName.setTextColor(Color.BLUE); }
+                //Guest is not going
+                else { holder.pName.setTextColor(Color.GRAY); }
+            }
+        }
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return invites.size();
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private TextView tName;
-        private TextView tStatus;
-        private TextView tCompleted;    // completed subtasks / total
-        private TaskAdapter.TaskClick rvClick;
+        private TextView pName;
+        private TextView pDateTime;
+        private TextView pHostName;
+        private InvitationAdapter.InvitationClick rvClick;
 
-        public ViewHolder(@NonNull final View itemView, TaskAdapter.TaskClick rvClick) {
+        public ViewHolder(@NonNull final View itemView, InvitationAdapter.InvitationClick rvClick) {
             super(itemView);
-            tName = itemView.findViewById(R.id.tNameLayout);
-            tStatus = itemView.findViewById(R.id.tStatusLayout);
-            tCompleted = itemView.findViewById(R.id.tSubtaskLayout);
+
+            pName = itemView.findViewById(R.id.invite_pName);
+            pDateTime = itemView.findViewById(R.id.invite_pDateTime);
+            pHostName = itemView.findViewById(R.id.invite_hostName);
 
             // OnClickListener
             this.rvClick = rvClick;
@@ -33,7 +85,7 @@ public class InvitationAdapter {
 
         @Override
         public void onClick(View v) {
-            rvClick.onTaskClick(v, getAdapterPosition());
+            rvClick.onInviteClick(v, getAdapterPosition());
         }
     }
 
