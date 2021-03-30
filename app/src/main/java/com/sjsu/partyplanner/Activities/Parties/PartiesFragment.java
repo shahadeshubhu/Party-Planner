@@ -10,15 +10,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.sjsu.partyplanner.Models.Party;
-import com.sjsu.partyplanner.Models.Task;
-import com.sjsu.partyplanner.PartyDetailActivity;
 import com.sjsu.partyplanner.R;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 

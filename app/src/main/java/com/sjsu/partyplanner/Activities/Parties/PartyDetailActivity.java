@@ -1,4 +1,4 @@
-package com.sjsu.partyplanner;
+package com.sjsu.partyplanner.Activities.Parties;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -7,6 +7,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
+import com.sjsu.partyplanner.R;
 
 import org.w3c.dom.Text;
 

@@ -7,7 +7,10 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -18,6 +21,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.sjsu.partyplanner.Activities.Parties.PartyActivity;
 import com.sjsu.partyplanner.Activities.Users.LoginActivity;
+import com.sjsu.partyplanner.Models.Party;
 import com.sjsu.partyplanner.databinding.ActivityDashboardBinding;
 import com.sjsu.partyplanner.R;
 
@@ -93,14 +97,6 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     }
 
     /**
-     * onClick method for 'mail'
-     * Goes to the 'invitations' page
-     */
-    public void mailClick(View view) {
-      toastMsg("Invitation Mail Click");
-    }
-
-    /**
      * Testing onClick methods
      * @param msg to toast
      */
@@ -128,6 +124,27 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
+    }
+
+
+    // Adds Icons to Toolbar (other than back button)
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.db_invitations_menu, menu);
+        return true;
+    }
+
+    // Handles Menu Items on Toolbar
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.dbMail:
+                startActivity(new Intent(this, InvitationListActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override

@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PartyPlanner">
-        <activity android:name=".PartyDetailActivity"></activity>
+        <activity android:name=".Activities.Dashboard.InvitationListActivity"></activity>
+        <activity android:name=".Activities.Parties.PartyDetailActivity" />
         <activity android:name=".Activities.Parties.TaskDetailActivity" />
         <activity android:name=".Activities.Parties.CreateTaskActivity" />
         <activity android:name=".Activities.Parties.TaskListActivity" />
