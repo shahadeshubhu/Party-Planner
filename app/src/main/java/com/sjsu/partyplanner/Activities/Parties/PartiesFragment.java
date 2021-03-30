@@ -7,14 +7,19 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.sjsu.partyplanner.Models.Party;
+import com.sjsu.partyplanner.Models.Task;
+import com.sjsu.partyplanner.PartyDetailActivity;
 import com.sjsu.partyplanner.R;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -28,7 +33,7 @@ public class PartiesFragment extends Fragment implements PartyAdapter.PartyClick
     // RecyclerView
     private View v;
     private RecyclerView rView;
-    private ArrayList<Party> parties;       // Get from activity
+    private ArrayList<Party> parties = new ArrayList<>();       // Get from activity
 
     // Constructor
     public PartiesFragment() {
@@ -40,31 +45,23 @@ public class PartiesFragment extends Fragment implements PartyAdapter.PartyClick
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        parties = new ArrayList<Party>();
-
-        // TESTING
-        parties.add(new Party("O Pname", "PType", "PLocation", "PDescription", new Date()));
-        parties.add(new Party("O Pname2", "PType2", "PLocation", "PDescription", new Date()));
-        parties.add(new Party("O Pname3", "PType3", "PLocation", "PDescription", new Date()));
-        parties.add(new Party("O Pname", "PType", "PLocation", "PDescription", new Date()));
-        parties.add(new Party("O Pname2", "PType2", "PLocation", "PDescription", new Date()));
-        parties.add(new Party("O Pname3", "PType3", "PLocation", "PDescription", new Date()));
-        parties.add(new Party("O Pname", "PType", "PLocation", "PDescription", new Date()));
-        parties.add(new Party("O Pname2", "PType2", "PLocation", "PDescription", new Date()));
-        parties.add(new Party("O Pname3", "PType3", "PLocation", "PDescription", new Date()));
+//        parties = new ArrayList<Party>();
+//
+//        // TESTING
+//        parties.add(new Party("O Pname", "PType", "PLocation", "PDescription", new Date()));
+//        parties.add(new Party("O Pname", "PType", "PLocation", "PDescription", new Date()));
+//        parties.add(new Party("O Pname", "PType", "PLocation", "PDescription", new Date()));
+//        parties.add(new Party("O Pname", "PType", "PLocation", "PDescription", new Date()));
+//        parties.add(new Party("O Pname", "PType", "PLocation", "PDescription", new Date()));
+//        parties.add(new Party("O Pname", "PType", "PLocation", "PDescription", new Date()));
         // AFTER TESTING
 
 
-        //TODO: retrieve data NOT WORKING
-
         // Gets ArrayList
-        Bundle extras = getActivity().getIntent().getExtras();
+        Bundle extras = this.getArguments();
         if (extras != null) {
-            ArrayList<Party> newParties = extras.getParcelableArrayList("key");
-            for (int i = 0; i < extras.size() - 1; i++) {
-                parties.add(newParties.get(i));
-            }
-
+            parties = extras.getParcelableArrayList("key");
+            Log.d("parties in Frag", ""+ parties);
         }
 
     }
@@ -72,6 +69,7 @@ public class PartiesFragment extends Fragment implements PartyAdapter.PartyClick
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        //TODO: retrieve data NOT WORKING
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_parties, container, false);
 

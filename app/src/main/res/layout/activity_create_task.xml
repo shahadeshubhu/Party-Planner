@@ -114,16 +114,16 @@
         app:layout_constraintStart_toStartOf="@+id/ctTaskCategory"
         app:layout_constraintTop_toBottomOf="@+id/ctTaskCategory" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/ctRecycler"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:nestedScrollingEnabled="false"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        app:layout_constrainedHeight="true"
-        app:layout_constraintStart_toStartOf="@+id/ctSubtask"
-        app:layout_constraintTop_toBottomOf="@+id/ctSubtask" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/ctRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintStart_toStartOf="@+id/ctSubtask"
+            app:layout_constraintTop_toBottomOf="@+id/ctSubtask" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

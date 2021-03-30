@@ -2,6 +2,7 @@ package com.sjsu.partyplanner.Models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
@@ -16,7 +17,8 @@ public class Party implements Parcelable {
   private String type;
   private Date date;
   private ArrayList<Item> partyNeededItem;
-  private ArrayList<User> guesses;
+  private ArrayList<Task> tasks = new ArrayList<>();
+  private ArrayList<User> guests;
   private String ownerID;
   public Party(){}
 
@@ -34,6 +36,7 @@ public class Party implements Parcelable {
     address = in.readString();
     description = in.readString();
     type = in.readString();
+    ownerID = in.readString();
   }
 
   @Override
@@ -42,6 +45,7 @@ public class Party implements Parcelable {
     dest.writeString(address);
     dest.writeString(description);
     dest.writeString(type);
+    dest.writeString(ownerID);
   }
 
   @Override
@@ -52,6 +56,7 @@ public class Party implements Parcelable {
   public static final Creator<Party> CREATOR = new Creator<Party>() {
     @Override
     public Party createFromParcel(Parcel in) {
+      Log.d("#####Party","Create From Parce");
       return new Party(in);
     }
 
@@ -62,10 +67,6 @@ public class Party implements Parcelable {
   };
 
   // END OF PARCEL STUFF
-
-
-
-
 
   public void setName(String name) {
     this.name = name;
@@ -87,8 +88,8 @@ public class Party implements Parcelable {
     return partyNeededItem;
   }
 
-  public ArrayList<User> getGuesses() {
-    return guesses;
+  public ArrayList<User> getGuests() {
+    return guests;
   }
 
   public String getOwnerID() {
@@ -99,8 +100,8 @@ public class Party implements Parcelable {
     this.partyNeededItem = partyNeededItem;
   }
 
-  public void setGuesses(ArrayList<User> guesses) {
-    this.guesses = guesses;
+  public void setGuests(ArrayList<User> guests) {
+    this.guests = guests;
   }
 
   public void setType(String type) {

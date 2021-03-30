@@ -61,8 +61,6 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
         partyController = new PartyController();
     }
 
-
-
     // Handles Menu Items on Toolbar
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -98,9 +96,8 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
 
 
   public void handleSuccess(){
-    Intent intent = new Intent(this, PartyActivity.class);
-    startActivity(intent);
-    finish();
+      finish();
+    //TODO: reload the party list to get update party
   }
   public void handleFailure(){
     //    TODO: Display error message
