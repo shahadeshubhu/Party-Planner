@@ -40,14 +40,14 @@ public class TaskListActivity extends AppCompatActivity implements TaskAdapter.T
 
         // Not Started Example
         ArrayList<Subtask> st = new ArrayList<Subtask>();
-        st.add(new Subtask("Suntasdf", "taskID", "taskID"));
+        st.add(new Subtask("Suntasdf"));
 
         // Pending Example
         ArrayList<Subtask> subtasks = new ArrayList<Subtask>();
-        Subtask s1 = new Subtask("Suntasdf", "name", "taskID");
+        Subtask s1 = new Subtask("Suntasdf");
         s1.changeStatus();      // Completed subtask
         subtasks.add(s1);
-        subtasks.add(new Subtask("Suntaasdfsdf", "name", "taskID"));
+        subtasks.add(new Subtask("Suntaasdfsdf"));
 
         // Complete Example
         ArrayList<Subtask> subtask2 = new ArrayList<Subtask>();

@@ -31,7 +31,6 @@ public class PartyDetailActivity extends AppCompatActivity {
 
     }
 
-
     // onClick method for buttons
     public void onClick(View v) {
         //TODO: implement buttons

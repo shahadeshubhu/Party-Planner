@@ -3,6 +3,7 @@ package com.sjsu.partyplanner.Activities.Parties;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -27,7 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class CreatePartyActivity extends AppCompatActivity implements View.OnClickListener {
-
+    public static final int VIEW_CODE = 1;
     private Toolbar toolbar;
     private Button btnDatePicker, btnTimePicker;
     private EditText txtDate, txtTime;
@@ -84,13 +85,26 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == Activity.RESULT_CANCELED) {
+            // code to handle cancelled state
+        }
+        else {
+            // code to handle data from CONTACT_VIEW
+        }
+    }
+
     public void addClick(View view) {
         if (view == findViewById(R.id.cpGuestButton)) {
             //TODO Send to Invite Guests Page
             toastMsg("Invite Guests");
         }
         else if (view == findViewById(R.id.cpTaskButton)) {
-            startActivity(new Intent(this, TaskListActivity.class));
+            startActivityForResult(new Intent(this, TaskListActivity.class), 1);
         }
     }
 
@@ -99,26 +113,10 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
       finish();
     //TODO: reload the party list to get update party
   }
+
   public void handleFailure(){
     //    TODO: Display error message
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   // Sets up the autocomplete suggestions for party type
   public void setupAutoComplete() {

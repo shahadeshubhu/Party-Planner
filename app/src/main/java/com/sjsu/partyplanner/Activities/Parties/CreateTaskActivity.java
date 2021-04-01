@@ -44,14 +44,10 @@ public class CreateTaskActivity extends AppCompatActivity implements AdapterView
 
         //T----TESTING WITH SUBTASKS RECYCLERVIEW
         subtaskList = new ArrayList<Subtask>();
-        subtaskList.add(new Subtask("1", "11", "taskID"));
-        subtaskList.add(new Subtask("2", "22", "taskID"));
-        subtaskList.add(new Subtask("3", "33", "taskID"));
-        subtaskList.add(new Subtask("4", "44", "taskID"));
-        subtaskList.add(new Subtask("1", "11", "taskID"));
-        subtaskList.add(new Subtask("2", "22", "taskID"));
-        subtaskList.add(new Subtask("3", "33", "taskID"));
-        subtaskList.add(new Subtask("4", "44", "taskID"));
+        subtaskList.add(new Subtask("111task"));
+        subtaskList.add(new Subtask("222task"));
+        subtaskList.add(new Subtask("333task"));
+        subtaskList.add(new Subtask("444task"));
 
        setUpRecycler();
     }
@@ -66,15 +62,6 @@ public class CreateTaskActivity extends AppCompatActivity implements AdapterView
         RecyclerView.Adapter<SubtaskAdapter.ViewHolder> mAdapter = new SubtaskAdapter(subtaskList);
         binding.ctRecycler.setAdapter(mAdapter);
     }
-
-
-
-
-
-
-
-
-
 
     // Sets up Spinner (Drop-down menu)
     public void setUpSpinner() {
@@ -110,6 +97,7 @@ public class CreateTaskActivity extends AppCompatActivity implements AdapterView
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.cpCheck:
+
                 toastMsg("created task");
                 return true;
 
@@ -117,6 +105,8 @@ public class CreateTaskActivity extends AppCompatActivity implements AdapterView
                 return super.onOptionsItemSelected(item);
         }
     }
+
+
 
     // Handles selected task category
     @Override

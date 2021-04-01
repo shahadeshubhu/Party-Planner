@@ -1,8 +1,12 @@
 package com.sjsu.partyplanner.Models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.util.Log;
+
 import java.util.ArrayList;
 
-public class Task {
+public class Task implements Parcelable {
 
     private String taskID;
     private String name;
@@ -29,6 +33,41 @@ public class Task {
         this.partyID = partyID;
         this.taskStatus = getTaskStatus();
     }
+
+
+    // Parcel Stuff------------------------------------------------
+    protected Task(Parcel in) {
+        name = in.readString();
+        taskCategory = in.readString();
+        note = in.readString();
+        completedSubtasks = in.readInt();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(taskCategory);
+        dest.writeString(note);
+
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Parcelable.Creator<Party> CREATOR = new Parcelable.Creator<Party>() {
+        @Override
+        public Party createFromParcel(Parcel in) {
+            Log.d("#####Party","Create From Parce");
+            return new Party(in);
+        }
+
+        @Override
+        public Party[] newArray(int size) {
+            return new Party[size];
+        }
+    };
 
     public String getNote() { return note; };
 
