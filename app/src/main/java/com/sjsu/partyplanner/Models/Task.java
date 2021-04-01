@@ -6,6 +6,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
+@com.google.firebase.firestore.IgnoreExtraProperties
 public class Task implements Parcelable {
 
     private String taskID;
@@ -13,7 +14,7 @@ public class Task implements Parcelable {
     private String taskCategory;
     private String note;
     private ArrayList<Subtask> subtasks;
-    private String partyID;
+//    private String partyID;
     private STATUS taskStatus;
     private int completedSubtasks;
 
@@ -22,15 +23,15 @@ public class Task implements Parcelable {
         PENDING,
         COMPLETE
     }
+    public Task(){};
 
     // Constructor
-    public Task(String taskID, String name, String taskCategory, String note, ArrayList<Subtask> subtasks, String partyID) {
-        this.taskID = taskID;
+    public Task(String name, String taskCategory, String note, ArrayList<Subtask> subtasks) {
         this.name = name;
         this.note = note;
         this.taskCategory = taskCategory;
         this.subtasks = subtasks;
-        this.partyID = partyID;
+//        this.partyID = partyID;
         this.taskStatus = getTaskStatus();
     }
 
@@ -41,6 +42,9 @@ public class Task implements Parcelable {
         taskCategory = in.readString();
         note = in.readString();
         completedSubtasks = in.readInt();
+        subtasks = new ArrayList<Subtask>();
+        in.readTypedList(subtasks , Subtask.CREATOR);
+
     }
 
     @Override
@@ -48,7 +52,8 @@ public class Task implements Parcelable {
         dest.writeString(name);
         dest.writeString(taskCategory);
         dest.writeString(note);
-
+        dest.writeInt(completedSubtasks);
+        dest.writeTypedList(subtasks);
     }
 
     @Override
@@ -71,6 +76,7 @@ public class Task implements Parcelable {
 
     public String getNote() { return note; };
 
+    @com.google.firebase.firestore.Exclude
     public String getTaskID() { return taskID; };
 
     /**
@@ -136,13 +142,13 @@ public class Task implements Parcelable {
         return subtasks;
     }
 
-    /**
-     * Get partyID who owns the task
-     * @return partyID
-     */
-    public String getPartyID() {
-        return partyID;
-    }
+//    /**
+//     * Get partyID who owns the task
+//     * @return partyID
+//     */
+//    public String getPartyID() {
+//        return partyID;
+//    }
 
     /**
      * Gets the number of completed subtasks

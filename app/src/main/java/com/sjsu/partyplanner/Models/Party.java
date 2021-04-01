@@ -99,7 +99,9 @@ public class Party implements Parcelable {
   public void setPartyNeededItem(ArrayList<Item> partyNeededItem) {
     this.partyNeededItem = partyNeededItem;
   }
-
+  public void addTask(Task t){
+    tasks.add(t);
+  }
   public void setGuests(ArrayList<User> guests) {
     this.guests = guests;
   }

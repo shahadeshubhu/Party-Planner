@@ -5,7 +5,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,13 +19,14 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.sjsu.partyplanner.Models.Subtask;
+import com.sjsu.partyplanner.Models.Task;
 import com.sjsu.partyplanner.databinding.ActivityCreateTaskBinding;
 import com.sjsu.partyplanner.R;
 
 import java.util.ArrayList;
 
 public class CreateTaskActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-
+    public static final String TASK_KEY = "ABCDE";
     private Toolbar toolbar;
     private Spinner dropDown;
     private String taskCategory;
@@ -97,10 +101,12 @@ public class CreateTaskActivity extends AppCompatActivity implements AdapterView
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.cpCheck:
-
-                toastMsg("created task");
+                Task task = new Task(binding.ctTaskNameTB.getText().toString(), taskCategory, binding.ctNoteTB.getText().toString(), subtaskList );
+                Intent rIntent = new Intent();
+                rIntent.putExtra(TASK_KEY, task);
+                setResult(Activity.RESULT_OK, rIntent);
+                finish();
                 return true;
-
             default:
                 return super.onOptionsItemSelected(item);
         }

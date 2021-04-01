@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.sjsu.partyplanner.Controllers.PartyController;
 import com.sjsu.partyplanner.Models.Party;
+import com.sjsu.partyplanner.Models.Task;
 import com.sjsu.partyplanner.R;
 import com.sjsu.partyplanner.databinding.ActivityCreatePartyBinding;
 
@@ -34,7 +35,7 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
     private EditText txtDate, txtTime;
     private int mYear, mMonth, mDay, mHour, mMinute;
     private PartyController partyController;
-
+    private Party party;
     private Calendar pickedDateTime;
     protected ActivityCreatePartyBinding binding;
 
@@ -60,6 +61,7 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
 
         // Party Controller
         partyController = new PartyController();
+        party = new Party();
     }
 
     // Handles Menu Items on Toolbar
@@ -70,12 +72,14 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
                 // TODO Create a Party Object and put it into the database.
               Log.d("date", txtDate.getText().toString());
               Log.d("time", txtTime.getText().toString());
-              Party party = new Party(
-                binding.cpPartyNameTB.getText().toString(),
-                binding.cpPartyTypeTB.getText().toString(),
-                binding.cpLocationTB.getText().toString(),
-                binding.cpPartyDescrTB.getText().toString(),
-                pickedDateTime.getTime());
+              party.setName(binding.cpPartyNameTB.getText().toString());
+              party.setType(
+                binding.cpPartyTypeTB.getText().toString());
+              party.setAddress(
+                binding.cpLocationTB.getText().toString());
+              party.setDescription(
+                binding.cpPartyDescrTB.getText().toString());
+              party.setDate(pickedDateTime.getTime());
               partyController.createParty(this, party);
               toastMsg(binding.cpPartyNameTB.getText().toString());
               return true;
@@ -90,11 +94,13 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
     {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == Activity.RESULT_CANCELED) {
-            // code to handle cancelled state
+        if (requestCode == VIEW_CODE && resultCode == Activity.RESULT_OK) {
+            Task t = data.getParcelableExtra(CreateTaskActivity.TASK_KEY);
+            Log.d("book", t.toString());
+            party.addTask(t);
         }
         else {
-            // code to handle data from CONTACT_VIEW
+
         }
     }
 
@@ -104,7 +110,7 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
             toastMsg("Invite Guests");
         }
         else if (view == findViewById(R.id.cpTaskButton)) {
-            startActivityForResult(new Intent(this, TaskListActivity.class), 1);
+            startActivityForResult(new Intent(this, TaskListActivity.class), VIEW_CODE);
         }
     }
 
