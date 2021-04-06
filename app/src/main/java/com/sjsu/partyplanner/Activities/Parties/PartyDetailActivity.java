@@ -3,10 +3,17 @@ package com.sjsu.partyplanner.Activities.Parties;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.sjsu.partyplanner.EditPartyActivity;
+import com.sjsu.partyplanner.Models.Party;
 import com.sjsu.partyplanner.R;
 
 public class PartyDetailActivity extends AppCompatActivity {
@@ -47,6 +54,28 @@ public class PartyDetailActivity extends AppCompatActivity {
 
         }
     }
+
+    // Adds Icons to Toolbar (other than back button)
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.edit_menu, menu);
+        return true;
+    }
+
+    // Handles Menu Items on Toolbar
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.emEdit:
+                startActivity(new Intent(this, EditPartyActivity.class));
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
 
     // Sets up Toolbar
