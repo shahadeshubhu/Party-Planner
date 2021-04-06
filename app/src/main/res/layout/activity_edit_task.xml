@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.Parties.TaskDetailActivity">
+    tools:context=".EditTaskActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout2"
@@ -26,99 +26,103 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+
     <TextView
-        android:id="@+id/tdTaskCategory"
+        android:id="@+id/etName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/iceberg"
+        android:text="@string/name"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout2" />
+
+    <TextView
+        android:id="@+id/etCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/iceberg"
-        android:text="@string/category"
+        android:text="@string/taskCategory"
         android:textColor="@color/black"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/tdNameText"
-        app:layout_constraintTop_toBottomOf="@+id/tdStatus" />
+        app:layout_constraintStart_toStartOf="@+id/etName"
+        app:layout_constraintTop_toBottomOf="@+id/etNameText" />
 
     <TextView
-        android:id="@+id/tdNote"
+        android:id="@+id/etNote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/iceberg"
+        android:text="@string/note"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/etCategory"
+        app:layout_constraintTop_toBottomOf="@+id/etCategoryDropDown" />
+
+    <TextView
+        android:id="@+id/etSubtask"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:fontFamily="@font/iceberg"
-        android:text="@string/description"
-        android:textColor="@color/black"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/tdTaskCategory"
-        app:layout_constraintTop_toBottomOf="@+id/tdcategoryText" />
-
-    <TextView
-        android:id="@+id/tdSubtask"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         android:fontFamily="@font/iceberg"
         android:text="@string/subtasks"
         android:textColor="@color/black"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/tdNote"
-        app:layout_constraintTop_toBottomOf="@+id/tdNoteText" />
+        app:layout_constraintStart_toStartOf="@+id/etNote"
+        app:layout_constraintTop_toBottomOf="@+id/etNoteText" />
+
+    <EditText
+        android:id="@+id/etNameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:fontFamily="@font/oswald"
+        android:hint="@string/taskName"
+        android:inputType="textPersonName"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/etName"
+        app:layout_constraintTop_toBottomOf="@+id/etName" />
+
+    <EditText
+        android:id="@+id/etNoteText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:fontFamily="@font/oswald"
+        android:hint="@string/taskNote"
+        android:inputType="textPersonName"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/etNote"
+        app:layout_constraintTop_toBottomOf="@+id/etNote" />
+
+    <Spinner
+        android:id="@+id/etCategoryDropDown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="300dp"
+        app:layout_constraintStart_toStartOf="@+id/etCategory"
+        app:layout_constraintTop_toBottomOf="@+id/etCategory" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/etRecycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:nestedScrollingEnabled="false"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         app:layout_constrainedHeight="true"
-        app:layout_constraintStart_toStartOf="@+id/tdSubtask"
-        app:layout_constraintTop_toBottomOf="@+id/tdSubtask" />
-
-    <TextView
-        android:id="@+id/tdNameText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="15dp"
-        android:fontFamily="@font/iceberg"
-        android:text="@string/name"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:textSize="50sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout2" />
-
-    <TextView
-        android:id="@+id/tdcategoryText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/oswald"
-        android:text="@string/taskCategory"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/tdTaskCategory"
-        app:layout_constraintTop_toBottomOf="@+id/tdTaskCategory" />
-
-    <TextView
-        android:id="@+id/tdNoteText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/oswald"
-        android:text="@string/note"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/tdNote"
-        app:layout_constraintTop_toBottomOf="@+id/tdNote" />
-
-    <TextView
-        android:id="@+id/tdStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/iceberg"
-        android:text="@string/notStartedStatus"
-        android:textSize="30sp"
-        app:layout_constraintStart_toStartOf="@+id/tdNameText"
-        app:layout_constraintTop_toBottomOf="@+id/tdNameText" />
+        app:layout_constraintStart_toStartOf="@+id/etSubtask"
+        app:layout_constraintTop_toBottomOf="@+id/etSubtask" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

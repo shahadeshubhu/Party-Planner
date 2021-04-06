@@ -28,7 +28,7 @@
 
 
     <TextView
-        android:id="@+id/ctTaskName"
+        android:id="@+id/etName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -42,7 +42,7 @@
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout2" />
 
     <TextView
-        android:id="@+id/ctTaskCategory"
+        android:id="@+id/etCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -51,11 +51,11 @@
         android:textColor="@color/black"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/ctTaskName"
-        app:layout_constraintTop_toBottomOf="@+id/ctTaskNameTB" />
+        app:layout_constraintStart_toStartOf="@+id/etName"
+        app:layout_constraintTop_toBottomOf="@+id/etNameText" />
 
     <TextView
-        android:id="@+id/ctNote"
+        android:id="@+id/etNote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -64,11 +64,11 @@
         android:textColor="@color/black"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/ctTaskCategory"
-        app:layout_constraintTop_toBottomOf="@+id/ctTaskCategoryDropDown" />
+        app:layout_constraintStart_toStartOf="@+id/etCategory"
+        app:layout_constraintTop_toBottomOf="@+id/etCategoryDropDown" />
 
     <TextView
-        android:id="@+id/ctSubtask"
+        android:id="@+id/etSubtask"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -77,11 +77,11 @@
         android:textColor="@color/black"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/ctNote"
-        app:layout_constraintTop_toBottomOf="@+id/ctNoteTB" />
+        app:layout_constraintStart_toStartOf="@+id/etNote"
+        app:layout_constraintTop_toBottomOf="@+id/etNoteText" />
 
     <EditText
-        android:id="@+id/ctTaskNameTB"
+        android:id="@+id/etNameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -90,11 +90,11 @@
         android:inputType="textPersonName"
         android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/ctTaskName"
-        app:layout_constraintTop_toBottomOf="@+id/ctTaskName" />
+        app:layout_constraintStart_toStartOf="@+id/etName"
+        app:layout_constraintTop_toBottomOf="@+id/etName" />
 
     <EditText
-        android:id="@+id/ctNoteTB"
+        android:id="@+id/etNoteText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -103,27 +103,27 @@
         android:inputType="textPersonName"
         android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/ctNote"
-        app:layout_constraintTop_toBottomOf="@+id/ctNote" />
+        app:layout_constraintStart_toStartOf="@+id/etNote"
+        app:layout_constraintTop_toBottomOf="@+id/etNote" />
 
     <Spinner
-        android:id="@+id/ctTaskCategoryDropDown"
+        android:id="@+id/etCategoryDropDown"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:minWidth="300dp"
-        app:layout_constraintStart_toStartOf="@+id/ctTaskCategory"
-        app:layout_constraintTop_toBottomOf="@+id/ctTaskCategory" />
+        app:layout_constraintStart_toStartOf="@+id/etCategory"
+        app:layout_constraintTop_toBottomOf="@+id/etCategory" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/ctRecycler"
+            android:id="@+id/etRecycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:nestedScrollingEnabled="false"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             app:layout_constrainedHeight="true"
-            app:layout_constraintStart_toStartOf="@+id/ctSubtask"
-            app:layout_constraintTop_toBottomOf="@+id/ctSubtask" />
+            app:layout_constraintStart_toStartOf="@+id/etSubtask"
+            app:layout_constraintTop_toBottomOf="@+id/etSubtask" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

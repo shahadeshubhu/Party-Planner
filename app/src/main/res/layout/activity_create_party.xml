@@ -28,7 +28,7 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <TextView
-            android:id="@+id/cpPartyNameText"
+            android:id="@+id/cpName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -42,7 +42,7 @@
             app:layout_constraintTop_toBottomOf="@+id/appBarLayout2" />
 
         <EditText
-            android:id="@+id/cpPartyNameTB"
+            android:id="@+id/cpNameText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -51,11 +51,11 @@
             android:textSize="20sp"
             android:textColor="@color/black"
             android:fontFamily="@font/oswald"
-            app:layout_constraintStart_toStartOf="@+id/cpPartyNameText"
-            app:layout_constraintTop_toBottomOf="@+id/cpPartyNameText" />
+            app:layout_constraintStart_toStartOf="@+id/cpName"
+            app:layout_constraintTop_toBottomOf="@+id/cpName" />
 
         <TextView
-            android:id="@+id/cpPartyTypeText"
+            android:id="@+id/cpType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -64,8 +64,8 @@
             android:textColor="@color/black"
             android:textStyle="bold"
             android:fontFamily="@font/iceberg"
-            app:layout_constraintStart_toStartOf="@+id/cpPartyNameText"
-            app:layout_constraintTop_toBottomOf="@+id/cpPartyNameTB" />
+            app:layout_constraintStart_toStartOf="@+id/cpName"
+            app:layout_constraintTop_toBottomOf="@+id/cpNameText" />
 
         <AutoCompleteTextView
             android:id="@+id/cpPartyTypeTB"
@@ -78,12 +78,12 @@
             android:fontFamily="@font/oswald"
             tools:layout_editor_absoluteX="150dp"
             tools:layout_editor_absoluteY="186dp"
-            app:layout_constraintStart_toStartOf="@+id/cpPartyTypeText"
-            app:layout_constraintTop_toBottomOf="@+id/cpPartyTypeText" />
+            app:layout_constraintStart_toStartOf="@+id/cpType"
+            app:layout_constraintTop_toBottomOf="@+id/cpType" />
 
 
         <TextView
-            android:id="@+id/cpLocationText"
+            android:id="@+id/cpLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -92,11 +92,11 @@
             android:textColor="@color/black"
             android:textStyle="bold"
             android:fontFamily="@font/iceberg"
-            app:layout_constraintStart_toStartOf="@+id/cpPartyTypeText"
+            app:layout_constraintStart_toStartOf="@+id/cpType"
             app:layout_constraintTop_toBottomOf="@+id/cpPartyTypeTB" />
 
         <EditText
-            android:id="@+id/cpLocationTB"
+            android:id="@+id/cpLocationText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -105,11 +105,11 @@
             android:textSize="20sp"
             android:textColor="@color/black"
             android:fontFamily="@font/oswald"
-            app:layout_constraintStart_toStartOf="@+id/cpLocationText"
-            app:layout_constraintTop_toBottomOf="@+id/cpLocationText" />
+            app:layout_constraintStart_toStartOf="@+id/cpLocation"
+            app:layout_constraintTop_toBottomOf="@+id/cpLocation" />
 
         <TextView
-            android:id="@+id/cpPartyDescrText"
+            android:id="@+id/cpDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -118,11 +118,11 @@
             android:textColor="@color/black"
             android:textStyle="bold"
             android:fontFamily="@font/iceberg"
-            app:layout_constraintStart_toStartOf="@+id/cpLocationText"
-            app:layout_constraintTop_toBottomOf="@+id/cpLocationTB" />
+            app:layout_constraintStart_toStartOf="@+id/cpLocation"
+            app:layout_constraintTop_toBottomOf="@+id/cpLocationText" />
 
         <EditText
-            android:id="@+id/cpPartyDescrTB"
+            android:id="@+id/cpDescriptionText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -131,11 +131,11 @@
             android:textSize="20sp"
             android:textColor="@color/black"
             android:fontFamily="@font/oswald"
-            app:layout_constraintStart_toStartOf="@+id/cpPartyDescrText"
-            app:layout_constraintTop_toBottomOf="@+id/cpPartyDescrText" />
+            app:layout_constraintStart_toStartOf="@+id/cpDescription"
+            app:layout_constraintTop_toBottomOf="@+id/cpDescription" />
 
         <TextView
-            android:id="@+id/cpDateTimeText"
+            android:id="@+id/cpDateTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -144,11 +144,11 @@
             android:textColor="@color/black"
             android:textSize="30sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/cpPartyDescrText"
-            app:layout_constraintTop_toBottomOf="@+id/cpPartyDescrTB" />
+            app:layout_constraintStart_toStartOf="@+id/cpDescription"
+            app:layout_constraintTop_toBottomOf="@+id/cpDescriptionText" />
 
         <EditText
-            android:id="@+id/cpDateTB"
+            android:id="@+id/cpDateTimeText"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -158,11 +158,11 @@
             android:inputType="date"
             android:textColor="@color/black"
             android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="@+id/cpDateTimeText"
-            app:layout_constraintTop_toBottomOf="@+id/cpDateTimeText" />
+            app:layout_constraintStart_toStartOf="@+id/cpDateTime"
+            app:layout_constraintTop_toBottomOf="@+id/cpDateTime" />
 
         <Button
-            android:id="@+id/cpSelectDateButton"
+            android:id="@+id/cpDateButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -171,12 +171,12 @@
             android:text="@string/selectDate"
             android:textSize="15sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/cpDateTB"
-            app:layout_constraintStart_toEndOf="@+id/cpDateTB"
-            app:layout_constraintTop_toTopOf="@+id/cpDateTB" />
+            app:layout_constraintBottom_toBottomOf="@+id/cpDateTimeText"
+            app:layout_constraintStart_toEndOf="@+id/cpDateTimeText"
+            app:layout_constraintTop_toTopOf="@+id/cpDateTimeText" />
 
         <EditText
-            android:id="@+id/cpTimeTB"
+            android:id="@+id/cpTimeText"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -187,11 +187,11 @@
             android:textColor="@color/black"
             android:fontFamily="@font/oswald"
             android:focusable="false"
-            app:layout_constraintStart_toStartOf="@+id/cpDateTB"
-            app:layout_constraintTop_toBottomOf="@+id/cpDateTB" />
+            app:layout_constraintStart_toStartOf="@+id/cpDateTimeText"
+            app:layout_constraintTop_toBottomOf="@+id/cpDateTimeText" />
 
         <Button
-            android:id="@+id/cpSelectTimeButton"
+            android:id="@+id/cpTimeButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -199,9 +199,9 @@
             android:text="@string/selectTime"
             android:textSize="15sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/cpTimeTB"
-            app:layout_constraintStart_toEndOf="@+id/cpTimeTB"
-            app:layout_constraintTop_toTopOf="@+id/cpTimeTB" />
+            app:layout_constraintBottom_toBottomOf="@+id/cpTimeText"
+            app:layout_constraintStart_toEndOf="@+id/cpTimeText"
+            app:layout_constraintTop_toTopOf="@+id/cpTimeText" />
 
         <Button
             android:id="@+id/cpGuestButton"
@@ -213,8 +213,8 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:onClick="addClick"
-            app:layout_constraintStart_toStartOf="@+id/cpTimeTB"
-            app:layout_constraintTop_toBottomOf="@+id/cpTimeTB" />
+            app:layout_constraintStart_toStartOf="@+id/cpTimeText"
+            app:layout_constraintTop_toBottomOf="@+id/cpTimeText" />
 
         <Button
             android:id="@+id/cpTaskButton"

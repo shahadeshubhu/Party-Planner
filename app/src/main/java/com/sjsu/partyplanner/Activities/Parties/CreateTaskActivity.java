@@ -60,11 +60,11 @@ public class CreateTaskActivity extends AppCompatActivity implements AdapterView
 
     public void setUpRecycler() {
 
-        binding.ctRecycler.setHasFixedSize(true);
+        binding.etRecycler.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        binding.ctRecycler.setLayoutManager(layoutManager);
+        binding.etRecycler.setLayoutManager(layoutManager);
         RecyclerView.Adapter<SubtaskAdapter.ViewHolder> mAdapter = new SubtaskAdapter(subtaskList);
-        binding.ctRecycler.setAdapter(mAdapter);
+        binding.etRecycler.setAdapter(mAdapter);
     }
 
 
@@ -78,7 +78,7 @@ public class CreateTaskActivity extends AppCompatActivity implements AdapterView
 
     // Sets up Spinner (Drop-down menu)
     public void setUpSpinner() {
-        dropDown = (Spinner) findViewById(R.id.ctTaskCategoryDropDown);
+        dropDown = (Spinner) findViewById(R.id.etCategoryDropDown);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.taskCategories, R.layout.spinner_text);
 
         // Specify the layout to use when the list of choices appears
@@ -101,7 +101,7 @@ public class CreateTaskActivity extends AppCompatActivity implements AdapterView
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.create_party_menu, menu);
+        inflater.inflate(R.menu.create_menu, menu);
         return true;
     }
 
