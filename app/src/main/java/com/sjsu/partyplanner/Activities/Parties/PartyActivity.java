@@ -39,8 +39,7 @@ public class PartyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_party_page);
 
         PartyController p = new PartyController();
-        // TODO: broken for no parties (null)
-        //p.getParties(this);
+        p.getParties(this);
         setupToolbar();
     }
 

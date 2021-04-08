@@ -15,12 +15,11 @@ import com.sjsu.partyplanner.Models.Subtask;
 import com.sjsu.partyplanner.Models.Task;
 import com.sjsu.partyplanner.R;
 import com.sjsu.partyplanner.databinding.ActivityTaskListBinding;
-
 import java.util.ArrayList;
 
 public class TaskListActivity extends AppCompatActivity implements TaskAdapter.TaskClick {
 
-    private ActivityTaskListBinding binding;
+    private  ActivityTaskListBinding binding;
     private Toolbar toolbar;
     private ArrayList<Task> taskList;
 
@@ -52,10 +51,10 @@ public class TaskListActivity extends AppCompatActivity implements TaskAdapter.T
         // Complete Example
         ArrayList<Subtask> subtask2 = new ArrayList<Subtask>();
 
-
-        taskList.add(new Task("ID", "TaskName", "category", "note", st, "partyID"));
-        taskList.add(new Task("IPD", "dsfaf", "sda","note", subtasks, "dsdsd"));
-        taskList.add(new Task("TASKID", "nane", "gorew","note", subtask2, "idparty"));
+//
+//        taskList.add(new Task("ID", "TaskName", "category", "note", st, "partyID"));
+//        taskList.add(new Task("IPD", "dsfaf", "sda","note", subtasks, "dsdsd"));
+//        taskList.add(new Task("TASKID", "nane", "gorew","note", subtask2, "idparty"));
 
         // TESTING TASK LIST
 

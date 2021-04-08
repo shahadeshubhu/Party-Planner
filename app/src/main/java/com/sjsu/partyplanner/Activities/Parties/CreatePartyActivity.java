@@ -91,10 +91,9 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == VIEW_CODE && resultCode == Activity.RESULT_OK) {
             Task t = data.getParcelableExtra(CreateTaskActivity.TASK_KEY);
-            Log.d("book", t.toString());
+            Log.d("TASKKKKK", t.toString());
             party.addTask(t);
         }
         else {
