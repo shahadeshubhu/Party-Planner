@@ -129,7 +129,7 @@
             app:layout_constraintTop_toBottomOf="@+id/etSubtask" />
 
     <ImageView
-        android:id="@+id/etAddSubTaskButton"
+        android:id="@+id/etAddSubtaskButton"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginStart="10dp"

@@ -56,7 +56,7 @@ public class CreateTaskActivity extends AppCompatActivity implements AdapterView
     // Sets up button
     public void setUpButton() {
         // Set up button image
-        addSubtask = findViewById(R.id.etAddSubTaskButton);
+        addSubtask = findViewById(R.id.etAddSubtaskButton);
         addSubtask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
