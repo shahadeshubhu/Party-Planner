@@ -58,14 +58,11 @@ public class PartyController {
     }
 
     public void getParties(PartyActivity activity) {
-        String ownerId = UserController.currentUser.getUid();
         ArrayList<Party> parties = new ArrayList<>();
         ArrayList<String> userParties = UserController.currentUserInfo.getParties();
-//        ArrayList<String> userParties = UserController.currentUserInfo.getParties();
         if(userParties != null && userParties.size() > 0) {
             db.collection(EVENT_DB_NAME).whereIn(FieldPath.documentId(), UserController.currentUserInfo.getParties())
                     .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                     if (task.isSuccessful()) {
@@ -88,7 +85,6 @@ public class PartyController {
         }
     }
 
-
     public void inviteGuestByEmail(PartyActivity activity, ArrayList<String> emails, String partyId, String partyTitle) {
         if (emails == null || emails.size() <= 0){
            return;
@@ -107,7 +103,6 @@ public class PartyController {
                         appRegisteredGuests.add(u);
                         emailSet.remove(u.getEmail());
                         invitations.add(new Invitation(partyId, partyTitle, u.getUid()));
-
                     }
 
                     if (invitations.size()>0) {
@@ -123,7 +118,6 @@ public class PartyController {
                             }
                         });
                     }
-
                     ArrayList<String> unregisteredGuests = new ArrayList<>(emailSet);
                     //TODO: email the invitation to all unregisterGuests email
 //                    activity.handleFetchParties(true, appRegisteredGuests);
@@ -132,7 +126,6 @@ public class PartyController {
                 } else {
                     Log.d("#invite error", "Error getting documents: ", task.getException());
 //                    activity.handleFetchParties(false, appRegisteredGuests);
-
                 }
             }
         });

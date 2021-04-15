@@ -20,10 +20,13 @@ import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.sjsu.partyplanner.Activities.Parties.CreatePartyActivity;
 import com.sjsu.partyplanner.Activities.Users.LoginActivity;
 import com.sjsu.partyplanner.Models.Party;
 import com.sjsu.partyplanner.Models.User;
 import com.sjsu.partyplanner.Activities.Users.RegistrationActivity;
+
+import java.util.ArrayList;
 
 public class UserController {
 
@@ -31,7 +34,7 @@ public class UserController {
     public static FirebaseUser currentUser;
     public final static String ASSOCIATE_DB_NAME = "AssociateUsers";
     public static User currentUserInfo;
-    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private static final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public UserController() {
         mAuth = FirebaseAuth.getInstance();
@@ -146,4 +149,29 @@ public class UserController {
             }
         });
     }
+    //TODO: INVITe PArty guests activity will query this method to get all register list.
+    public static void getAllUsers(){
+        String ownerId = currentUser.getUid();
+        db.collection(ASSOCIATE_DB_NAME).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    ArrayList<User> allGuests = new ArrayList<>();
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        if(!document.getId().equals(ownerId)) {
+                            User u = document.toObject(User.class);
+                            u.setUid(document.getId());
+                            Log.d("#User", u.toString());
+                            allGuests.add(u);
+                        }
+                        Log.d("#getAllUsers", document.getId() + " => " + document.getData());
+                    }
+                } else {
+                    Log.d("#getAllUsers", "Error getting documents: ", task.getException());
+                }
+            }
+        });
+    }
+
+
 }
