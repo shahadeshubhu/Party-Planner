@@ -61,7 +61,7 @@ public class PartyController {
         String ownerId = UserController.currentUser.getUid();
         ArrayList<Party> parties = new ArrayList<>();
         ArrayList<String> userParties = UserController.currentUserInfo.getParties();
-        Log.d("#getParties", "" + ownerId);
+//        ArrayList<String> userParties = UserController.currentUserInfo.getParties();
         if(userParties != null && userParties.size() > 0) {
             db.collection(EVENT_DB_NAME).whereIn(FieldPath.documentId(), UserController.currentUserInfo.getParties())
                     .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

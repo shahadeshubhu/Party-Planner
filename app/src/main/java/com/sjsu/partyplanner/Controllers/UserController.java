@@ -34,7 +34,6 @@ public class UserController {
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public UserController() {
-
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         Log.d("currentUser", ""+currentUser);
@@ -64,6 +63,7 @@ public class UserController {
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
+                                    currentUserInfo = user;
                                     activity.handleSuccess();
                                 }
                             })
@@ -97,6 +97,7 @@ public class UserController {
 
                 if (task.isSuccessful()) {
                     currentUser = mAuth.getCurrentUser();
+                    getUserInfo();
                     activity.handleSuccess();
 
                 } else {
@@ -115,6 +116,7 @@ public class UserController {
 
     public void signOutUser() {
         mAuth.signOut();
+        currentUserInfo = null;
     }
 
     public FirebaseUser getCurrentUser() {
