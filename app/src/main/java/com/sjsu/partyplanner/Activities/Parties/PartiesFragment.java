@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sjsu.partyplanner.Models.Party;
 import com.sjsu.partyplanner.R;
@@ -28,6 +29,7 @@ public class PartiesFragment extends Fragment implements PartyAdapter.PartyClick
     // RecyclerView
     private View v;
     private RecyclerView rView;
+    private PartyAdapter pAdapter;
     private ArrayList<Party> parties = new ArrayList<>();       // Get from activity
 
     // Constructor
@@ -63,9 +65,6 @@ public class PartiesFragment extends Fragment implements PartyAdapter.PartyClick
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        //TODO: retrieve data NOT WORKING
-        // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_parties, container, false);
 
         // Set text to empty string if there are parties
@@ -75,7 +74,8 @@ public class PartiesFragment extends Fragment implements PartyAdapter.PartyClick
 
         // Recycler View
         rView = v.findViewById(R.id.partyRecyclerView);
-        PartyAdapter pAdapter = new PartyAdapter(getContext(), parties, this);
+        pAdapter = new PartyAdapter(getContext(), parties, this);
+
         rView.setLayoutManager(new LinearLayoutManager(getActivity()));
         rView.setAdapter(pAdapter);
 
@@ -93,7 +93,6 @@ public class PartiesFragment extends Fragment implements PartyAdapter.PartyClick
         Party party = parties.get(position);
 
         Intent intent = new Intent(getContext(), PartyDetailActivity.class);
-        intent.putExtra("id", "NO PARTY ID YET");
         intent.putExtra("name", party.getName());
         intent.putExtra("type", party.getType());
         intent.putExtra("location", party.getAddress());
@@ -102,4 +101,10 @@ public class PartiesFragment extends Fragment implements PartyAdapter.PartyClick
 
         startActivity(intent);
     }
+
+    public void toastMsg(String msg) {
+        Toast toast = Toast.makeText(getContext(), msg, Toast.LENGTH_LONG);
+        toast.show();
+    }
+
 }

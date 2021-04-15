@@ -19,6 +19,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.sjsu.partyplanner.Activities.Tasks.CreateTaskActivity;
+import com.sjsu.partyplanner.Activities.Tasks.TaskListActivity;
 import com.sjsu.partyplanner.Controllers.PartyController;
 import com.sjsu.partyplanner.Controllers.UserController;
 import com.sjsu.partyplanner.Models.Party;
@@ -31,6 +33,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class CreatePartyActivity extends AppCompatActivity implements View.OnClickListener {
+
     public static final int VIEW_CODE = 1;
     private Toolbar toolbar;
     private Button btnDatePicker, btnTimePicker;

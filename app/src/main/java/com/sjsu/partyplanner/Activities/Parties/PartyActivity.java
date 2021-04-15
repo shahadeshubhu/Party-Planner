@@ -1,27 +1,26 @@
 package com.sjsu.partyplanner.Activities.Parties;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
+import androidx.annotation.NonNull;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.sjsu.partyplanner.Controllers.PartyController;
-import com.sjsu.partyplanner.Controllers.UserController;
 import com.sjsu.partyplanner.Models.Party;
 import com.sjsu.partyplanner.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -33,14 +32,19 @@ public class PartyActivity extends AppCompatActivity {
     private ArrayList<Party> pastParties = new ArrayList<>();
     private ArrayList<Party> upParties = new ArrayList<>();
 
+    private PartyController p = new PartyController();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_party_page);
-
-        PartyController p = new PartyController();
-        p.getParties(this);
         setupToolbar();
+
+        p = new PartyController();
+        // TODO: gets error when there are no parties
+
+        p.getParties(this);
+
     }
 
     // onClick Method: Create Party
@@ -81,6 +85,13 @@ public class PartyActivity extends AppCompatActivity {
         }
         initializeTabLayout();
     }
+
+/*
+    // onClick Method: Create Party
+    public void createParty (View view) {
+        startActivity(new Intent(this, CreatePartyActivity.class));
+    }
+*/
 
     // Initialize TabLayout
     private void initializeTabLayout() {

@@ -1,4 +1,4 @@
-package com.sjsu.partyplanner.Activities.Parties;
+package com.sjsu.partyplanner.Activities.Tasks;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -51,14 +51,11 @@ public class TaskListActivity extends AppCompatActivity implements TaskAdapter.T
         // Complete Example
         ArrayList<Subtask> subtask2 = new ArrayList<Subtask>();
 
-//
-//        taskList.add(new Task("ID", "TaskName", "category", "note", st, "partyID"));
+
+        taskList.add(new Task("TaskName", "category", "note", st));
 //        taskList.add(new Task("IPD", "dsfaf", "sda","note", subtasks, "dsdsd"));
 //        taskList.add(new Task("TASKID", "nane", "gorew","note", subtask2, "idparty"));
 
-        // TESTING TASK LIST
-
-        //---------------ENd of To Do
 
         //Recycler
         setUpRecycler();

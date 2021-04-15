@@ -8,11 +8,6 @@ public class Subtask implements Parcelable {
     private String name;
     private STATUS subtaskStatus;
 
-    private enum STATUS {
-        PENDING,
-        COMPLETE
-    }
-
     // Constructor
     public Subtask(String name) {
         this.name = name;
@@ -73,8 +68,6 @@ public class Subtask implements Parcelable {
      */
     public void changeStatus() {
         if (subtaskStatus == STATUS.COMPLETE) { subtaskStatus = STATUS.PENDING; }
-        else {
-            subtaskStatus = STATUS.COMPLETE;
-        }
+        else { subtaskStatus = STATUS.COMPLETE; }
     }
 }

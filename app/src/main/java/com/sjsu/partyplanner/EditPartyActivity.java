@@ -15,7 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.sjsu.partyplanner.Activities.Parties.TaskListActivity;
+import com.sjsu.partyplanner.Activities.Tasks.TaskListActivity;
 import com.sjsu.partyplanner.Controllers.PartyController;
 import com.sjsu.partyplanner.databinding.ActivityCreatePartyBinding;
 

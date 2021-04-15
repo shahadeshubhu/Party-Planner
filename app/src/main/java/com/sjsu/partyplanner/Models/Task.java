@@ -18,11 +18,6 @@ public class Task implements Parcelable {
     private STATUS taskStatus;
     private int completedSubtasks;
 
-    public enum STATUS {
-        NOT_STARTED,
-        PENDING,
-        COMPLETE
-    }
     public Task(){};
 
     // Constructor

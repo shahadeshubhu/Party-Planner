@@ -7,8 +7,6 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,9 +17,10 @@ import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.sjsu.partyplanner.Activities.Budget.BudgetActivity;
+import com.sjsu.partyplanner.Activities.Contacts.ContactsActivity;
 import com.sjsu.partyplanner.Activities.Parties.PartyActivity;
 import com.sjsu.partyplanner.Activities.Users.LoginActivity;
-import com.sjsu.partyplanner.Models.Party;
 import com.sjsu.partyplanner.databinding.ActivityDashboardBinding;
 import com.sjsu.partyplanner.R;
 
@@ -76,7 +75,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
    * Goes to the 'contacts' page
    */
   public void contactClick(View view) {
-    toastMsg("Contact Click");
+      startActivity(new Intent(this, ContactsActivity.class));
   }
 
   /**
@@ -84,15 +83,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
    * Goes to the 'budget' page
    */
   public void budgetClick(View view) {
-    toastMsg("Budget Click");
-  }
-
-  /**
-   * onClick method for 'user icon'
-   * Opens Side Bar
-   */
-  public void userClick(View view) {
-    toastMsg("User Icon Click");
+      startActivity(new Intent(this, BudgetActivity.class));
   }
 
     /**
