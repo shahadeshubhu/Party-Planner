@@ -1,10 +1,12 @@
-package com.sjsu.partyplanner.Activities.Parties;
+package com.sjsu.partyplanner.Activities.Tasks;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.sjsu.partyplanner.Models.Subtask;
@@ -35,13 +37,19 @@ public class SubtaskAdapter extends RecyclerView.Adapter<SubtaskAdapter.ViewHold
 
         holder.stName.setText(task.getName());
 
+        // Updates on click
+        holder.stStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                task.changeStatus();
+                if (task.getSubtaskStatus()) { holder.stStatus.setImageResource(R.drawable.subtask_done); }
+                else { holder.stStatus.setImageResource(R.drawable.subtask_empty); }
+            }
+        });
+
         // Complete - show complete image
-        if (task.getSubtaskStatus()) {
-            holder.stStatus.setImageResource(R.drawable.subtask_done);
-        }
-        else {
-            holder.stStatus.setImageResource(R.drawable.subtask_empty);
-        }
+        if (task.getSubtaskStatus()) { holder.stStatus.setImageResource(R.drawable.subtask_done); }
+        else { holder.stStatus.setImageResource(R.drawable.subtask_empty); }
     }
 
     @Override
@@ -59,5 +67,8 @@ public class SubtaskAdapter extends RecyclerView.Adapter<SubtaskAdapter.ViewHold
             stName = itemView.findViewById(R.id.stNameTextLayout);
             stStatus = itemView.findViewById(R.id.subtaskStatusLayout);
         }
+
     }
+
+
 }

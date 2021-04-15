@@ -1,4 +1,4 @@
-package com.sjsu.partyplanner.Activities.Parties;
+package com.sjsu.partyplanner.Activities.Tasks;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -8,13 +8,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -25,11 +25,12 @@ import com.sjsu.partyplanner.R;
 
 import java.util.ArrayList;
 
-public class CreateTaskActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class CreateTaskActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, SubtaskDialog.SubtaskDialogListener {
     public static final String TASK_KEY = "ABCDE";
     private Toolbar toolbar;
     private Spinner dropDown;
     private String taskCategory;
+    private ImageView addSubtask;
 
     private ActivityCreateTaskBinding binding;
     private ArrayList<Subtask> subtaskList;
@@ -40,26 +41,45 @@ public class CreateTaskActivity extends AppCompatActivity implements AdapterView
         binding = ActivityCreateTaskBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Toolbar, Dropdown
+        // Toolbar, Dropdown, Toolbar, Recycler
         setUpToolbar();
         setUpSpinner();
+        setUpButton();
+
+        subtaskList = new ArrayList<Subtask>();
+        setUpRecycler();
 
         //TODO: Subtask recyclerview is not scrolling
 
-        //T----TESTING WITH SUBTASKS RECYCLERVIEW
-        subtaskList = new ArrayList<Subtask>();
-        subtaskList.add(new Subtask("111task"));
-        subtaskList.add(new Subtask("222task"));
-        subtaskList.add(new Subtask("333task"));
-        subtaskList.add(new Subtask("444task"));
-
-       setUpRecycler();
     }
 
+    // Sets up button
+    public void setUpButton() {
+        // Set up button image
+        addSubtask = findViewById(R.id.etAddSubTaskButton);
+        addSubtask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openDialog();
+            }
+        });
+    }
 
+    // Creates the add subtask dialog
+    public void openDialog() {
+        SubtaskDialog subtaskDialog = new SubtaskDialog();
+        subtaskDialog.show(getSupportFragmentManager(), "subtask dialog");
+    }
 
+    // SubtaskDialog.SubtaskDialogListener
+    @Override
+    public void applyTexts(String subtaskName) {
+        subtaskList.add(new Subtask(subtaskName));
+        setUpRecycler();        // updates the recycler
+    }
+
+    // Sets up the recycler
     public void setUpRecycler() {
-
         binding.etRecycler.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         binding.etRecycler.setLayoutManager(layoutManager);
@@ -101,7 +121,7 @@ public class CreateTaskActivity extends AppCompatActivity implements AdapterView
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.cpCheck:
-                Task task = new Task(binding.etNameText.getText().toString(), taskCategory, binding.etCategory.getText().toString(), subtaskList );
+                Task task = new Task(binding.etNameText.getText().toString(), taskCategory, binding.etNoteText.getText().toString(), subtaskList );
                 Intent rIntent = new Intent(this, CreateTaskActivity.class);
                 rIntent.putExtra(TASK_KEY, task);
                 setResult(Activity.RESULT_OK, rIntent);
@@ -111,8 +131,6 @@ public class CreateTaskActivity extends AppCompatActivity implements AdapterView
                 return super.onOptionsItemSelected(item);
         }
     }
-
-
 
     // Handles selected task category
     @Override
@@ -124,7 +142,6 @@ public class CreateTaskActivity extends AppCompatActivity implements AdapterView
     public void onNothingSelected(AdapterView<?> parent) {
         // Empty
     }
-
 
     public void toastMsg(String msg) {
         Toast toast = Toast.makeText(this, msg, Toast.LENGTH_LONG);

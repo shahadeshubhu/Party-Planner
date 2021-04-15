@@ -37,7 +37,6 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        //TODO: NEEDS TO ADD TIME (Model does not contain a time value?)
         final Party party = mParties.get(position);
         String date = (party.getDate()).toString();
 

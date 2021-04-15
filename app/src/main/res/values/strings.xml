@@ -59,7 +59,6 @@
     <string name="completeStatus">Complete</string>
     <string name="subtaskValue">Subtasks: 0/10</string>
 
-
     <string name="party">Parties</string>
     <string name="event">Events</string>
     <string name="contact">Contacts</string>
@@ -76,5 +75,13 @@
     <string name="hostName">Host Name</string>
     <string name="accept">Accept</string>
     <string name="decline">Decline</string>
+
+    <string name="subtaskName">Subtask Name</string>
+    <string name="noContacts">No Contacts</string>
+    <string name="contactName">Contact Name</string>
+    <string name="contactEmail">Contact Email</string>
+    <string name="noBudget">No Budgets</string>
+    <string name="budgetName">Budget Name</string>
+    <string name="budgetAmount">Budget Amount</string>
 
 </resources>

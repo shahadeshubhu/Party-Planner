@@ -1,4 +1,4 @@
-package com.sjsu.partyplanner.Activities.Parties;
+package com.sjsu.partyplanner.Activities.Tasks;
 
 import android.graphics.Color;
 import android.view.LayoutInflater;

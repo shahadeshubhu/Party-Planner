@@ -1,27 +1,26 @@
 package com.sjsu.partyplanner.Activities.Parties;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.sjsu.partyplanner.Controllers.PartyController;
-import com.sjsu.partyplanner.Controllers.UserController;
 import com.sjsu.partyplanner.Models.Party;
 import com.sjsu.partyplanner.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -33,20 +32,61 @@ public class PartyActivity extends AppCompatActivity {
     private ArrayList<Party> pastParties = new ArrayList<>();
     private ArrayList<Party> upParties = new ArrayList<>();
 
+    private PartyController p = new PartyController();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_party_page);
-
-        PartyController p = new PartyController();
-        p.getParties(this);
         setupToolbar();
+
+        p = new PartyController();
+        // TODO: gets error when there are no parties
+
+        p.getParties(this);
+
     }
 
-    // onClick Method: Create Party
-    public void createParty (View view) {
-        startActivity(new Intent(this, CreatePartyActivity.class));
+    @Override
+    public void onResume(){
+        super.onResume();
+        pastParties = new ArrayList<>();
+        upParties = new ArrayList<>();
+        p = new PartyController();
+        //p.getParties(this);       // Does not update, adds a second version of the list into it.
     }
+
+    // When Create Party Activity Finishes
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if(resultCode == RESULT_OK) {
+                String strEditText = data.getStringExtra("editTextValue");
+
+                // TODO: DOesnt work!
+                String name = data.getStringExtra("name");
+                String type = data.getStringExtra("type");
+                String location = data.getStringExtra("location");
+                String description = data.getStringExtra("description");
+                String date = data.getStringExtra("date");
+
+                Date date1 = null;
+                try {
+                    date1 = new SimpleDateFormat("dd/MM/yyyy").parse(date);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                upParties.add(new Party(name, type, location, description, date1));
+
+                initializeTabLayout();
+            }
+        }
+    }
+
+
+
+
 
     public void handleFetchParties(boolean isSuccessful, ArrayList<Party> p){
         Date now = new Date();
@@ -68,6 +108,12 @@ public class PartyActivity extends AppCompatActivity {
             //TODO: display some error message
         }
         initializeTabLayout();
+    }
+
+
+    // onClick Method: Create Party
+    public void createParty (View view) {
+        startActivity(new Intent(this, CreatePartyActivity.class));
     }
 
     // Initialize TabLayout

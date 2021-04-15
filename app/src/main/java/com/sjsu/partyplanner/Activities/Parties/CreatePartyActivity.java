@@ -19,6 +19,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.sjsu.partyplanner.Activities.Tasks.CreateTaskActivity;
+import com.sjsu.partyplanner.Activities.Tasks.TaskListActivity;
 import com.sjsu.partyplanner.Controllers.PartyController;
 import com.sjsu.partyplanner.Controllers.UserController;
 import com.sjsu.partyplanner.Models.Party;
@@ -28,8 +30,10 @@ import com.sjsu.partyplanner.databinding.ActivityCreatePartyBinding;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class CreatePartyActivity extends AppCompatActivity implements View.OnClickListener {
+
     public static final int VIEW_CODE = 1;
     private Toolbar toolbar;
     private Button btnDatePicker, btnTimePicker;
@@ -70,18 +74,37 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.cpCheck:
+
                 // TODO Create a Party Object and put it into the database.
-              Log.d("date", txtDate.getText().toString());
-              Log.d("time", txtTime.getText().toString());
-              Party party = new Party(
-                binding.cpNameText.getText().toString(),
-                binding.cpPartyTypeTB.getText().toString(),
-                binding.cpLocationText.getText().toString(),
-                binding.cpDescriptionText.getText().toString(),
-                pickedDateTime.getTime());
-              partyController.createParty(this, party);
-              toastMsg(binding.cpNameText.getText().toString());
-              return true;
+
+                Log.d("date",txtDate.getText().toString());
+                Log.d("time", txtTime.getText().toString());
+
+                // Create Party and place in database
+                String name = binding.cpNameText.getText().toString();
+                String type = binding.cpPartyTypeTB.getText().toString();
+                String location = binding.cpLocationText.getText().toString();
+                String description = binding.cpDescriptionText.getText().toString();
+                Date time = pickedDateTime.getTime();
+
+                Party party = new Party(name, type, location, description, time);
+                partyController.createParty(this, party);
+
+
+                toastMsg(binding.cpNameText.getText().toString());
+
+                // Send data back
+                Intent intent = new Intent();
+                intent.putExtra("name", name);
+                intent.putExtra("type", type);
+                intent.putExtra("location", location);
+                intent.putExtra("description", description);
+                intent.putExtra("date", String.valueOf(time));
+                setResult(RESULT_OK, intent);
+                finish();
+
+
+                return true;
 
             default:
                 return super.onOptionsItemSelected(item);

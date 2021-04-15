@@ -20,6 +20,7 @@ public class Party implements Parcelable {
   private ArrayList<Task> tasks = new ArrayList<>();
   private ArrayList<User> guests;
   private String ownerID;
+
   public Party(){}
 
   public Party(String name, String type, String location, String des, Date startAt){
