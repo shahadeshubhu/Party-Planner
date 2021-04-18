@@ -140,6 +140,8 @@ public class LoginActivity extends AppCompatActivity {
      */
     public void forgotPWClick(View view) {
         toastMsg("Forgot Password");
+        Intent intent = new Intent(this, ForgotPasswordActivity.class);
+        startActivity(intent);
     }
 
     /**
