@@ -76,5 +76,6 @@
     <string name="hostName">Host Name</string>
     <string name="accept">Accept</string>
     <string name="decline">Decline</string>
+    <string name="forgot_password">Forgot password</string>
 
 </resources>
