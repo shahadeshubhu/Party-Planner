@@ -28,6 +28,7 @@ import com.sjsu.partyplanner.databinding.ActivityCreatePartyBinding;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class CreatePartyActivity extends AppCompatActivity implements View.OnClickListener {
     public static final int VIEW_CODE = 1;
@@ -39,7 +40,7 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
     private Party party;
     private Calendar pickedDateTime;
     protected ActivityCreatePartyBinding binding;
-
+    public Party createdParty;
     // Autocomplete suggestions:
     private static final String[] PARTY_TYPES = new String[] {
             "Birthday Party", "Graduation Party", "Anniversary Party", "Christmas Party", "Easter Party", "Thanksgiving Party", "Costume Party",
@@ -70,19 +71,23 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.cpCheck:
-                // TODO Create a Party Object and put it into the database.
               Log.d("date", txtDate.getText().toString());
               Log.d("time", txtTime.getText().toString());
-              Party party = new Party(
-                binding.cpNameText.getText().toString(),
-                binding.cpPartyTypeTB.getText().toString(),
-                binding.cpLocationText.getText().toString(),
-                binding.cpDescriptionText.getText().toString(),
-                pickedDateTime.getTime());
-              partyController.createParty(this, party);
-              toastMsg(binding.cpNameText.getText().toString());
-              return true;
-
+                if(pickedDateTime.getTime().compareTo(new Date())<= 0){
+                    toastMsg("Date and Time is invalid");
+                    // TODO: Flag the date and time field
+                    return false;
+                }else {
+                    createdParty = new Party(
+                            binding.cpNameText.getText().toString(),
+                            binding.cpPartyTypeTB.getText().toString(),
+                            binding.cpLocationText.getText().toString(),
+                            binding.cpDescriptionText.getText().toString(),
+                            pickedDateTime.getTime());
+                    partyController.createParty(this, createdParty);
+                    toastMsg(binding.cpNameText.getText().toString());
+                    return true;
+                }
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -104,7 +109,7 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
 
     public void addClick(View view) {
         if (view == findViewById(R.id.cpGuestButton)) {
-            UserController.getAllUsers(this);
+            UserController.getAllUsers();
             //TODO Send to Invite Guests Page
             toastMsg("Invite Guests");
         }
@@ -115,6 +120,9 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
 
 
   public void handleSuccess(){
+      Intent intent = new Intent();
+      intent.putExtra("newParty", createdParty);
+      setResult(RESULT_OK, intent);
       finish();
     //TODO: reload the party list to get update party
   }
@@ -122,9 +130,6 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
   public void handleFailure(){
     //    TODO: Display error message
   }
-
-
-
 
 
 

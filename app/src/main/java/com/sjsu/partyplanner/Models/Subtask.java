@@ -40,7 +40,6 @@ public class Subtask implements Parcelable {
     public int describeContents() {
         return 0;
     }
-
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(name);
@@ -78,7 +77,4 @@ public class Subtask implements Parcelable {
             subtaskStatus = STATUS.COMPLETE;
         }
     }
-
-
-
 }
