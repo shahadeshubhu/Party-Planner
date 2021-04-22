@@ -27,6 +27,7 @@ import com.sjsu.partyplanner.Models.User;
 import com.sjsu.partyplanner.Activities.Users.RegistrationActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class UserController {
 
@@ -155,14 +156,18 @@ public class UserController {
             }
         });
     }
+
+
     //TODO: INVITe PArty guests activity will query this method to get all register list.
-    public static void getAllUsers(){
+    public static ArrayList<User> getAllUsers(){
+        ArrayList<User> allGuests = new ArrayList<>();
         String ownerId = currentUser.getUid();
+
         db.collection(ASSOCIATE_DB_NAME).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    ArrayList<User> allGuests = new ArrayList<>();
+
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         if(!document.getId().equals(ownerId)) {
                             User u = document.toObject(User.class);
@@ -177,6 +182,8 @@ public class UserController {
                 }
             }
         });
+
+        return allGuests;
     }
 
 

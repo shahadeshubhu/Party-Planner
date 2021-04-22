@@ -23,11 +23,13 @@ import com.sjsu.partyplanner.Activities.Tasks.CreateTaskActivity;
 import com.sjsu.partyplanner.Activities.Tasks.TaskListActivity;
 import com.sjsu.partyplanner.Controllers.PartyController;
 import com.sjsu.partyplanner.Controllers.UserController;
+import com.sjsu.partyplanner.GuestListActivity;
 import com.sjsu.partyplanner.Models.Party;
 import com.sjsu.partyplanner.Models.Task;
 import com.sjsu.partyplanner.R;
 import com.sjsu.partyplanner.databinding.ActivityCreatePartyBinding;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -113,8 +115,7 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
     public void addClick(View view) {
         if (view == findViewById(R.id.cpGuestButton)) {
             UserController.getAllUsers();
-            //TODO Send to Invite Guests Page
-            toastMsg("Invite Guests");
+            startActivityForResult(new Intent(this, GuestListActivity.class), VIEW_CODE);
         }
         else if (view == findViewById(R.id.cpTaskButton)) {
             startActivityForResult(new Intent(this, TaskListActivity.class), VIEW_CODE);

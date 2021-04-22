@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PartyPlanner">
         <activity android:name=".Activities.Users.ForgotPasswordActivity"/>
-        <activity android:name=".Activities.Budget.BudgetActivity"></activity>
+        <activity android:name=".GuestListActivity"></activity>
+        <activity android:name=".Activities.Budget.BudgetActivity" />
         <activity android:name=".Activities.Contacts.ContactsActivity" />
         <activity android:name=".EditTaskActivity" />
         <activity android:name=".EditPartyActivity" />
