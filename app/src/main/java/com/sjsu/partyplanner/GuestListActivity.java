@@ -33,7 +33,6 @@ public class GuestListActivity extends AppCompatActivity {
             "ListView ITEM-8",
             "ListView ITEM-9",
             "ListView ITEM-10"
-
     };
 
     private ArrayList<User> userList = new ArrayList<User>();
@@ -97,13 +96,14 @@ public class GuestListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle("Create Party");
+        getSupportActionBar().setTitle("Add Guests");
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View view) {
 
                  //TODO: CREATE LIST OF GUESTS
                  // MATCH userList and invitedGuestList
+                 // Pass back array of userIDs
 
 
                  finish();
