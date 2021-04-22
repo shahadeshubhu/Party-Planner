@@ -45,7 +45,7 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
     private Party party;
     private Calendar pickedDateTime;
     protected ActivityCreatePartyBinding binding;
-    public Party createdParty;
+
     // Autocomplete suggestions:
     private static final String[] PARTY_TYPES = new String[] {
             "Birthday Party", "Graduation Party", "Anniversary Party", "Christmas Party", "Easter Party", "Thanksgiving Party", "Costume Party",
@@ -76,23 +76,38 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.cpCheck:
-              Log.d("date", txtDate.getText().toString());
-              Log.d("time", txtTime.getText().toString());
-                if(pickedDateTime.getTime().compareTo(new Date())<= 0){
-                    toastMsg("Date and Time is invalid");
-                    // TODO: Flag the date and time field
-                    return false;
-                }else {
-                    createdParty = new Party(
-                            binding.cpNameText.getText().toString(),
-                            binding.cpPartyTypeTB.getText().toString(),
-                            binding.cpLocationText.getText().toString(),
-                            binding.cpDescriptionText.getText().toString(),
-                            pickedDateTime.getTime());
-                    partyController.createParty(this, createdParty);
-                    toastMsg(binding.cpNameText.getText().toString());
-                    return true;
-                }
+
+                // TODO Create a Party Object and put it into the database.
+
+                Log.d("date",txtDate.getText().toString());
+                Log.d("time", txtTime.getText().toString());
+
+                // Create Party and place in database
+                String name = binding.cpNameText.getText().toString();
+                String type = binding.cpPartyTypeTB.getText().toString();
+                String location = binding.cpLocationText.getText().toString();
+                String description = binding.cpDescriptionText.getText().toString();
+                Date time = pickedDateTime.getTime();
+
+                Party party = new Party(name, type, location, description, time);
+                partyController.createParty(this, party);
+
+
+                toastMsg(binding.cpNameText.getText().toString());
+
+                // Send data back
+                Intent intent = new Intent();
+                intent.putExtra("name", name);
+                intent.putExtra("type", type);
+                intent.putExtra("location", location);
+                intent.putExtra("description", description);
+                intent.putExtra("date", String.valueOf(time));
+                setResult(RESULT_OK, intent);
+                finish();
+
+
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -124,9 +139,6 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
 
 
   public void handleSuccess(){
-      Intent intent = new Intent();
-      intent.putExtra("newParty", createdParty);
-      setResult(RESULT_OK, intent);
       finish();
     //TODO: reload the party list to get update party
   }

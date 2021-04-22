@@ -51,17 +51,21 @@ public class PartiesFragment extends Fragment implements PartyAdapter.PartyClick
 
     }
 
-
     @Override
-    public void onResume() {
+    public void onResume(){
         super.onResume();
+
+        parties = new ArrayList<>();
         Bundle extras = this.getArguments();
         if (extras != null) {
             parties = extras.getParcelableArrayList("key");
             Log.d("parties in Frag", ""+ parties);
         }
 
+        //pAdapter.notifyDataSetChanged();
+
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

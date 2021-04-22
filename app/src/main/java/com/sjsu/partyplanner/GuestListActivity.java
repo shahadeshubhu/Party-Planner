@@ -33,6 +33,7 @@ public class GuestListActivity extends AppCompatActivity {
             "ListView ITEM-8",
             "ListView ITEM-9",
             "ListView ITEM-10"
+
     };
 
     private ArrayList<User> userList = new ArrayList<User>();
