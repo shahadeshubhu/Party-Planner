@@ -5,14 +5,14 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.sjsu.partyplanner.EditPartyActivity;
+import com.sjsu.partyplanner.Activities.Tasks.TaskListActivity;
 import com.sjsu.partyplanner.Models.Party;
 import com.sjsu.partyplanner.R;
 
@@ -20,7 +20,8 @@ public class PartyDetailActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
 
-    private String partyID;
+    private Party party;
+
     private TextView name;
     private TextView type;
     private TextView description;
@@ -35,23 +36,24 @@ public class PartyDetailActivity extends AppCompatActivity {
         // Toolbar, TextView
         setUpToolbar();
         setTV();
-
-
-
     }
 
 
     // onClick method for buttons
     public void onClick(View v) {
-        //TODO: implement buttons
-
         // Task List Button OnClick
         if(v == findViewById(R.id.pdTaskButton)) {
-
+            Intent intent = new Intent(this, TaskListActivity.class);
+            intent.putExtra("partyInfo", party);
+            startActivity(intent);
         }
         // Guest List Button OnClick
         else if (v == findViewById(R.id.pdGuestButton)) {
+            Intent intent = new Intent(this, GuestListActivity.class);
 
+            // TODO: SEND GUEST LIST: an ArrayList<User>
+
+            startActivity(intent);
         }
     }
 
@@ -68,15 +70,18 @@ public class PartyDetailActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.emEdit:
-                startActivity(new Intent(this, EditPartyActivity.class));
+
+                toastMsg("Edit Button");
+
+                Intent intent = new Intent(this, EditPartyActivity.class);
+                intent.putExtra("partyInfo", party);
+                startActivity(intent);
                 return true;
 
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
-
-
 
     // Sets up Toolbar
     private void setUpToolbar() {
@@ -96,16 +101,17 @@ public class PartyDetailActivity extends AppCompatActivity {
         location = findViewById(R.id.id_locationText);
         dateTime = findViewById(R.id.id_dateTimeText);
 
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
+        party = getIntent().getParcelableExtra("party");
+        name.setText(party.getName());
+        type.setText(party.getType());
+        description.setText(party.getDescription());
+        location.setText(party.getAddress());
+        dateTime.setText((party.getDate()).toString());
 
-            partyID = extras.getString("id");
-            name.setText(extras.getString("name"));
-            type.setText(extras.getString("type"));
-            location.setText(extras.getString("location"));
-            dateTime.setText(extras.getString("datetime"));
-            description.setText(extras.getString("description"));
+    }
 
-        }
+    public void toastMsg(String msg) {
+        Toast toast = Toast.makeText(this, msg, Toast.LENGTH_LONG);
+        toast.show();
     }
 }

@@ -14,7 +14,6 @@ public class Task implements Parcelable {
     private String taskCategory;
     private String note;
     private ArrayList<Subtask> subtasks;
-//    private String partyID;
     private STATUS taskStatus;
     private int completedSubtasks;
 
@@ -26,7 +25,6 @@ public class Task implements Parcelable {
         this.note = note;
         this.taskCategory = taskCategory;
         this.subtasks = subtasks;
-//        this.partyID = partyID;
         this.taskStatus = getTaskStatus();
     }
 
@@ -39,7 +37,6 @@ public class Task implements Parcelable {
         completedSubtasks = in.readInt();
         subtasks = new ArrayList<Subtask>();
         in.readTypedList(subtasks , Subtask.CREATOR);
-
     }
 
     @Override

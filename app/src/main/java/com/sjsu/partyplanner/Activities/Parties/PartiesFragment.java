@@ -93,16 +93,9 @@ public class PartiesFragment extends Fragment implements PartyAdapter.PartyClick
      */
     @Override
     public void onPartyClick(View v, int position) {
-
         Party party = parties.get(position);
-
         Intent intent = new Intent(getContext(), PartyDetailActivity.class);
-        intent.putExtra("name", party.getName());
-        intent.putExtra("type", party.getType());
-        intent.putExtra("location", party.getAddress());
-        intent.putExtra("datetime", (party.getDate()).toString());
-        intent.putExtra("description", party.getDescription());
-
+        intent.putExtra("party", party);
         startActivity(intent);
     }
 

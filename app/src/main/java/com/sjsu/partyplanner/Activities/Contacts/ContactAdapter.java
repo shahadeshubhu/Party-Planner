@@ -21,14 +21,11 @@ import java.util.ArrayList;
 
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHolder>{
 
-    private Context mContext;
     private ArrayList<User> contacts;
     private ContactAdapter.ContactClick listener;
-    private Dialog myDialog;
 
     // Constructor
     public ContactAdapter(ArrayList<User> contacts, ContactAdapter.ContactClick listener) {
-        //this.mContext = mContext;
         this.contacts = contacts;
         this.listener = listener;
     }
@@ -36,7 +33,6 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.contact_layout, parent, false);
         return new ContactAdapter.ViewHolder(view, listener);
@@ -44,11 +40,9 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
         final User contact = contacts.get(position);
         holder.cName.setText(contact.getName());
         holder.cEmail.setText(contact.getEmail());
-
     }
 
     @Override

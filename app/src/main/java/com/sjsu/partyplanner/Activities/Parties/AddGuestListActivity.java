@@ -1,4 +1,4 @@
-package com.sjsu.partyplanner;
+package com.sjsu.partyplanner.Activities.Parties;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -14,10 +14,12 @@ import android.widget.ListView;
 import android.widget.Toast;
 import com.sjsu.partyplanner.Controllers.UserController;
 import com.sjsu.partyplanner.Models.User;
+import com.sjsu.partyplanner.R;
+
 import java.util.ArrayList;
 
 
-public class GuestListActivity extends AppCompatActivity {
+public class AddGuestListActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private ListView listview ;
@@ -33,7 +35,6 @@ public class GuestListActivity extends AppCompatActivity {
             "ListView ITEM-8",
             "ListView ITEM-9",
             "ListView ITEM-10"
-
     };
 
     private ArrayList<User> userList = new ArrayList<User>();
@@ -42,7 +43,7 @@ public class GuestListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_guest_list);
+        setContentView(R.layout.activity_add_guest_list);
 
         setUpList();
         setUpToolbar();
@@ -62,7 +63,7 @@ public class GuestListActivity extends AppCompatActivity {
     // Sets up List View
     public void setUpListView() {
         listview = (ListView)findViewById(R.id.glistView);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String> (GuestListActivity.this, R.layout.guest_layout, ListViewItems );
+        ArrayAdapter<String> adapter = new ArrayAdapter<String> (AddGuestListActivity.this, R.layout.guest_layout, ListViewItems );
 
         listview.setAdapter(adapter);
 
@@ -71,24 +72,30 @@ public class GuestListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 sparseBooleanArray = listview.getCheckedItemPositions();
+
+                // GET RID OF THIS CODE WHEN WE CONFIRM IT WORKS
+                /*
                 String ValueHolder = "" ;
                 int i = 0 ;
-
                 while (i < sparseBooleanArray.size()) {
                     if (sparseBooleanArray.valueAt(i)) {
                         ValueHolder += ListViewItems [ sparseBooleanArray.keyAt(i) ] + ",";
                     }
                     i++ ;
                 }
-
                 ValueHolder = ValueHolder.replaceAll("(,)*$", "");
-
-
-
-                Toast.makeText(GuestListActivity.this, "ListView Selected Values = " + ValueHolder, Toast.LENGTH_LONG).show();
+                Toast.makeText(AddGuestListActivity.this, "ListView Selected Values = " + ValueHolder, Toast.LENGTH_LONG).show();
+                 */
 
             }
         });
+    }
+
+
+
+    public void toastMsg(String msg) {
+        Toast toast = Toast.makeText(this, msg, Toast.LENGTH_LONG);
+        toast.show();
     }
 
     // Sets up Toolbar
@@ -102,9 +109,21 @@ public class GuestListActivity extends AppCompatActivity {
              @Override
              public void onClick(View view) {
 
-                 //TODO: CREATE LIST OF GUESTS
-                 // MATCH userList and invitedGuestList
-                 // Pass back array of userIDs
+                 //TODO: Somehow get the Party object and call the method on it - Party.setGuests()
+
+                 /*
+                 ArrayList<User> guestList = new ArrayList<User>();
+                 for (User user : userList) {
+                     int i = 0;
+                    while (i < sparseBooleanArray.size()) {
+                        if(sparseBooleanArray.valueAt(i) && ListViewItems [sparseBooleanArray.keyAt(i)] == user.getName()) {
+                            guestList.add(user);
+                        }
+                     }
+                 }
+                 */
+
+
 
 
                  finish();

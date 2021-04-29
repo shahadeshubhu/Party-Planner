@@ -1,4 +1,4 @@
-package com.sjsu.partyplanner.Activities.Contacts;
+package com.sjsu.partyplanner.Activities.Parties;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -7,43 +7,35 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
-import com.sjsu.partyplanner.Activities.Tasks.SubtaskDialog;
+import com.sjsu.partyplanner.Activities.Contacts.ContactAdapter;
+import com.sjsu.partyplanner.Activities.Contacts.ContactDialog;
 import com.sjsu.partyplanner.Models.User;
 import com.sjsu.partyplanner.R;
-import com.sjsu.partyplanner.databinding.ActivityContactsListBinding;
+import com.sjsu.partyplanner.databinding.ActivityGuestListBinding;
 
 import java.util.ArrayList;
 
-public class ContactsActivity extends AppCompatActivity implements ContactAdapter.ContactClick {
+public class GuestListActivity extends AppCompatActivity implements ContactAdapter.ContactClick {
 
-    private ActivityContactsListBinding binding;
+    private ActivityGuestListBinding binding;
     private Toolbar toolbar;
-    private ArrayList<User> contacts = new ArrayList<User>();
+    private ArrayList<User> guestList = new ArrayList<User>();
     private Dialog myDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityContactsListBinding.inflate(getLayoutInflater());
+        binding = ActivityGuestListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
-        contacts.add(new User("firstName", "lastName", "email"));
+        //TODO: Get Guest List of party from party details activity
+        guestList.add(new User("firstName", "lastName", "email"));
 
         // Toolbar, RecyclerView
         setUpToolbar();
         setUpRecycler();
-
-        // Gets rid of extra text
-        if(contacts.size() > 0) {
-            binding.noContactsCL.setText("");
-        }
     }
 
     // Sets up Toolbar
@@ -52,41 +44,19 @@ public class ContactsActivity extends AppCompatActivity implements ContactAdapte
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle("Contacts List");
+        getSupportActionBar().setTitle("Guest List");
         toolbar.setNavigationOnClickListener(v -> finish());        // Closes Activity
-    }
-
-    // Adds Icons to Toolbar (other than back button)
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.add_menu, menu);
-        return true;
-    }
-
-    // Handles Menu Items on Toolbar
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.clAdd:
-                //TODO: ADD NEW CONTACT
-
-
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
     // Sets up Recycler
     private void setUpRecycler() {
-        binding.contactRecycler.setHasFixedSize(true);
+        binding.guestListRV.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        binding.contactRecycler.setLayoutManager(layoutManager);
+        binding.guestListRV.setLayoutManager(layoutManager);
 
-        ContactAdapter ca = new ContactAdapter(contacts, this);
+        ContactAdapter ca = new ContactAdapter(guestList, this);
         RecyclerView.Adapter<ContactAdapter.ViewHolder> mAdapter = ca;
-        binding.contactRecycler.setAdapter(mAdapter);
+        binding.guestListRV.setAdapter(mAdapter);
     }
 
     // onClick on RecyclerView Item
@@ -95,7 +65,7 @@ public class ContactsActivity extends AppCompatActivity implements ContactAdapte
         myDialog = new Dialog(getApplicationContext());
         myDialog.setContentView(R.layout.dialog_contact);
 
-        final User contact = contacts.get(position);
+        final User contact = guestList.get(position);
         openDialog(contact.getName(), contact.getEmail());
     }
 

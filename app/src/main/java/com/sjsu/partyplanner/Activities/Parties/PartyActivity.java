@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -15,6 +18,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
+import com.sjsu.partyplanner.Activities.Tasks.CreateTaskActivity;
 import com.sjsu.partyplanner.Controllers.PartyController;
 import com.sjsu.partyplanner.Models.Party;
 import com.sjsu.partyplanner.R;
@@ -42,9 +46,7 @@ public class PartyActivity extends AppCompatActivity {
 
         p = new PartyController();
         // TODO: gets error when there are no parties
-
         p.getParties(this);
-
     }
 
     @Override
@@ -108,12 +110,6 @@ public class PartyActivity extends AppCompatActivity {
             //TODO: display some error message
         }
         initializeTabLayout();
-    }
-
-
-    // onClick Method: Create Party
-    public void createParty (View view) {
-        startActivity(new Intent(this, CreatePartyActivity.class));
     }
 
     // Initialize TabLayout
@@ -203,6 +199,26 @@ public class PartyActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Parties");
         toolbar.setNavigationOnClickListener(v -> finish());    // Goes back to Dashboard
+    }
+
+    // Adds Icons to Toolbar (other than back button)
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.add_menu, menu);
+        return true;
+    }
+
+    // Handles Menu Items on Toolbar
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.clAdd:
+                startActivity(new Intent(this, CreatePartyActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 }

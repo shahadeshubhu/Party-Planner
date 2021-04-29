@@ -61,17 +61,5 @@
 
     </androidx.viewpager.widget.ViewPager>
 
-    <ImageView
-        android:id="@+id/addPartyButton"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:onClick="createParty"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/partiesViewPager"
-        app:srcCompat="@drawable/add_party" />
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

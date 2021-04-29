@@ -2,6 +2,9 @@ package com.sjsu.partyplanner.Activities.Tasks;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,26 +39,9 @@ public class TaskListActivity extends AppCompatActivity implements TaskAdapter.T
         taskList = new ArrayList<Task>();
 
         // ------Testing Task List
-
-        // Not Started Example
         ArrayList<Subtask> st = new ArrayList<Subtask>();
-        st.add(new Subtask("Suntasdf"));
-
-        // Pending Example
-        ArrayList<Subtask> subtasks = new ArrayList<Subtask>();
-        Subtask s1 = new Subtask("Suntasdf");
-        s1.changeStatus();      // Completed subtask
-        subtasks.add(s1);
-        subtasks.add(new Subtask("Suntaasdfsdf"));
-
-        // Complete Example
-        ArrayList<Subtask> subtask2 = new ArrayList<Subtask>();
-
-
-        taskList.add(new Task("TaskName", "category", "note", st));
-//        taskList.add(new Task("IPD", "dsfaf", "sda","note", subtasks, "dsdsd"));
-//        taskList.add(new Task("TASKID", "nane", "gorew","note", subtask2, "idparty"));
-
+        st.add(new Subtask("stname"));
+        taskList.add(new Task("name", "categorty", "note", st));
 
         //Recycler
         setUpRecycler();
@@ -80,14 +66,6 @@ public class TaskListActivity extends AppCompatActivity implements TaskAdapter.T
         binding.tasklistRecycler.setAdapter(mAdapter);
     }
 
-    /**
-     * Starts 'Create Task' activity
-     * @param v
-     */
-    public void createTasks (View v) {
-        startActivity(new Intent(this, CreateTaskActivity.class));
-    }
-
     // Sets up Toolbar
     private void setUpToolbar() {
         toolbar = findViewById(R.id.toolbar);
@@ -96,6 +74,26 @@ public class TaskListActivity extends AppCompatActivity implements TaskAdapter.T
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Task List");
         toolbar.setNavigationOnClickListener(v -> finish());        // Closes Activity
+    }
+
+    // Adds Icons to Toolbar (other than back button)
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.add_menu, menu);
+        return true;
+    }
+
+    // Handles Menu Items on Toolbar
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.clAdd:
+                startActivity(new Intent(this, CreateTaskActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     /**
@@ -110,12 +108,18 @@ public class TaskListActivity extends AppCompatActivity implements TaskAdapter.T
 
         Task task = taskList.get(position);
         Intent intent = new Intent(getApplicationContext(), TaskDetailActivity.class);
+
+        // TODO: For some reason, it thinks I am sending a party, not a task object
+        /*
+        intent.putExtra("task", task);
+         */
         intent.putExtra("id", task.getTaskID());
         intent.putExtra("name", task.getName());
         intent.putExtra("category", task.getTaskCategory());
         intent.putExtra("note", task.getNote());
         intent.putExtra("status", task.getStatus());
         intent.putExtra("statusColor", status.getCurrentTextColor());
+        intent.putExtra("subtasks", task.getSubtasks());
 
         intent.putExtra("completed", task.getCompletedSubtasks());
         intent.putExtra("total", task.getTotalSubtasks());
