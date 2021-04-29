@@ -20,7 +20,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.sjsu.partyplanner.Controllers.PartyController;
-import com.sjsu.partyplanner.Controllers.UserController;
 import com.sjsu.partyplanner.Models.Party;
 import com.sjsu.partyplanner.Models.Task;
 import com.sjsu.partyplanner.R;
@@ -99,9 +98,9 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
     {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == VIEW_CODE && resultCode == Activity.RESULT_OK) {
-            //ArrayList<Task> t = data.getParcelableArrayListExtra(TaskListActivity.TASKLIST_KEY);
+            //ArrayList<Task> t = data.getParcelableArrayListExtra(CreateTaskListActivity.TASKLIST_KEY);
             Bundle extras = data.getExtras();
-            ArrayList<Task> t = extras.getParcelableArrayList(TaskListActivity.TASKLIST_KEY);
+            ArrayList<Task> t = extras.getParcelableArrayList(CreateTaskListActivity.TASKLIST_KEY);
             Log.d("TASK!","Task name: \n"  + t.get(0));
             //party.addTask(t);
         }
@@ -113,10 +112,10 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
     public void addClick(View view) {
         if (view == findViewById(R.id.cpGuestButton)) {
             //UserController.getAllUsers();
-            startActivityForResult(new Intent(this, AddGuestListActivity.class), VIEW_CODE);
+            startActivityForResult(new Intent(this, CreateGuestListActivity.class), VIEW_CODE);
         }
         else if (view == findViewById(R.id.cpTaskButton)) {
-            startActivityForResult(new Intent(this, TaskListActivity.class), VIEW_CODE);
+            startActivityForResult(new Intent(this, CreateTaskListActivity.class), VIEW_CODE);
         }
     }
 

@@ -5,18 +5,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".Activities.Parties.TaskListActivity">
-
-        <ImageView
-            android:id="@+id/addPartyButton2"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:onClick="createTasks"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/add_party" />
+        tools:context=".Activities.Parties.CreateTaskListActivity">
 
         <TextView
             android:id="@+id/noTasksTL"

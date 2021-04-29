@@ -13,7 +13,7 @@
         android:theme="@style/Theme.PartyPlanner">
         <activity android:name=".Activities.Parties.GuestListActivity"></activity>
         <activity android:name=".Activities.Users.ForgotPasswordActivity" />
-        <activity android:name=".Activities.Parties.AddGuestListActivity" />
+        <activity android:name=".Activities.Parties.CreateGuestListActivity" />
         <activity android:name=".Activities.Budget.BudgetActivity" />
         <activity android:name=".Activities.Contacts.ContactsActivity" />
         <activity android:name=".Activities.Parties.EditTaskActivity" />
@@ -23,7 +23,7 @@
         <activity android:name=".Activities.Parties.PartyDetailActivity" />
         <activity android:name=".Activities.Parties.TaskDetailActivity" />
         <activity android:name=".Activities.Parties.CreateTaskActivity" />
-        <activity android:name=".Activities.Parties.TaskListActivity" />
+        <activity android:name=".Activities.Parties.CreateTaskListActivity" />
         <activity android:name=".Activities.Parties.CreatePartyActivity" />
         <activity android:name=".Activities.Parties.PartyActivity" />
         <activity android:name=".Activities.Dashboard.DashboardActivity" />

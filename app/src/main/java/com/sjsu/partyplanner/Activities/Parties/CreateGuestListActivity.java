@@ -19,7 +19,7 @@ import com.sjsu.partyplanner.R;
 import java.util.ArrayList;
 
 
-public class AddGuestListActivity extends AppCompatActivity {
+public class CreateGuestListActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private ListView listview ;
@@ -43,7 +43,7 @@ public class AddGuestListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_guest_list);
+        setContentView(R.layout.activity_create_guest_list);
 
         setUpList();
         setUpToolbar();
@@ -63,7 +63,7 @@ public class AddGuestListActivity extends AppCompatActivity {
     // Sets up List View
     public void setUpListView() {
         listview = (ListView)findViewById(R.id.glistView);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String> (AddGuestListActivity.this, R.layout.guest_layout, ListViewItems );
+        ArrayAdapter<String> adapter = new ArrayAdapter<String> (CreateGuestListActivity.this, R.layout.guest_layout, ListViewItems );
 
         listview.setAdapter(adapter);
 
@@ -84,7 +84,7 @@ public class AddGuestListActivity extends AppCompatActivity {
                     i++ ;
                 }
                 ValueHolder = ValueHolder.replaceAll("(,)*$", "");
-                Toast.makeText(AddGuestListActivity.this, "ListView Selected Values = " + ValueHolder, Toast.LENGTH_LONG).show();
+                Toast.makeText(CreateGuestListActivity.this, "ListView Selected Values = " + ValueHolder, Toast.LENGTH_LONG).show();
                  */
 
             }

@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.sjsu.partyplanner.Activities.Parties.TaskListActivity;
 import com.sjsu.partyplanner.Controllers.PartyController;
 import com.sjsu.partyplanner.Models.Party;
 import com.sjsu.partyplanner.R;
@@ -78,7 +77,7 @@ public class EditPartyActivity extends AppCompatActivity implements View.OnClick
         }
         else if (view == findViewById(R.id.cpTaskButton)) {
             //TODO: add tasks of the party in here!
-            startActivity(new Intent(this, TaskListActivity.class));
+            startActivity(new Intent(this, CreateTaskListActivity.class));
         }
     }
 

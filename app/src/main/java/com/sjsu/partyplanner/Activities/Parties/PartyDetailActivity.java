@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.sjsu.partyplanner.Activities.Parties.TaskListActivity;
 import com.sjsu.partyplanner.Models.Party;
 import com.sjsu.partyplanner.R;
 
@@ -43,7 +42,7 @@ public class PartyDetailActivity extends AppCompatActivity {
     public void onClick(View v) {
         // Task List Button OnClick
         if(v == findViewById(R.id.pdTaskButton)) {
-            Intent intent = new Intent(this, TaskListActivity.class);
+            Intent intent = new Intent(this, CreateTaskListActivity.class);
             intent.putExtra("partyInfo", party);
             startActivity(intent);
         }
