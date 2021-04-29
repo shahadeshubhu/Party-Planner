@@ -27,7 +27,8 @@ import com.sjsu.partyplanner.R;
 
 import java.util.ArrayList;
 
-public class CreateTaskActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, SubtaskAdapter.OnSubtaskListener, AddSubtaskDialog.AddSubtaskInterface {
+public class CreateTaskActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener,
+        SubtaskAdapter.OnSubtaskListener, AddSubtaskDialog.AddSubtaskInterface {
     public static final String TASK_KEY = "ABCDE";
     private Toolbar toolbar;
     private Spinner dropDown;

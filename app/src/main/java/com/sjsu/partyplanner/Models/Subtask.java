@@ -10,11 +10,6 @@ public class Subtask implements  Serializable {
     private String name;
     private STATUS subtaskStatus;
 
-    private enum STATUS {
-        PENDING,
-        COMPLETE
-    }
-
     // Constructor
     public Subtask(String name) {
         this.name = name;
@@ -78,9 +73,7 @@ public class Subtask implements  Serializable {
      */
     public void changeStatus() {
         if (subtaskStatus == STATUS.COMPLETE) { subtaskStatus = STATUS.PENDING; }
-        else {
-            subtaskStatus = STATUS.COMPLETE;
-        }
+        else { subtaskStatus = STATUS.COMPLETE; }
     }
 
 

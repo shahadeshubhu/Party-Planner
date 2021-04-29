@@ -2,25 +2,34 @@ package com.sjsu.partyplanner.Activities.Parties;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.sjsu.partyplanner.EditPartyActivity;
-import com.sjsu.partyplanner.EditTaskActivity;
+import com.sjsu.partyplanner.Models.Subtask;
 import com.sjsu.partyplanner.R;
 import com.sjsu.partyplanner.databinding.ActivityTaskDetailBinding;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class TaskDetailActivity extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class TaskDetailActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener,
+        SubtaskAdapter.OnSubtaskListener, AddSubtaskDialog.AddSubtaskInterface {
 
     private ActivityTaskDetailBinding binding;
     private Toolbar toolbar;
     private String taskID;
+    private ArrayList<Subtask> subtaskList;
+    RecyclerView.Adapter<SubtaskAdapter.ViewHolder> mAdapter;
 
     // Set Text doesn't work with databinding
     private TextView nameTV;
@@ -33,19 +42,46 @@ public class TaskDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         binding = ActivityTaskDetailBinding.inflate(getLayoutInflater());
-
-        //setContentView(R.layout.activity_task_detail);
         setContentView(binding.getRoot());
+        subtaskList = new ArrayList<Subtask>();
 
-
-
-        // Toolbar, TextViews
+        // Toolbar, TextViews, Button
         setUpToolbar();
         setTV();
+        setUpButton();
 
-        //TODO: user taskID to get the array of subtasks
+    }
 
-        //TODO: EDIT TASK FUNCTION
+    // Sets up button
+    public void setUpButton() {
+        // Set up button image
+        ImageView addSubtask = findViewById(R.id.tdAddSubtaskButton);
+        addSubtask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openDialog();
+            }
+        });
+    }
+
+    public void toastMsg(String msg) {
+        Toast toast = Toast.makeText(this, msg, Toast.LENGTH_LONG);
+        toast.show();
+    }
+
+    // Creates the add subtask dialog
+    public void openDialog() {
+        SubtaskDialog subtaskDialog = new SubtaskDialog();
+        subtaskDialog.show(getSupportFragmentManager(), "subtask dialog");
+    }
+
+    // Sets up the recycler
+    public void setUpRecycler() {
+        binding.tdRecycler.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        binding.tdRecycler.setLayoutManager(layoutManager);
+        mAdapter = new SubtaskAdapter(subtaskList, this);
+        binding.tdRecycler.setAdapter(mAdapter);
     }
 
     // Sets up Toolbar
@@ -65,15 +101,23 @@ public class TaskDetailActivity extends AppCompatActivity {
         categoryTV = findViewById(R.id.tdcategoryText);
         noteTV = findViewById(R.id.tdNoteText);
 
+        //TODO: Get Parcelable for Task
+        // NOT WORKING. For some reason, it thinks I am getting a Party object, not a task object.
+        /**
+         * task = getIntent().getParcelableExtra("task");
+         * subtaskList = task.getSubtasks();
+         * setUpRecyclerView();
+         */
+
         // Sets the values from the intent
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-
             taskID = extras.getString("id");
             nameTV.setText(extras.getString("name"));
             statusTV.setText(extras.getString("status"));
             categoryTV.setText(extras.getString("category"));
             noteTV.setText(extras.getString("note"));
+
 
             // Set Text Color
             int completed = extras.getInt("completed");
@@ -99,7 +143,11 @@ public class TaskDetailActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.emEdit:
-                startActivity(new Intent(this, EditTaskActivity.class));
+
+                toastMsg("Edit Task");
+
+
+                //startActivity(new Intent(this, EditTaskActivity.class));
                 return true;
 
             default:
@@ -107,4 +155,23 @@ public class TaskDetailActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+    @Override
+    public void getDialogText(String inputText) {
+
+    }
+
+    @Override
+    public void OnSubtaskClick(int position) {
+
+    }
 }

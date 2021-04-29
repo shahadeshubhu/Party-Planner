@@ -1,27 +1,29 @@
 package com.sjsu.partyplanner.Activities.Parties;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.sjsu.partyplanner.Controllers.PartyController;
-import com.sjsu.partyplanner.Controllers.UserController;
 import com.sjsu.partyplanner.Models.Party;
 import com.sjsu.partyplanner.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -33,32 +35,59 @@ public class PartyActivity extends AppCompatActivity {
     private ArrayList<Party> pastParties = new ArrayList<>();
     private ArrayList<Party> upParties = new ArrayList<>();
 
+    private PartyController p = new PartyController();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_party_page);
-
-        PartyController p = new PartyController();
-        p.getParties(this);
         setupToolbar();
+
+        p = new PartyController();
+        // TODO: gets error when there are no parties
+        p.getParties(this);
     }
 
-    // onClick Method: Create Party
-    public void createParty (View view) {
-        startActivityForResult(new Intent(this, CreatePartyActivity.class), 111);
+    @Override
+    public void onResume(){
+        super.onResume();
+        pastParties = new ArrayList<>();
+        upParties = new ArrayList<>();
+        p = new PartyController();
+        //p.getParties(this);       // Does not update, adds a second version of the list into it.
     }
 
+    // When Create Party Activity Finishes
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 111) {
+        if (requestCode == 1) {
             if(resultCode == RESULT_OK) {
-                Party newParty = data.getParcelableExtra("newParty");
-                upParties.add(newParty);
-                Log.d("return PArty\n", newParty.toString());
+                String strEditText = data.getStringExtra("editTextValue");
+
+                // TODO: DOesnt work!
+                String name = data.getStringExtra("name");
+                String type = data.getStringExtra("type");
+                String location = data.getStringExtra("location");
+                String description = data.getStringExtra("description");
+                String date = data.getStringExtra("date");
+
+                Date date1 = null;
+                try {
+                    date1 = new SimpleDateFormat("dd/MM/yyyy").parse(date);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                upParties.add(new Party(name, type, location, description, date1));
+
+                initializeTabLayout();
             }
         }
-        initializeTabLayout();
     }
+
+
+
+
 
     public void handleFetchParties(boolean isSuccessful, ArrayList<Party> p){
         Date now = new Date();
@@ -169,6 +198,26 @@ public class PartyActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Parties");
         toolbar.setNavigationOnClickListener(v -> finish());    // Goes back to Dashboard
+    }
+
+    // Adds Icons to Toolbar (other than back button)
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.add_menu, menu);
+        return true;
+    }
+
+    // Handles Menu Items on Toolbar
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.clAdd:
+                startActivity(new Intent(this, CreatePartyActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 }

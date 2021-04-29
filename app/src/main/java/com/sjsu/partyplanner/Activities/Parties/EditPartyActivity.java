@@ -1,4 +1,4 @@
-package com.sjsu.partyplanner;
+package com.sjsu.partyplanner.Activities.Parties;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -17,7 +17,9 @@ import android.widget.EditText;
 
 import com.sjsu.partyplanner.Activities.Parties.TaskListActivity;
 import com.sjsu.partyplanner.Controllers.PartyController;
-import com.sjsu.partyplanner.databinding.ActivityCreatePartyBinding;
+import com.sjsu.partyplanner.Models.Party;
+import com.sjsu.partyplanner.R;
+import com.sjsu.partyplanner.databinding.ActivityEditPartyBinding;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -30,8 +32,10 @@ public class EditPartyActivity extends AppCompatActivity implements View.OnClick
     private int mYear, mMonth, mDay, mHour, mMinute;
     private PartyController partyController;
 
+    private Party party;
+
     private Calendar pickedDateTime;
-    protected ActivityCreatePartyBinding binding;
+    protected ActivityEditPartyBinding binding;
 
     // Autocomplete suggestions:
     private static final String[] PARTY_TYPES = new String[] {
@@ -46,11 +50,20 @@ public class EditPartyActivity extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_party);
 
-        setUpToolbar();
         setupPickers();
+        setUpText();
+        setUpToolbar();
+    }
 
-        //TODO: input party data into the edit party
-        // Allow you to change it
+    // Set up existing information
+    private void setUpText() {
+        party = getIntent().getParcelableExtra("party");
+        binding.epNameText.setText(party.getName());
+        binding.epTypeText.setText(party.getType());
+        binding.epDescription.setText(party.getDescription());
+        binding.epLocationText.setText(party.getAddress());
+        //binding.dateTime.setText((party.getDate()).toString());
+
     }
 
 

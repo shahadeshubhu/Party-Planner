@@ -21,6 +21,7 @@ public class User implements Serializable {
   private String email;
   private ArrayList<String> parties;
   private ArrayList<String> invitation;
+  private ArrayList<String> contacts;
 
   public User(){};
 
@@ -29,6 +30,11 @@ public class User implements Serializable {
     this.lastName = lastName;
     this.email = email;
     this.parties = new ArrayList<>();
+  }
+
+  public String getName() {
+    return getFirstName() + " " + getLastName();
+
   }
 
   public String getFirstName() {
@@ -78,6 +84,14 @@ public class User implements Serializable {
 
   public ArrayList<String> getParties(){
     return parties;
+  }
+
+  public ArrayList<String> getContacts() {
+    return contacts;
+  }
+
+  public void setContacts(ArrayList<String> contacts) {
+    this.contacts = contacts;
   }
 
   @Override

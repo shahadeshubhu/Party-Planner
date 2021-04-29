@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EditPartyActivity">
+    tools:context=".Activities.Parties.EditPartyActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout2"
@@ -66,7 +66,7 @@
         app:layout_constraintTop_toBottomOf="@+id/epNameText" />
 
     <AutoCompleteTextView
-        android:id="@+id/cpPartyTypeTB"
+        android:id="@+id/epTypeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/partyType"
@@ -91,7 +91,7 @@
         android:textStyle="bold"
         android:fontFamily="@font/iceberg"
         app:layout_constraintStart_toStartOf="@+id/epType"
-        app:layout_constraintTop_toBottomOf="@+id/cpPartyTypeTB" />
+        app:layout_constraintTop_toBottomOf="@+id/epTypeText" />
 
     <EditText
         android:id="@+id/epLocationText"

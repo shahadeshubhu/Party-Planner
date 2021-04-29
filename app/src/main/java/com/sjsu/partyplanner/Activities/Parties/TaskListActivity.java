@@ -45,42 +45,15 @@ public class TaskListActivity extends AppCompatActivity implements TaskAdapter.T
 
         //TODO: get the input data of task list!
         taskList = new ArrayList<Task>();
-
         noTasksAvailable = binding.noTasksTL;
-
-        // ------Testing Task List
-
-        // Not Started Example
-        ArrayList<Subtask> st = new ArrayList<Subtask>();
-        st.add(new Subtask("Suntasdf"));
-
-        // Pending Example
-        ArrayList<Subtask> subtasks = new ArrayList<Subtask>();
-        Subtask s1 = new Subtask("Suntasdf");
-        s1.changeStatus();      // Completed subtask
-        subtasks.add(s1);
-        subtasks.add(new Subtask("Suntaasdfsdf"));
-
-        // Complete Example
-        ArrayList<Subtask> subtask2 = new ArrayList<Subtask>();
-
-//
-//        taskList.add(new Task("ID", "TaskName", "category", "note", st, "partyID"));
-//        taskList.add(new Task("IPD", "dsfaf", "sda","note", subtasks, "dsdsd"));
-//        taskList.add(new Task("TASKID", "nane", "gorew","note", subtask2, "idparty"));
-
-        // TESTING TASK LIST
-
-        //---------------ENd of To Do
 
         //Recycler
         setUpRecycler();
 
         // Gets rid of extra text
         if(taskList.size() > 0) {
-            binding.noTasksTL.setText("");
+            noTasksAvailable.setText("");
         }
-
     }
 
     /**

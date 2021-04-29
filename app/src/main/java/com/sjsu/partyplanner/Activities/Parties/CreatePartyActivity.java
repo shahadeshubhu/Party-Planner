@@ -112,11 +112,8 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
 
     public void addClick(View view) {
         if (view == findViewById(R.id.cpGuestButton)) {
-
-            UserController.getAllUsers();
-
-            //TODO Send to Invite Guests Page
-            toastMsg("Invite Guests");
+            //UserController.getAllUsers();
+            startActivityForResult(new Intent(this, AddGuestListActivity.class), VIEW_CODE);
         }
         else if (view == findViewById(R.id.cpTaskButton)) {
             startActivityForResult(new Intent(this, TaskListActivity.class), VIEW_CODE);
