@@ -53,6 +53,7 @@ public class CreateTaskActivity extends AppCompatActivity implements AdapterView
         subtaskList.add(new Subtask("222task"));
         subtaskList.add(new Subtask("333task"));
         subtaskList.add(new Subtask("444task"));
+        subtaskList.add(new Subtask("555task"));
 
        setUpRecycler();
     }

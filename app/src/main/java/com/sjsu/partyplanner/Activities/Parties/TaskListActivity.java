@@ -123,7 +123,7 @@ public class TaskListActivity extends AppCompatActivity implements TaskAdapter.T
 
                 taskList.add(data.getParcelableExtra(CreateTaskActivity.TASK_KEY));
                 setUpRecycler();
-                Log.d("Lolol", "onActivityResult: Successfully loaded task named: ");
+                Log.d("ActivityResult", "onActivityResult: Successfully loaded task named: ");
 
             }
         }
