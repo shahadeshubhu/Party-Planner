@@ -15,10 +15,12 @@ import java.util.ArrayList;
 public class SubtaskAdapter extends RecyclerView.Adapter<SubtaskAdapter.ViewHolder> {
 
     private ArrayList<Subtask> mSubtasks;
+    private OnSubtaskListener mOnSubtaskListener;
 
     // Constructore
-    public SubtaskAdapter(ArrayList<Subtask> mSubtasks) {
+    public SubtaskAdapter(ArrayList<Subtask> mSubtasks, OnSubtaskListener onSubtaskListener) {
         this.mSubtasks = mSubtasks;
+        this.mOnSubtaskListener = onSubtaskListener;
     }
 
     @NonNull
@@ -26,7 +28,7 @@ public class SubtaskAdapter extends RecyclerView.Adapter<SubtaskAdapter.ViewHold
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.subtask_row_layout, parent, false);
-        return new SubtaskAdapter.ViewHolder(view);
+        return new SubtaskAdapter.ViewHolder(view, mOnSubtaskListener);
     }
 
     @Override
@@ -53,11 +55,26 @@ public class SubtaskAdapter extends RecyclerView.Adapter<SubtaskAdapter.ViewHold
 
         private TextView stName;
         private ImageView stStatus;
-
-        public ViewHolder(@NonNull View itemView) {
+        private OnSubtaskListener onSubtaskListener;
+        public ViewHolder(@NonNull View itemView, OnSubtaskListener onSubtaskListener) {
             super(itemView);
             stName = itemView.findViewById(R.id.stNameTextLayout);
             stStatus = itemView.findViewById(R.id.subtaskStatusLayout);
+            this.onSubtaskListener = onSubtaskListener;
+
+            stStatus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    onSubtaskListener.OnSubtaskClick(getAdapterPosition());
+
+                }
+            });
         }
+    }
+
+    public interface OnSubtaskListener
+    {
+        public void OnSubtaskClick(int position);
     }
 }

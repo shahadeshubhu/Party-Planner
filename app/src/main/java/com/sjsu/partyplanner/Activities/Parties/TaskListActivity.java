@@ -27,7 +27,9 @@ public class TaskListActivity extends AppCompatActivity implements TaskAdapter.T
     public static final int TEXT_REQUEST = 500;
     public static final String TASKLIST_KEY = "TASKLISTd";
     private static final String TAG = "In Task List Activity";
+    private TextView noTasksAvailable;
     private  ActivityTaskListBinding binding;
+    private RecyclerView.Adapter<TaskAdapter.ViewHolder> mAdapter;
     private Toolbar toolbar;
     private ArrayList<Task> taskList;
 
@@ -43,6 +45,8 @@ public class TaskListActivity extends AppCompatActivity implements TaskAdapter.T
 
         //TODO: get the input data of task list!
         taskList = new ArrayList<Task>();
+
+        noTasksAvailable = binding.noTasksTL;
 
         // ------Testing Task List
 
@@ -88,7 +92,7 @@ public class TaskListActivity extends AppCompatActivity implements TaskAdapter.T
         binding.tasklistRecycler.setLayoutManager(layoutManager);
 
         TaskAdapter ta = new TaskAdapter(taskList, this);
-        RecyclerView.Adapter<TaskAdapter.ViewHolder> mAdapter = ta;
+        mAdapter = ta;
         binding.tasklistRecycler.setAdapter(mAdapter);
     }
 
@@ -123,6 +127,8 @@ public class TaskListActivity extends AppCompatActivity implements TaskAdapter.T
 
                 taskList.add(data.getParcelableExtra(CreateTaskActivity.TASK_KEY));
                 setUpRecycler();
+                //mAdapter.notifyItemInserted(taskList.size() -1);
+                noTasksAvailable.setVisibility(View.INVISIBLE);
                 Log.d("ActivityResult", "onActivityResult: Successfully loaded task named: ");
 
             }

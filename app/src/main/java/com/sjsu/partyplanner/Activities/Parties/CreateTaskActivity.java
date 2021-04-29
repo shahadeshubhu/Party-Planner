@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -26,20 +27,21 @@ import com.sjsu.partyplanner.R;
 
 import java.util.ArrayList;
 
-public class CreateTaskActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class CreateTaskActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, SubtaskAdapter.OnSubtaskListener, AddSubtaskDialog.AddSubtaskInterface {
     public static final String TASK_KEY = "ABCDE";
     private Toolbar toolbar;
     private Spinner dropDown;
     private String taskCategory;
-
     private ActivityCreateTaskBinding binding;
     private ArrayList<Subtask> subtaskList;
+    private RecyclerView.Adapter<SubtaskAdapter.ViewHolder> mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityCreateTaskBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
 
         // Toolbar, Dropdown
         setUpToolbar();
@@ -65,7 +67,7 @@ public class CreateTaskActivity extends AppCompatActivity implements AdapterView
         binding.etRecycler.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         binding.etRecycler.setLayoutManager(layoutManager);
-        RecyclerView.Adapter<SubtaskAdapter.ViewHolder> mAdapter = new SubtaskAdapter(subtaskList);
+        mAdapter = new SubtaskAdapter(subtaskList, this);
         binding.etRecycler.setAdapter(mAdapter);
     }
 
@@ -133,5 +135,28 @@ public class CreateTaskActivity extends AppCompatActivity implements AdapterView
     public void toastMsg(String msg) {
         Toast toast = Toast.makeText(this, msg, Toast.LENGTH_LONG);
         toast.show();
+    }
+
+    public void addSubTask(View view)
+    {
+        AddSubtaskDialog addSubtaskDialog = new AddSubtaskDialog();
+        addSubtaskDialog.show(getSupportFragmentManager(), "test custom dialog");
+    }
+    @Override
+    public void OnSubtaskClick(int position) {
+
+        subtaskList.get(position).changeStatus();
+        mAdapter.notifyItemChanged(position);
+
+
+    }
+
+    @Override
+    public void getDialogText(String inputText) {
+        if (!inputText.isEmpty())
+        {
+            subtaskList.add(new Subtask(inputText));
+            mAdapter.notifyItemInserted(subtaskList.size() -1);
+        }
     }
 }
