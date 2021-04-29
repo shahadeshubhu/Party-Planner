@@ -45,7 +45,19 @@ public class PartyActivity extends AppCompatActivity {
 
     // onClick Method: Create Party
     public void createParty (View view) {
-        startActivity(new Intent(this, CreatePartyActivity.class));
+        startActivityForResult(new Intent(this, CreatePartyActivity.class), 111);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 111) {
+            if(resultCode == RESULT_OK) {
+                Party newParty = data.getParcelableExtra("newParty");
+                upParties.add(newParty);
+                Log.d("return PArty\n", newParty.toString());
+            }
+        }
+        initializeTabLayout();
     }
 
     public void handleFetchParties(boolean isSuccessful, ArrayList<Party> p){
@@ -55,7 +67,7 @@ public class PartyActivity extends AppCompatActivity {
         if (isSuccessful){
             allParties = p;
             for(Party party : allParties){
-                if(party.getDate().compareTo(now) < 0) {
+                if(party != null && party.getDate().compareTo(now) < 0) {
                     pastParties.add(party);
                 }else{
                     upParties.add(party);
@@ -128,14 +140,6 @@ public class PartyActivity extends AppCompatActivity {
 
                     return upFrag;
                 case 1:
-
-
-                    // TEMP PARTYIES
-//                    ArrayList<Party> pastParties = new ArrayList<Party>();
-//                    pastParties.add(new Party("O Pname", "PType", "PLocation", "PDescription", new Date()));
-//                    pastParties.add(new Party("O Pname2", "PType2", "PLocation", "PDescription", new Date()));
-//                    pastParties.add(new Party("O Pname3", "PType3", "PLocation", "PDescription", new Date()));
-
                     // Create Bundle of Parties
                     Bundle pBundle = new Bundle();
                     pBundle.putParcelableArrayList("key", (ArrayList<? extends Parcelable>) pastParties);

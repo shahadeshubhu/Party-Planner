@@ -37,6 +37,8 @@ public class Party implements Parcelable {
     description = in.readString();
     type = in.readString();
     ownerID = in.readString();
+    date= (java.util.Date) in.readSerializable();
+
   }
 
   @Override
@@ -46,6 +48,7 @@ public class Party implements Parcelable {
     dest.writeString(description);
     dest.writeString(type);
     dest.writeString(ownerID);
+    dest.writeSerializable(date);
   }
 
   @Override

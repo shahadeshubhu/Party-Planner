@@ -59,9 +59,9 @@ public class PartyController {
 
     public void getParties(PartyActivity activity) {
         ArrayList<Party> parties = new ArrayList<>();
-        ArrayList<String> userParties = UserController.currentUserInfo.getParties();
+        ArrayList<String> userParties = UserController.getCurrentUser().getParties();
         if(userParties != null && userParties.size() > 0) {
-            db.collection(EVENT_DB_NAME).whereIn(FieldPath.documentId(), UserController.currentUserInfo.getParties())
+            db.collection(EVENT_DB_NAME).whereIn(FieldPath.documentId(), userParties)
                     .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {

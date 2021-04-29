@@ -40,19 +40,19 @@ public class PartiesFragment extends Fragment implements PartyAdapter.PartyClick
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        parties = new ArrayList<Party>();
-//
-//        // TESTING
-//        parties.add(new Party("O Pname", "PType", "PLocation", "PDescription", new Date()));
-//        parties.add(new Party("O Pname", "PType", "PLocation", "PDescription", new Date()));
-//        parties.add(new Party("O Pname", "PType", "PLocation", "PDescription", new Date()));
-//        parties.add(new Party("O Pname", "PType", "PLocation", "PDescription", new Date()));
-//        parties.add(new Party("O Pname", "PType", "PLocation", "PDescription", new Date()));
-//        parties.add(new Party("O Pname", "PType", "PLocation", "PDescription", new Date()));
-        // AFTER TESTING
-
-
         // Gets ArrayList
+        Bundle extras = this.getArguments();
+        if (extras != null) {
+            parties = extras.getParcelableArrayList("key");
+            Log.d("parties in Frag", ""+ parties);
+        }
+
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
         Bundle extras = this.getArguments();
         if (extras != null) {
             parties = extras.getParcelableArrayList("key");

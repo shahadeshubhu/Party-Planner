@@ -40,12 +40,15 @@ public class UserController {
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         Log.d("currentUser", ""+currentUser);
-        if (currentUser != null) {
+        if (currentUser != null && currentUserInfo == null) {
             getUserInfo();
         }
     }
 
     public boolean isSignedIn() {
+        if (currentUser != null && currentUserInfo == null) {
+            getUserInfo();
+        }
         return currentUser != null;
     }
 
@@ -122,15 +125,18 @@ public class UserController {
         currentUserInfo = null;
     }
 
-    public FirebaseUser getCurrentUser() {
-        return currentUser;
+    public static User getCurrentUser() {
+        if(currentUserInfo == null) {
+            getUserInfo();
+        }
+        return currentUserInfo;
     }
 
     private boolean isEmailExist() {
         return false;
     }
 
-    public void getUserInfo() {
+    public static void getUserInfo() {
         Log.d("#getUserInfo", "************************"+currentUser.getUid());
 
         db.collection(ASSOCIATE_DB_NAME).whereEqualTo(FieldPath.documentId(), currentUser.getUid())

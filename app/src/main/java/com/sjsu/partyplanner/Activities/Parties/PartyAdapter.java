@@ -1,6 +1,7 @@
 package com.sjsu.partyplanner.Activities.Parties;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +38,6 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        //TODO: NEEDS TO ADD TIME (Model does not contain a time value?)
         final Party party = mParties.get(position);
         String date = (party.getDate()).toString();
 

@@ -43,7 +43,6 @@ public class Subtask implements  Serializable {
     public int describeContents() {
         return 0;
     }
-
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(name);
@@ -84,6 +83,7 @@ public class Subtask implements  Serializable {
         }
     }
 
+
     @Override
     public String toString() {
         return "Subtask{" +
@@ -91,4 +91,5 @@ public class Subtask implements  Serializable {
                 ", subtaskStatus=" + subtaskStatus +
                 '}';
     }
+
 }
