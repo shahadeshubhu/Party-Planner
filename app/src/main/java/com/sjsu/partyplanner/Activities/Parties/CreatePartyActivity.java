@@ -19,19 +19,24 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.sjsu.partyplanner.Activities.Dashboard.GuestFragment;
 import com.sjsu.partyplanner.Controllers.PartyController;
 import com.sjsu.partyplanner.Controllers.UserController;
 import com.sjsu.partyplanner.Models.Party;
 import com.sjsu.partyplanner.Models.Task;
+import com.sjsu.partyplanner.Models.User;
 import com.sjsu.partyplanner.R;
 import com.sjsu.partyplanner.databinding.ActivityCreatePartyBinding;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
 public class CreatePartyActivity extends AppCompatActivity implements View.OnClickListener {
     public static final int VIEW_CODE = 1;
+    public static final int GUEST_INVITE_VIEW_CODE = 300;
+
     private Toolbar toolbar;
     private Button btnDatePicker, btnTimePicker;
     private EditText txtDate, txtTime;
@@ -109,7 +114,7 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
 
     public void addClick(View view) {
         if (view == findViewById(R.id.cpGuestButton)) {
-            UserController.getAllUsers();
+            UserController.getAllUsers(this);
             //TODO Send to Invite Guests Page
             toastMsg("Invite Guests");
         }
@@ -118,8 +123,12 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
+    public void showInviteGuestPage(ArrayList<User> allGuests){
+        startActivityForResult(new Intent(this, GuestFragment.class), GUEST_INVITE_VIEW_CODE);
 
-  public void handleSuccess(){
+    }
+
+    public void handleSuccess(){
       Intent intent = new Intent();
       intent.putExtra("newParty", createdParty);
       setResult(RESULT_OK, intent);

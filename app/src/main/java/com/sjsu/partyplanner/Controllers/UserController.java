@@ -100,9 +100,10 @@ public class UserController {
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-
                 if (task.isSuccessful()) {
                     currentUser = mAuth.getCurrentUser();
+                    Log.d("#signInUser", "************************"+ currentUser.getUid());
+
                     getUserInfo();
                     activity.handleSuccess();
 
@@ -137,7 +138,7 @@ public class UserController {
     }
 
     public static void getUserInfo() {
-        Log.d("#getUserInfo", "************************"+currentUser.getUid());
+        Log.d("#getUserInfo", "************************"+ currentUser.getUid());
 
         db.collection(ASSOCIATE_DB_NAME).whereEqualTo(FieldPath.documentId(), currentUser.getUid())
             .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -156,8 +157,8 @@ public class UserController {
         });
     }
     //TODO: INVITe PArty guests activity will query this method to get all register list.
-    public static void getAllUsers(){
-        String ownerId = currentUser.getUid();
+    public static void getAllUsers(CreatePartyActivity createPartyActivity){
+        String ownerId = currentUserInfo.getUid();
         db.collection(ASSOCIATE_DB_NAME).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -172,6 +173,8 @@ public class UserController {
                         }
                         Log.d("#getAllUsers", document.getId() + " => " + document.getData());
                     }
+                    createPartyActivity.showInviteGuestPage(allGuests);
+
                 } else {
                     Log.d("#getAllUsers", "Error getting documents: ", task.getException());
                 }
