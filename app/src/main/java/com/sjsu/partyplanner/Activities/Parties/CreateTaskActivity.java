@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -101,8 +102,10 @@ public class CreateTaskActivity extends AppCompatActivity implements AdapterView
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.cpCheck:
+
                 Task task = new Task(binding.etNameText.getText().toString(), taskCategory, binding.etCategory.getText().toString(), subtaskList );
-                Intent rIntent = new Intent(this, CreateTaskActivity.class);
+
+                Intent rIntent =  new Intent(this, CreateTaskActivity.class);
                 rIntent.putExtra(TASK_KEY, task);
                 setResult(Activity.RESULT_OK, rIntent);
                 finish();

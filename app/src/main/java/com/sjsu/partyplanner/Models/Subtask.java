@@ -3,7 +3,9 @@ package com.sjsu.partyplanner.Models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Subtask implements Parcelable {
+import java.io.Serializable;
+
+public class Subtask implements  Serializable {
 
     private String name;
     private STATUS subtaskStatus;
@@ -19,6 +21,7 @@ public class Subtask implements Parcelable {
         this.subtaskStatus = STATUS.PENDING;
     }
 
+    /*
     protected Subtask(Parcel in) {
         name = in.readString();
     }
@@ -45,6 +48,8 @@ public class Subtask implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(name);
     }
+
+     */
     /**
      * Gets subtask name
      * @return name
@@ -79,6 +84,11 @@ public class Subtask implements Parcelable {
         }
     }
 
-
-
+    @Override
+    public String toString() {
+        return "Subtask{" +
+                "name='" + name + '\'' +
+                ", subtaskStatus=" + subtaskStatus +
+                '}';
+    }
 }

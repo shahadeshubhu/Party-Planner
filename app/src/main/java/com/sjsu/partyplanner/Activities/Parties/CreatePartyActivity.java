@@ -27,6 +27,7 @@ import com.sjsu.partyplanner.R;
 import com.sjsu.partyplanner.databinding.ActivityCreatePartyBinding;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class CreatePartyActivity extends AppCompatActivity implements View.OnClickListener {
@@ -93,9 +94,11 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
     {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == VIEW_CODE && resultCode == Activity.RESULT_OK) {
-            Task t = data.getParcelableExtra(CreateTaskActivity.TASK_KEY);
-            Log.d("TASKKKKK", t.toString());
-            party.addTask(t);
+            //ArrayList<Task> t = data.getParcelableArrayListExtra(TaskListActivity.TASKLIST_KEY);
+            Bundle extras = data.getExtras();
+            ArrayList<Task> t = extras.getParcelableArrayList(TaskListActivity.TASKLIST_KEY);
+            Log.d("TASK!","Task name: \n"  + t.get(0));
+            //party.addTask(t);
         }
         else {
 
@@ -104,7 +107,7 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
 
     public void addClick(View view) {
         if (view == findViewById(R.id.cpGuestButton)) {
-            UserController.getAllUsers(this);
+            UserController.getAllUsers();// UserController.getAllUsers(this);
             //TODO Send to Invite Guests Page
             toastMsg("Invite Guests");
         }

@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 @com.google.firebase.firestore.IgnoreExtraProperties
@@ -17,6 +18,7 @@ public class Task implements Parcelable {
 //    private String partyID;
     private STATUS taskStatus;
     private int completedSubtasks;
+
 
     public enum STATUS {
         NOT_STARTED,
@@ -35,44 +37,6 @@ public class Task implements Parcelable {
         this.taskStatus = getTaskStatus();
     }
 
-
-    // Parcel Stuff------------------------------------------------
-    protected Task(Parcel in) {
-        name = in.readString();
-        taskCategory = in.readString();
-        note = in.readString();
-        completedSubtasks = in.readInt();
-        subtasks = new ArrayList<Subtask>();
-        in.readTypedList(subtasks , Subtask.CREATOR);
-
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(name);
-        dest.writeString(taskCategory);
-        dest.writeString(note);
-        dest.writeInt(completedSubtasks);
-        dest.writeTypedList(subtasks);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Parcelable.Creator<Party> CREATOR = new Parcelable.Creator<Party>() {
-        @Override
-        public Party createFromParcel(Parcel in) {
-            Log.d("#####Party","Create From Parce");
-            return new Party(in);
-        }
-
-        @Override
-        public Party[] newArray(int size) {
-            return new Party[size];
-        }
-    };
 
     public String getNote() { return note; };
 
@@ -209,4 +173,73 @@ public class Task implements Parcelable {
         taskStatus = getTaskStatus();
     }
 
+
+
+    // Methods needed to parcel this class
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.taskID);
+        dest.writeString(this.name);
+        dest.writeString(this.taskCategory);
+        dest.writeString(this.note);
+        dest.writeList(this.subtasks);
+        dest.writeInt(this.taskStatus == null ? -1 : this.taskStatus.ordinal());
+        dest.writeInt(this.completedSubtasks);
+    }
+
+    public void readFromParcel(Parcel source) {
+        this.taskID = source.readString();
+        this.name = source.readString();
+        this.taskCategory = source.readString();
+        this.note = source.readString();
+        this.subtasks = new ArrayList<Subtask>();
+        source.readList(this.subtasks, Subtask.class.getClassLoader());
+        int tmpTaskStatus = source.readInt();
+        this.taskStatus = tmpTaskStatus == -1 ? null : STATUS.values()[tmpTaskStatus];
+        this.completedSubtasks = source.readInt();
+    }
+
+    protected Task(Parcel in) {
+        this.taskID = in.readString();
+        this.name = in.readString();
+        this.taskCategory = in.readString();
+        this.note = in.readString();
+        this.subtasks = new ArrayList<Subtask>();
+        in.readList(this.subtasks, Subtask.class.getClassLoader());
+        int tmpTaskStatus = in.readInt();
+        this.taskStatus = tmpTaskStatus == -1 ? null : STATUS.values()[tmpTaskStatus];
+        this.completedSubtasks = in.readInt();
+    }
+
+    public static final Parcelable.Creator<Task> CREATOR = new Parcelable.Creator<Task>() {
+        @Override
+        public Task createFromParcel(Parcel source) {
+            return new Task(source);
+        }
+
+        @Override
+        public Task[] newArray(int size) {
+            return new Task[size];
+        }
+    };
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "taskID='" + taskID + '\'' +
+                ", name='" + name + '\'' +
+                ", taskCategory='" + taskCategory + '\'' +
+                ", note='" + note + '\'' +
+                ", subtasks=" + subtasks +
+                ", taskStatus=" + taskStatus +
+                ", completedSubtasks=" + completedSubtasks +
+                '}';
+    }
 }

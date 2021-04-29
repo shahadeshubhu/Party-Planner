@@ -1,7 +1,13 @@
 package com.sjsu.partyplanner.Activities.Parties;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,10 +24,13 @@ import com.sjsu.partyplanner.databinding.ActivityTaskListBinding;
 import java.util.ArrayList;
 
 public class TaskListActivity extends AppCompatActivity implements TaskAdapter.TaskClick {
-
+    public static final int TEXT_REQUEST = 500;
+    public static final String TASKLIST_KEY = "TASKLISTd";
+    private static final String TAG = "In Task List Activity";
     private  ActivityTaskListBinding binding;
     private Toolbar toolbar;
     private ArrayList<Task> taskList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,8 +96,38 @@ public class TaskListActivity extends AppCompatActivity implements TaskAdapter.T
      * Starts 'Create Task' activity
      * @param v
      */
-    public void createTasks (View v) {
+    public void createTasks (View v)
+    {
+        Log.d(TAG, "createTasks: Launching CreateTaskActivity");
+        startActivityForResult(new Intent(this, CreateTaskActivity.class), TEXT_REQUEST);
+        Log.d(TAG, "createTasks: Launched CreateTaskActivity");
+
+        /*
         startActivity(new Intent(this, CreateTaskActivity.class));
+
+         */
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // making sure it receives the correct intent reply
+        if (requestCode == TEXT_REQUEST)
+        {
+            // making sure reply is good
+            if (resultCode == RESULT_OK)
+            {
+                Log.d(TAG, "onActivityResult: Received Intent reply");
+
+                taskList.add(data.getParcelableExtra(CreateTaskActivity.TASK_KEY));
+                setUpRecycler();
+                Log.d("Lolol", "onActivityResult: Successfully loaded task named: ");
+
+            }
+        }
+
     }
 
     // Sets up Toolbar
@@ -131,4 +170,32 @@ public class TaskListActivity extends AppCompatActivity implements TaskAdapter.T
         Toast toast = Toast.makeText(this, msg, Toast.LENGTH_LONG);
         toast.show();
     }
+
+    // Adds Icons to Toolbar (other than back button)
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.create_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.cpCheck:
+
+
+
+                Intent rIntent =  new Intent(this, CreateTaskActivity.class);
+                Bundle extra =  new Bundle();
+                extra.putParcelableArrayList(TASKLIST_KEY, taskList);
+                rIntent.putExtras(extra);
+                setResult(Activity.RESULT_OK, rIntent);
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 }
