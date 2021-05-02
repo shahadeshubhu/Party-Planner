@@ -27,7 +27,7 @@ public class RegistrationActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    controller = new UserController();
+    controller =  UserController.getInstance();
     setContentView(R.layout.activity_registration);
     binding = ActivityRegistrationBinding.inflate(getLayoutInflater());
     setContentView( binding.getRoot());
@@ -217,7 +217,6 @@ public class RegistrationActivity extends AppCompatActivity {
   {
     //TextView textView = findViewById(R.id.textView);
     boolean result;
-    //UserController userController = new UserController();
 
   }
 

@@ -35,7 +35,7 @@ public class PartyActivity extends AppCompatActivity {
     private ArrayList<Party> pastParties = new ArrayList<>();
     private ArrayList<Party> upParties = new ArrayList<>();
 
-    private PartyController p = new PartyController();
+    private PartyController p;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public class PartyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_party_page);
         setupToolbar();
 
-        p = new PartyController();
+        p = PartyController.getInstance();
         // TODO: gets error when there are no parties
         p.getParties(this);
     }
@@ -53,7 +53,7 @@ public class PartyActivity extends AppCompatActivity {
         super.onResume();
         pastParties = new ArrayList<>();
         upParties = new ArrayList<>();
-        p = new PartyController();
+        p = PartyController.getInstance();
         //p.getParties(this);       // Does not update, adds a second version of the list into it.
     }
 

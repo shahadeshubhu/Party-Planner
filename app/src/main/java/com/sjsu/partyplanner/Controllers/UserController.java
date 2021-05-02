@@ -22,6 +22,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.sjsu.partyplanner.Activities.Parties.CreatePartyActivity;
 import com.sjsu.partyplanner.Activities.Users.LoginActivity;
+import com.sjsu.partyplanner.Models.Guest;
 import com.sjsu.partyplanner.Models.Party;
 import com.sjsu.partyplanner.Models.User;
 import com.sjsu.partyplanner.Activities.Users.RegistrationActivity;
@@ -31,19 +32,28 @@ import java.util.List;
 
 public class UserController {
 
-    private final FirebaseAuth mAuth;
+    private static final FirebaseAuth mAuth=FirebaseAuth.getInstance();
+    private static UserController UserController_instance = null;
     public static FirebaseUser currentUser;
     public final static String ASSOCIATE_DB_NAME = "AssociateUsers";
     public static User currentUserInfo;
     private static final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    public UserController() {
-        mAuth = FirebaseAuth.getInstance();
+    private UserController()
+    {
         currentUser = mAuth.getCurrentUser();
-        Log.d("currentUser", ""+currentUser);
-        if (currentUser != null && currentUserInfo == null) {
+        if (currentUser != null && currentUserInfo == null){
             getUserInfo();
         }
+    }
+
+    // static method to create instance of Singleton class
+    public static UserController getInstance()
+    {
+        if (UserController_instance == null)
+            UserController_instance = new UserController();
+
+        return UserController_instance;
     }
 
     public boolean isSignedIn() {
@@ -166,15 +176,16 @@ public class UserController {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    ArrayList<User> allGuests = new ArrayList<>();
+                    ArrayList<Guest> allGuests = new ArrayList<>();
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         if(!document.getId().equals(ownerId)) {
-                            User u = document.toObject(User.class);
-                            u.setUid(document.getId());
-                            Log.d("#User", u.toString());
-                            allGuests.add(u);
+                            Guest g = document.toObject(Guest.class);
+                            g.setUid(document.getId());
+                            Log.d("#User", g.toString());
+                            allGuests.add(g);
                         }
                         Log.d("#getAllUsers", document.getId() + " => " + document.getData());
+                        createPartyActivity.showInviteGuestPage(allGuests);
                     }
                     createPartyActivity.showInviteGuestPage(allGuests);
 

@@ -3,43 +3,39 @@ package com.sjsu.partyplanner.Activities.Parties;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 import com.sjsu.partyplanner.Controllers.UserController;
+import com.sjsu.partyplanner.Models.Guest;
+import com.sjsu.partyplanner.Models.Task;
 import com.sjsu.partyplanner.Models.User;
 import com.sjsu.partyplanner.R;
 
 import java.util.ArrayList;
 
 
-public class CreateGuestListActivity extends AppCompatActivity {
+public class CreateGuestListActivity extends AppCompatActivity{
 
+    public static final String GUEST_LIST_KEY = "Selected Guests";
     private Toolbar toolbar;
     private ListView listview ;
     private SparseBooleanArray sparseBooleanArray;
-    private String[] ListViewItems = new String[] {
-            "ListView ITEM-1",
-            "ListView ITEM-2",
-            "ListView ITEM-3",
-            "ListView ITEM-4",
-            "ListView ITEM-5",
-            "ListView ITEM-6",
-            "ListView ITEM-7",
-            "ListView ITEM-8",
-            "ListView ITEM-9",
-            "ListView ITEM-10"
-    };
 
-    private ArrayList<User> userList = new ArrayList<User>();
-    private ArrayList<String> invitedGuests = new ArrayList<String>();
+    private ArrayList<String> ListViewItems= new ArrayList<String>();
 
+    private ArrayList<Guest> guestList = new ArrayList<Guest>();
+    private ArrayList<Guest> invitedGuests = new ArrayList<Guest>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,12 +48,17 @@ public class CreateGuestListActivity extends AppCompatActivity {
 
     // Sets up the list of users
     public void setUpList() {
-        //TODO: UserController.getAllUsers() is async! Must be sync, use callback! Tested with print statements
-        userList = UserController.getAllUsers();
-        for (User user : userList) {
-            invitedGuests.add(user.getName());
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            guestList = extras.getParcelableArrayList(CreatePartyActivity.GUEST_KEY);
+            sparseBooleanArray = new SparseBooleanArray(guestList.size());
+            int i=0;
+            for(Guest g: guestList){
+                ListViewItems.add(g.toString());
+                sparseBooleanArray.append(i,false);
+                i++;
+            }
         }
-        //ListViewItems = (String[]) invitedGuests.toArray();
     }
 
     // Sets up List View
@@ -72,20 +73,7 @@ public class CreateGuestListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 sparseBooleanArray = listview.getCheckedItemPositions();
-
-                // GET RID OF THIS CODE WHEN WE CONFIRM IT WORKS
-                /*
-                String ValueHolder = "" ;
-                int i = 0 ;
-                while (i < sparseBooleanArray.size()) {
-                    if (sparseBooleanArray.valueAt(i)) {
-                        ValueHolder += ListViewItems [ sparseBooleanArray.keyAt(i) ] + ",";
-                    }
-                    i++ ;
-                }
-                ValueHolder = ValueHolder.replaceAll("(,)*$", "");
-                Toast.makeText(CreateGuestListActivity.this, "ListView Selected Values = " + ValueHolder, Toast.LENGTH_LONG).show();
-                 */
+                Log.d("onItemClick", ""+sparseBooleanArray.toString());
 
             }
         });
@@ -108,29 +96,30 @@ public class CreateGuestListActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View view) {
-
-                 //TODO: Somehow get the Party object and call the method on it - Party.setGuests()
-
-                 /*
-                 ArrayList<User> guestList = new ArrayList<User>();
-                 for (User user : userList) {
-                     int i = 0;
-                    while (i < sparseBooleanArray.size()) {
-                        if(sparseBooleanArray.valueAt(i) && ListViewItems [sparseBooleanArray.keyAt(i)] == user.getName()) {
-                            guestList.add(user);
-                        }
-                     }
-                 }
-                 */
-
-
-
-
-                 finish();
+                 passSelectedGuest();
+                 //TODO: Cannot go back to createPartyActivity
              }
         });
-
     }
+
+    private void passSelectedGuest(){
+        invitedGuests = new ArrayList<Guest>();
+        int i = 0;
+        while (i < sparseBooleanArray.size()) {
+            if(sparseBooleanArray.valueAt(i)){
+                invitedGuests.add(guestList.get(sparseBooleanArray.keyAt(i)));
+            }
+            i++ ;
+        }
+        Log.d("invitedGuests", ""+ invitedGuests.toString());
+        Intent rIntent =  new Intent(this, CreatePartyActivity.class);
+        Bundle extra =  new Bundle();
+        extra.putParcelableArrayList(GUEST_LIST_KEY, invitedGuests);
+        rIntent.putExtras(extra);
+        setResult(Activity.RESULT_OK, rIntent);
+        finish();
+    }
+
 
     // Adds Icons to Toolbar (other than back button)
     @Override

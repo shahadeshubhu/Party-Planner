@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.sjsu.partyplanner.Activities.Dashboard.GuestFragment;
 import com.sjsu.partyplanner.Controllers.PartyController;
 import com.sjsu.partyplanner.Controllers.UserController;
+import com.sjsu.partyplanner.Models.Guest;
 import com.sjsu.partyplanner.Models.Party;
 import com.sjsu.partyplanner.Models.Task;
 import com.sjsu.partyplanner.Models.User;
@@ -36,6 +37,7 @@ import java.util.Date;
 public class CreatePartyActivity extends AppCompatActivity implements View.OnClickListener {
     public static final int VIEW_CODE = 1;
     public static final int GUEST_INVITE_VIEW_CODE = 300;
+    public static final String GUEST_KEY = "GUEST_LIST";
 
     private Toolbar toolbar;
     private Button btnDatePicker, btnTimePicker;
@@ -43,6 +45,7 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
     private int mYear, mMonth, mDay, mHour, mMinute;
     private PartyController partyController;
     private Party party;
+    private ArrayList<Guest> guests;
     private Calendar pickedDateTime;
     protected ActivityCreatePartyBinding binding;
     public Party createdParty;
@@ -67,7 +70,7 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
         setupAutoComplete();
 
         // Party Controller
-        partyController = new PartyController();
+        partyController = PartyController.getInstance();
         party = new Party();
     }
 
@@ -102,33 +105,47 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.d("COMEBACK!","CREATEPARTY");
+
         if (requestCode == VIEW_CODE && resultCode == Activity.RESULT_OK) {
             //ArrayList<Task> t = data.getParcelableArrayListExtra(CreateTaskListActivity.TASKLIST_KEY);
             Bundle extras = data.getExtras();
             ArrayList<Task> t = extras.getParcelableArrayList(CreateTaskListActivity.TASKLIST_KEY);
-            Log.d("TASK!","Task name: \n"  + t.get(0));
+            Log.d("TASK!","Task name: \n"  + t.size());
             //party.addTask(t);
         }
-        else {
-
+        else if (requestCode == GUEST_INVITE_VIEW_CODE && resultCode == Activity.RESULT_OK) {
+            //ArrayList<Task> t = data.getParcelableArrayListExtra(CreateTaskListActivity.TASKLIST_KEY);
+            Bundle extras = data.getExtras();
+            ArrayList<Guest> t = extras.getParcelableArrayList(CreateGuestListActivity.GUEST_LIST_KEY);
+            Log.d("Selected Guest size!", ""+ t.size());
+            //party.addTask(t);
         }
     }
 
     public void addClick(View view) {
         if (view == findViewById(R.id.cpGuestButton)) {
-            UserController.getAllUsers(this);
-            //TODO Send to Invite Guests Page
-            startActivityForResult(new Intent(this, CreateGuestListActivity.class), VIEW_CODE);
+            if(guests == null || guests.size() <=0) {
+                UserController.getAllUsers(this);
+            }else{
+                showInviteGuestPage(guests);
+            }
         }
         else if (view == findViewById(R.id.cpTaskButton)) {
             startActivityForResult(new Intent(this, CreateTaskListActivity.class), VIEW_CODE);
         }
     }
 
-    public void showInviteGuestPage(ArrayList<User> allGuests){
-        startActivityForResult(new Intent(this, GuestFragment.class), GUEST_INVITE_VIEW_CODE);
 
+    public void showInviteGuestPage(ArrayList<Guest> allGuests){
+        guests =allGuests;
+        Intent intent = new Intent(this, CreateGuestListActivity.class);
+        Bundle uBundle = new Bundle();
+        uBundle.putParcelableArrayList(GUEST_KEY, allGuests);
+        intent.putExtras(uBundle);
+        startActivityForResult(intent, GUEST_INVITE_VIEW_CODE);
     }
+
 
     public void handleSuccess(){
       Intent intent = new Intent();

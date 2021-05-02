@@ -8,6 +8,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FieldValue;
@@ -32,7 +34,22 @@ public class PartyController {
     public static final String EVENT_DB_NAME = "Parties";
     public static final String INVITE_DB_NAME= "Invitations";
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private static final FirebaseAuth mAuth=FirebaseAuth.getInstance();
+    private static PartyController PartyController_instance = null;
 
+    private PartyController()
+    {
+
+    }
+
+    // static method to create instance of Singleton class
+    public static PartyController getInstance()
+    {
+        if (PartyController_instance == null)
+            PartyController_instance = new PartyController();
+
+        return PartyController_instance;
+    }
     public void createParty(CreatePartyActivity activity, Party p) {
         String ownerId = UserController.currentUser.getUid();
         p.setOwnerID(ownerId);
