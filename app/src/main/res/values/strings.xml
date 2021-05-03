@@ -59,6 +59,7 @@
     <string name="pendingStatus">Pending</string>
     <string name="completeStatus">Complete</string>
     <string name="subtaskValue">Subtasks: 0/10</string>
+    <string name="plus">+</string>
 
     <string name="party">Parties</string>
     <string name="event">Events</string>

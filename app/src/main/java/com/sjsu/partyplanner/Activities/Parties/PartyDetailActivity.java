@@ -24,6 +24,7 @@ public class PartyDetailActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private Party party;
     public static final String GUEST_KEY = "GUEST_LIST";
+    public static final String TASK_KEY = "TASK_LIST";
 
     private TextView name;
     private TextView type;
@@ -46,8 +47,10 @@ public class PartyDetailActivity extends AppCompatActivity {
     public void onClick(View v) {
         // Task List Button OnClick
         if(v == findViewById(R.id.pdTaskButton)) {
-            Intent intent = new Intent(this, CreateTaskListActivity.class);
-            intent.putExtra("partyInfo", party);
+            Intent intent = new Intent(this, TaskListActivity.class);
+            Bundle uBundle = new Bundle();
+            uBundle.putParcelableArrayList(TASK_KEY, (ArrayList<? extends Parcelable>) party.getTasks());
+            intent.putExtras(uBundle);
             startActivity(intent);
         }
         // Guest List Button OnClick

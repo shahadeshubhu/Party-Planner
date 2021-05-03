@@ -6,11 +6,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sjsu.partyplanner.Models.Subtask;
+import com.sjsu.partyplanner.Models.Task;
 import com.sjsu.partyplanner.R;
 import com.sjsu.partyplanner.databinding.ActivityTaskDetailBinding;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -25,17 +27,14 @@ import java.util.ArrayList;
 public class TaskDetailActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener,
         SubtaskAdapter.OnSubtaskListener, AddSubtaskDialog.AddSubtaskInterface {
 
+    public static final String TASK_KEY = "TASK";
+    private Task task;
+
     private ActivityTaskDetailBinding binding;
     private Toolbar toolbar;
-    private String taskID;
     private ArrayList<Subtask> subtaskList;
-    RecyclerView.Adapter<SubtaskAdapter.ViewHolder> mAdapter;
+    private RecyclerView.Adapter<SubtaskAdapter.ViewHolder> mAdapter;
 
-    // Set Text doesn't work with databinding
-    private TextView nameTV;
-    private TextView statusTV;
-    private TextView categoryTV;
-    private TextView noteTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,45 +42,12 @@ public class TaskDetailActivity extends AppCompatActivity implements AdapterView
 
         binding = ActivityTaskDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        subtaskList = new ArrayList<Subtask>();
 
-        // Toolbar, TextViews, Button
+        // Toolbar, TextViews, Recycler
         setUpToolbar();
         setTV();
-        setUpButton();
+        setUpRecycler();
 
-    }
-
-    // Sets up button
-    public void setUpButton() {
-        // Set up button image
-        ImageView addSubtask = findViewById(R.id.tdAddSubtaskButton);
-        addSubtask.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openDialog();
-            }
-        });
-    }
-
-    public void toastMsg(String msg) {
-        Toast toast = Toast.makeText(this, msg, Toast.LENGTH_LONG);
-        toast.show();
-    }
-
-    // Creates the add subtask dialog
-    public void openDialog() {
-        SubtaskDialog subtaskDialog = new SubtaskDialog();
-        subtaskDialog.show(getSupportFragmentManager(), "subtask dialog");
-    }
-
-    // Sets up the recycler
-    public void setUpRecycler() {
-        binding.tdRecycler.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        binding.tdRecycler.setLayoutManager(layoutManager);
-        mAdapter = new SubtaskAdapter(subtaskList, this);
-        binding.tdRecycler.setAdapter(mAdapter);
     }
 
     // Sets up Toolbar
@@ -91,43 +57,13 @@ public class TaskDetailActivity extends AppCompatActivity implements AdapterView
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Task Details");
-        toolbar.setNavigationOnClickListener(v -> finish());        // Closes Activity
-    }
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-    // Sets up TextViews
-    private void setTV() {
-        nameTV = findViewById(R.id.tdNameText);
-        statusTV = findViewById(R.id.tdStatus);
-        categoryTV = findViewById(R.id.tdcategoryText);
-        noteTV = findViewById(R.id.tdNoteText);
-
-        //TODO: Get Parcelable for Task
-        // NOT WORKING. For some reason, it thinks I am getting a Party object, not a task object.
-        /**
-         * task = getIntent().getParcelableExtra("task");
-         * subtaskList = task.getSubtasks();
-         * setUpRecyclerView();
-         */
-
-        // Sets the values from the intent
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            taskID = extras.getString("id");
-            nameTV.setText(extras.getString("name"));
-            statusTV.setText(extras.getString("status"));
-            categoryTV.setText(extras.getString("category"));
-            noteTV.setText(extras.getString("note"));
-
-
-            // Set Text Color
-            int completed = extras.getInt("completed");
-            int total = extras.getInt("total");
-
-            if (completed == total) { statusTV.setTextColor(Color.parseColor("#037d50")); } // Dark Green
-            else if (completed == 0) { statusTV.setTextColor(Color.RED); }
-            else { statusTV.setTextColor(Color.BLUE); }
-
-        }
+                finish();
+            }
+        });
     }
 
     // Adds Icons to Toolbar (other than back button)
@@ -141,37 +77,92 @@ public class TaskDetailActivity extends AppCompatActivity implements AdapterView
     // Handles Menu Items on Toolbar
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.emEdit:
-
-                toastMsg("Edit Task");
-
-
-                //startActivity(new Intent(this, EditTaskActivity.class));
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.emEdit) {
+            toastMsg("Edit Task");
+            //startActivity(new Intent(this, EditTaskActivity.class));
+            return true;
+        }
+        else {
+            return super.onOptionsItemSelected(item);
         }
     }
 
+    // Sets up TextViews
+    private void setTV() {
+        // Sets the values from the intent
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            task = extras.getParcelable(TASK_KEY);
+
+            // Sets Text
+            binding.tdNameText.setText(task.getName());
+            binding.tdStatus.setText(task.getStatus());
+            binding.tdcategoryText.setText(task.getTaskCategory());
+            binding.tdNoteText.setText(task.getNote());
+
+            updateSubTasks();
+        }
+    }
+
+    // Sets up the recycler
+    public void setUpRecycler() {
+        binding.tdRecycler.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        binding.tdRecycler.setLayoutManager(layoutManager);
+        mAdapter = new SubtaskAdapter(subtaskList, this);
+        binding.tdRecycler.setAdapter(mAdapter);
+    }
+
+    // Handles selected task category
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+        // Empty
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
-    }
-
-    @Override
-    public void getDialogText(String inputText) {
-
+        // Empty
     }
 
     @Override
     public void OnSubtaskClick(int position) {
+        subtaskList.get(position).changeStatus();
+        mAdapter.notifyItemChanged(position);
 
+        // Dynamically Updating When Checking For completion
+        updateSubTasks();
+    }
+
+    @Override
+    public void getDialogText(String inputText) {
+        if (!inputText.isEmpty()) {
+            subtaskList.add(new Subtask(inputText));
+            mAdapter.notifyItemInserted(subtaskList.size());
+            updateSubTasks();
+        }
+    }
+
+    public void addSubTask(View view) {
+        AddSubtaskDialog addSubtaskDialog = new AddSubtaskDialog();
+        addSubtaskDialog.show(getSupportFragmentManager(), "test custom dialog");
+    }
+
+    // Dynamically updates Task
+    private void updateSubTasks() {
+        task.setSubtasks(subtaskList);
+
+        // Sets Text Color
+        binding.tdStatus.setText(task.getStatus());
+
+        int completed = task.getCompletedSubtasks();
+        int total = task.getTotalSubtasks();
+        if (completed == total) { binding.tdStatus.setTextColor(Color.parseColor("#037d50")); } // Dark Green
+        else if (completed == 0) { binding.tdStatus.setTextColor(Color.RED); }
+        else { binding.tdStatus.setTextColor(Color.BLUE); }
+    }
+
+    public void toastMsg(String msg) {
+        Toast toast = Toast.makeText(this, msg, Toast.LENGTH_LONG);
+        toast.show();
     }
 }

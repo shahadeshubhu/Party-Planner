@@ -36,7 +36,6 @@ public class GuestListActivity extends AppCompatActivity implements GuestAdapter
 
         // Toolbar, RecyclerView
         setUpToolbar();
-
         setUpRecycler();
     }
 

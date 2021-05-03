@@ -130,6 +130,14 @@ public class Party implements Parcelable {
     return type;
   }
 
+  public ArrayList<Task> getTasks() {
+    return tasks;
+  }
+
+  public void setTasks(ArrayList<Task> tasks) {
+    this.tasks = tasks;
+  }
+
   public void setDate(Date date) {
     this.date = date;
   }

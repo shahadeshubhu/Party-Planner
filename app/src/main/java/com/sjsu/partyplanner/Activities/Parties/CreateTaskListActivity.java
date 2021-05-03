@@ -15,12 +15,14 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.sjsu.partyplanner.Models.Subtask;
 import com.sjsu.partyplanner.Models.Task;
 import com.sjsu.partyplanner.R;
 import com.sjsu.partyplanner.databinding.ActivityCreateTaskListBinding;
 import java.util.ArrayList;
 
 public class CreateTaskListActivity extends AppCompatActivity implements TaskAdapter.TaskClick {
+
     public static final int TEXT_REQUEST = 500;
     public static final String TASKLIST_KEY = "TASKLISTd";
     private static final String TAG = "In Task List Activity";
@@ -42,6 +44,12 @@ public class CreateTaskListActivity extends AppCompatActivity implements TaskAda
 
         //TODO: get the input data of task list!
         taskList = new ArrayList<Task>();
+        ArrayList<Subtask> st = new ArrayList<Subtask>();
+        st.add(new Subtask("NAMESS"));
+        st.add(new Subtask("NAMESS22"));
+
+        taskList.add(new Task("name", "asdf", "dsaf", st));
+
         noTasksAvailable = binding.noTasksTL;
 
         //Recycler
@@ -98,21 +106,11 @@ public class CreateTaskListActivity extends AppCompatActivity implements TaskAda
      */
     @Override
     public void onTaskClick(View v, int position) {
-
-        TextView status = findViewById(R.id.tStatusLayout);
-
         Task task = taskList.get(position);
         Intent intent = new Intent(getApplicationContext(), TaskDetailActivity.class);
-        intent.putExtra("id", task.getTaskID());
-        intent.putExtra("name", task.getName());
-        intent.putExtra("category", task.getTaskCategory());
-        intent.putExtra("note", task.getNote());
-        intent.putExtra("status", task.getStatus());
-        intent.putExtra("statusColor", status.getCurrentTextColor());
-
-        intent.putExtra("completed", task.getCompletedSubtasks());
-        intent.putExtra("total", task.getTotalSubtasks());
-
+        Bundle extra =  new Bundle();
+        extra.putParcelable(TaskDetailActivity.TASK_KEY, task);
+        intent.putExtras(extra);
         startActivity(intent);
     }
 
