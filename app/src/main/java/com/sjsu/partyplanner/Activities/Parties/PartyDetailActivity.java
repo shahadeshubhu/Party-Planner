@@ -5,6 +5,8 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,11 +17,13 @@ import android.widget.Toast;
 import com.sjsu.partyplanner.Models.Party;
 import com.sjsu.partyplanner.R;
 
+import java.util.ArrayList;
+
 public class PartyDetailActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
-
     private Party party;
+    public static final String GUEST_KEY = "GUEST_LIST";
 
     private TextView name;
     private TextView type;
@@ -49,9 +53,9 @@ public class PartyDetailActivity extends AppCompatActivity {
         // Guest List Button OnClick
         else if (v == findViewById(R.id.pdGuestButton)) {
             Intent intent = new Intent(this, GuestListActivity.class);
-
-            // TODO: SEND GUEST LIST: an ArrayList<User>
-
+            Bundle uBundle = new Bundle();
+            uBundle.putParcelableArrayList(GUEST_KEY, (ArrayList<? extends Parcelable>) party.getGuests());
+            intent.putExtras(uBundle);
             startActivity(intent);
         }
     }
@@ -67,18 +71,17 @@ public class PartyDetailActivity extends AppCompatActivity {
     // Handles Menu Items on Toolbar
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.emEdit:
-
-                toastMsg("Edit Button");
-
-                Intent intent = new Intent(this, EditPartyActivity.class);
-                intent.putExtra("partyInfo", party);
-                startActivity(intent);
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.emEdit) {
+            toastMsg("Edit Button");
+            /*
+            Intent intent = new Intent(this, EditPartyActivity.class);
+            intent.putExtra("partyInfo", party);
+            startActivity(intent);
+             */
+            return true;
+        }
+        else {
+            return super.onOptionsItemSelected(item);
         }
     }
 

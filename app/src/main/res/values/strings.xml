@@ -29,6 +29,7 @@
 
     <string name="noParties">No Parties Planned</string>
     <string name="noTasks">No Tasks Planned</string>
+    <string name="noGuests">No Guests Invited</string>
 
     <string name="name">Name</string>
     <string name="category">Category</string>

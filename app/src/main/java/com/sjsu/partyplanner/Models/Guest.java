@@ -43,6 +43,8 @@ public class Guest implements Parcelable {
         return email;
     }
 
+    public String getName() { return firstName + " " + lastName; }
+
     public Guest() {
     }
 
