@@ -77,28 +77,27 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
     // Handles Menu Items on Toolbar
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.cpCheck:
-              Log.d("date", txtDate.getText().toString());
-              Log.d("time", txtTime.getText().toString());
-                if(pickedDateTime.getTime().compareTo(new Date())<= 0){
-                    toastMsg("Date and Time is invalid");
-                    // TODO: Flag the date and time field
-                    return false;
-                }else {
-                    createdParty = new Party(
-                            binding.cpNameText.getText().toString(),
-                            binding.cpPartyTypeTB.getText().toString(),
-                            binding.cpLocationText.getText().toString(),
-                            binding.cpDescriptionText.getText().toString(),
-                            pickedDateTime.getTime());
-                    partyController.createParty(this, createdParty);
-                    toastMsg(binding.cpNameText.getText().toString());
-                    return true;
-                }
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.cpCheck) {
+            Log.d("date", txtDate.getText().toString());
+            Log.d("time", txtTime.getText().toString());
+            if (pickedDateTime.getTime().compareTo(new Date()) <= 0) {
+                toastMsg("Date and Time is invalid");
+                // TODO: Flag the date and time field
+                return false;
+            }
+            else {
+                createdParty = new Party(
+                        binding.cpNameText.getText().toString(),
+                        binding.cpPartyTypeTB.getText().toString(),
+                        binding.cpLocationText.getText().toString(),
+                        binding.cpDescriptionText.getText().toString(),
+                        pickedDateTime.getTime());
+                partyController.createParty(this, createdParty);
+                toastMsg(binding.cpNameText.getText().toString());
+                return true;
+            }
         }
+        else { return super.onOptionsItemSelected(item); }
     }
 
     @Override
@@ -138,7 +137,7 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
 
 
     public void showInviteGuestPage(ArrayList<Guest> allGuests){
-        guests =allGuests;
+        guests = allGuests;
         Intent intent = new Intent(this, CreateGuestListActivity.class);
         Bundle uBundle = new Bundle();
         uBundle.putParcelableArrayList(GUEST_KEY, allGuests);
@@ -204,7 +203,7 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
 
             DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                     (view1, year, monthOfYear, dayOfMonth) -> {
-                        String dateSet = "";
+                        String dateSet;
                         pickedDateTime.set(Calendar.YEAR, year);
                         pickedDateTime.set(Calendar.MONTH, monthOfYear);
                         pickedDateTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -239,21 +238,21 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
                         pickedDateTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
                         pickedDateTime.set(Calendar.MINUTE, minute);
                       // Selecting Hour (AM/PM)
-                        String timeSet = "";
+                        String timeSet;
                         if (hourOfDay > 12) { hourOfDay -= 12; timeSet = "PM"; }
                         else if (hourOfDay == 0) { hourOfDay += 12; timeSet = "AM"; }
                         else if (hourOfDay == 12) timeSet = "PM";
                         else timeSet = "AM";
 
                         // Selecting Minute
-                        String min = "";
+                        String min;
                         if (minute < 10) min = "0" + minute;
                         else min = String.valueOf(minute);
                         String z = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(pickedDateTime.getTime());
                         Log.d("calendar", z);
 
                         // Append in a StringBuilder
-                        String time = new StringBuilder().append(hourOfDay).append(':').append(min ).append(" ").append(timeSet).toString();
+                        String time = String.valueOf(hourOfDay) + ':' + min + " " + timeSet;
                         txtTime.setText(time);
 
                     }, mHour, mMinute, false);

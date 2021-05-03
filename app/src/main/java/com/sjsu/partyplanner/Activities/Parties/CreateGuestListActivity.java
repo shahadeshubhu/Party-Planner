@@ -31,19 +31,18 @@ public class CreateGuestListActivity extends AppCompatActivity{
     private Toolbar toolbar;
     private ListView listview ;
     private SparseBooleanArray sparseBooleanArray;
-
-    private ArrayList<String> ListViewItems= new ArrayList<String>();
-
-    private ArrayList<Guest> guestList = new ArrayList<Guest>();
-    private ArrayList<Guest> invitedGuests = new ArrayList<Guest>();
+    private ArrayList<String> ListViewItems= new ArrayList<>();
+    private ArrayList<Guest> guestList = new ArrayList<>();
+    private ArrayList<Guest> invitedGuests = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_guest_list);
 
-        setUpList();
+        Log.d("create guest list", "creating the guest list");
         setUpToolbar();
-        setUpListView();
+        setUpList();
+
     }
 
     // Sets up the list of users
@@ -59,51 +58,25 @@ public class CreateGuestListActivity extends AppCompatActivity{
                 i++;
             }
         }
+
+        setUpListView();
     }
 
     // Sets up List View
     public void setUpListView() {
         listview = (ListView)findViewById(R.id.glistView);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String> (CreateGuestListActivity.this, R.layout.guest_layout, ListViewItems );
+        ArrayAdapter<String> adapter = new ArrayAdapter<> (CreateGuestListActivity.this, R.layout.guest_layout, ListViewItems );
 
         listview.setAdapter(adapter);
-
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                sparseBooleanArray = listview.getCheckedItemPositions();
-                Log.d("onItemClick", ""+sparseBooleanArray.toString());
-
-            }
+        listview.setOnItemClickListener((parent, view, position, id) -> {
+            sparseBooleanArray = listview.getCheckedItemPositions();
+            Log.d("onItemClick", ""+sparseBooleanArray.toString());
         });
     }
 
-
-
-    public void toastMsg(String msg) {
-        Toast toast = Toast.makeText(this, msg, Toast.LENGTH_LONG);
-        toast.show();
-    }
-
-    // Sets up Toolbar
-    public void setUpToolbar() {
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle("Add Guests");
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View view) {
-                 passSelectedGuest();
-                 //TODO: Cannot go back to createPartyActivity
-             }
-        });
-    }
-
-    private void passSelectedGuest(){
-        invitedGuests = new ArrayList<Guest>();
+    // When you click the checkmark, you create a guest list to pass back!
+    private void passSelectedGuest() {
+        invitedGuests = new ArrayList<>();
         int i = 0;
         while (i < sparseBooleanArray.size()) {
             if(sparseBooleanArray.valueAt(i)){
@@ -121,11 +94,32 @@ public class CreateGuestListActivity extends AppCompatActivity{
     }
 
 
+    // Sets up Toolbar
+    public void setUpToolbar() {
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle("Add Guests");
+        toolbar.setNavigationOnClickListener(view -> finish());
+    }
+
     // Adds Icons to Toolbar (other than back button)
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.create_menu, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.cpCheck) {
+            passSelectedGuest();
+            return true;
+        }
+        else {
+            return super.onOptionsItemSelected(item);
+        }
     }
 }

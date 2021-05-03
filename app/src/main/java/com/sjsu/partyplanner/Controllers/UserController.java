@@ -185,7 +185,6 @@ public class UserController {
                             allGuests.add(g);
                         }
                         Log.d("#getAllUsers", document.getId() + " => " + document.getData());
-                        createPartyActivity.showInviteGuestPage(allGuests);
                     }
                     createPartyActivity.showInviteGuestPage(allGuests);
 
