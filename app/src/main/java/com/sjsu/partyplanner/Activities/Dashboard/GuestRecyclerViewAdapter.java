@@ -35,7 +35,7 @@ public class GuestRecyclerViewAdapter extends RecyclerView.Adapter<GuestRecycler
   public void onBindViewHolder(final GuestViewHolder holder, int position) {
     DummyItem dItem = mValues.get(position);
     holder.rowBinding.setGuest(dItem);
-;
+
   }
 
   @Override

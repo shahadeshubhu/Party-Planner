@@ -53,6 +53,7 @@ public class PartyController {
         return PartyController_instance;
     }
     public void createParty(CreatePartyActivity activity, Party p) {
+        Log.d("databaseDebug", "createParty: saving database");
         String ownerId = UserController.currentUser.getUid();
         p.setOwnerID(ownerId);
         db.collection(EVENT_DB_NAME).add(p)
@@ -64,6 +65,7 @@ public class PartyController {
                                 .update("parties", FieldValue.arrayUnion(partyDocumentReference.getId()));
 
                         Log.d("#EC createEvent success", "DocumentSnapshot written with ID: " + partyDocumentReference.getId());
+                        Log.d("databaseDebug", "createParty: saved successfuly with id: " + partyDocumentReference.getId());
                         ArrayList<Guest> guests = p.getGuests();
                         if (guests == null || guests.size() <= 0){
                             activity.handleSuccess();
@@ -76,6 +78,7 @@ public class PartyController {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w("#EC createEvent fail", "Error adding document", e);
+                        Log.d("databaseDebug", "createParty: failed to save");
                         activity.handleFailure();
                     }
                 });

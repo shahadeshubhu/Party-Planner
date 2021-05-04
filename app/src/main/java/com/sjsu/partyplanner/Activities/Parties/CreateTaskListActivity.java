@@ -23,7 +23,7 @@ import java.util.ArrayList;
 
 public class CreateTaskListActivity extends AppCompatActivity implements TaskAdapter.TaskClick {
 
-    public static final int TEXT_REQUEST = 500;
+    public static final int TEXT_REQUEST = 501;
     public static final String TASKLIST_KEY = "TASKLISTd";
     private static final String TAG = "In Task List Activity";
     private TextView noTasksAvailable;
@@ -68,18 +68,21 @@ public class CreateTaskListActivity extends AppCompatActivity implements TaskAda
         super.onActivityResult(requestCode, resultCode, data);
 
         // making sure it receives the correct intent reply
+        Log.d("DebugSess", "onOptionsItemSelected: got a reply");
         if (requestCode == TEXT_REQUEST)
         {
+            Log.d("DebugSess", "onOptionsItemSelected:  gto a reply from CreateTaskActivity");
             // making sure reply is good
             if (resultCode == RESULT_OK)
             {
-                Log.d(TAG, "onActivityResult: Received Intent reply");
+                Log.d("DebugSess", "onOptionsItemSelected:  CreateTaskActivity is good. ");
+                Log.d("taskReceived", "taskReceived: Create Task List: Received Intent reply");
 
                 taskList.add(data.getParcelableExtra(CreateTaskActivity.TASK_KEY));
                 setUpRecycler();
                 //mAdapter.notifyItemInserted(taskList.size() -1);
                 noTasksAvailable.setVisibility(View.INVISIBLE);
-                Log.d("ActivityResult", "onActivityResult: Successfully loaded task named: ");
+                Log.d("taskReceived", "onActivityResult: Successfully loaded task named: ");
 
             }
         }
@@ -139,8 +142,10 @@ public class CreateTaskListActivity extends AppCompatActivity implements TaskAda
                 Log.d(TAG, "createTasks: Launching CreateTaskActivity");
                 startActivityForResult(new Intent(this, CreateTaskActivity.class), TEXT_REQUEST);
                 Log.d(TAG, "createTasks: Launched CreateTaskActivity");
+                return true;
             case R.id.cpCheck:
-                Intent rIntent =  new Intent(this, CreateTaskActivity.class);
+                Log.d("DebugSess", "onOptionsItemSelected:  going back to create party");
+                Intent rIntent =  new Intent(this, CreatePartyActivity.class);//new Intent(this, CreateTaskActivity.class);
                 Bundle extra =  new Bundle();
                 extra.putParcelableArrayList(TASKLIST_KEY, taskList);
                 rIntent.putExtras(extra);

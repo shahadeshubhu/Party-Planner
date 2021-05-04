@@ -149,12 +149,12 @@ public class Party implements Parcelable {
   @Override
   public String toString() {
     return "Party{" +
-      "name='" + name + '\'' +
-      ", address='" + address + '\'' +
-      ", description='" + description + '\'' +
-      ", type='" + type + '\'' +
-      ", date=" + date +
-      ", owner=" + ownerID +
-      '}';
+            "name='" + name + '\'' +
+            ", address='" + address + '\'' +
+            ", description='" + description + '\'' +
+            ", type='" + type + '\'' +
+            ", date=" + date +
+            ", owner=" + ownerID +
+            '}';
   }
 }
