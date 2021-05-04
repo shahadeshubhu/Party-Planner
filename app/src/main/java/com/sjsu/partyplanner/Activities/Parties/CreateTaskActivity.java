@@ -72,8 +72,9 @@ public class CreateTaskActivity extends AppCompatActivity implements AdapterView
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.cpCheck:
+
                 Task task = new Task(binding.ctNameText.getText().toString(), taskCategory, binding.ctCategory.getText().toString(), subtaskList);
-                Intent rIntent =  new Intent(this, CreateTaskActivity.class);
+                Intent rIntent = new Intent(); // Changed from: new Intent(this, CreateTaskListActivity.class);
                 rIntent.putExtra(TASK_KEY, task);
                 setResult(Activity.RESULT_OK, rIntent);
                 finish();
@@ -85,7 +86,7 @@ public class CreateTaskActivity extends AppCompatActivity implements AdapterView
 
     // Sets up Spinner (Drop-down menu)
     public void setUpSpinner() {
-        dropDown = (Spinner) findViewById(R.id.etCategoryDropDown);
+        dropDown = (Spinner) findViewById(R.id.ctCategoryDropDown);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.taskCategories, R.layout.spinner_text);
 
         // Specify the layout to use when the list of choices appears
@@ -100,7 +101,7 @@ public class CreateTaskActivity extends AppCompatActivity implements AdapterView
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         binding.ctRecycler.setLayoutManager(layoutManager);
         mAdapter = new SubtaskAdapter(subtaskList, this);
-        binding.ctRecycler.setAdapter(new SubtaskAdapter(subtaskList, this));
+        binding.ctRecycler.setAdapter(mAdapter);// changed from: binding.ctRecycler.setAdapter(new SubtaskAdapter(subtaskList, this));
     }
 
     // Handles selected task category

@@ -48,6 +48,7 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
     private ArrayList<Guest> selectedGuests = new ArrayList<>();
 
     private ArrayList<Guest> guests;
+    private ArrayList<Task> tasks;
     private Calendar pickedDateTime;
     protected ActivityCreatePartyBinding binding;
     public Party createdParty;
@@ -94,6 +95,7 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
                         binding.cpLocationText.getText().toString(),
                         binding.cpDescriptionText.getText().toString(),
                         pickedDateTime.getTime());
+               // createdParty.setTasks(tasks);
                 createdParty.setGuests(selectedGuests);
                 partyController.createParty(this, createdParty);
                 toastMsg(binding.cpNameText.getText().toString());
@@ -110,11 +112,11 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
         Log.d("COME_BACK!","CREATE_PARTY");
 
         if (requestCode == VIEW_CODE && resultCode == Activity.RESULT_OK) {
-            //ArrayList<Task> t = data.getParcelableArrayListExtra(CreateTaskListActivity.TASKLIST_KEY);
+
             Bundle extras = data.getExtras();
-            ArrayList<Task> t = extras.getParcelableArrayList(CreateTaskListActivity.TASKLIST_KEY);
-            Log.d("TASK!","Task name: \n"  + t.size());
-            //party.addTask(t);
+            tasks = extras.getParcelableArrayList(CreateTaskListActivity.TASKLIST_KEY);
+            Log.d("TASK!","Task name: \n"  + tasks.size());
+
         }
         else if (requestCode == GUEST_INVITE_VIEW_CODE && resultCode == Activity.RESULT_OK) {
             Bundle extras = data.getExtras();

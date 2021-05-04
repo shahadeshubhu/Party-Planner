@@ -15,6 +15,11 @@ public class Subtask implements  Serializable {
         this.name = name;
         this.subtaskStatus = STATUS.PENDING;
     }
+    // no argument constructor. Firestore requires it
+    public Subtask()
+    {
+
+    }
 
     /*
     protected Subtask(Parcel in) {
@@ -66,6 +71,9 @@ public class Subtask implements  Serializable {
      */
     public void setName(String name) {
         this.name = name;
+    }
+    public void setSubtaskStatus(STATUS subtaskStatus){
+        this.subtaskStatus = subtaskStatus;
     }
 
     /**
