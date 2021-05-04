@@ -32,9 +32,8 @@ public class TaskDetailActivity extends AppCompatActivity implements AdapterView
 
     private ActivityTaskDetailBinding binding;
     private Toolbar toolbar;
-    private ArrayList<Subtask> subtaskList;
+    private ArrayList<Subtask> subtaskList = new ArrayList<>();
     private RecyclerView.Adapter<SubtaskAdapter.ViewHolder> mAdapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +59,11 @@ public class TaskDetailActivity extends AppCompatActivity implements AdapterView
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // TODO: SEND TASK OBJECT BACK
+
+                //task
+
+
 
                 finish();
             }
@@ -100,12 +104,17 @@ public class TaskDetailActivity extends AppCompatActivity implements AdapterView
             binding.tdcategoryText.setText(task.getTaskCategory());
             binding.tdNoteText.setText(task.getNote());
 
-            updateSubTasks();
+            // Sets Text Color
+            updateTextColor();
         }
     }
 
     // Sets up the recycler
     public void setUpRecycler() {
+
+        // Sets up subtask
+        subtaskList = task.getSubtasks();
+
         binding.tdRecycler.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         binding.tdRecycler.setLayoutManager(layoutManager);
@@ -130,7 +139,8 @@ public class TaskDetailActivity extends AppCompatActivity implements AdapterView
         mAdapter.notifyItemChanged(position);
 
         // Dynamically Updating When Checking For completion
-        updateSubTasks();
+        task.setSubtasks(subtaskList);
+        updateTextColor();
     }
 
     @Override
@@ -138,7 +148,10 @@ public class TaskDetailActivity extends AppCompatActivity implements AdapterView
         if (!inputText.isEmpty()) {
             subtaskList.add(new Subtask(inputText));
             mAdapter.notifyItemInserted(subtaskList.size());
-            updateSubTasks();
+
+            // Update Subtask List
+            task.setSubtasks(subtaskList);
+            updateTextColor();
         }
     }
 
@@ -147,11 +160,8 @@ public class TaskDetailActivity extends AppCompatActivity implements AdapterView
         addSubtaskDialog.show(getSupportFragmentManager(), "test custom dialog");
     }
 
-    // Dynamically updates Task
-    private void updateSubTasks() {
-        task.setSubtasks(subtaskList);
-
-        // Sets Text Color
+    // Dynamically Text Color
+    private void updateTextColor() {
         binding.tdStatus.setText(task.getStatus());
 
         int completed = task.getCompletedSubtasks();
