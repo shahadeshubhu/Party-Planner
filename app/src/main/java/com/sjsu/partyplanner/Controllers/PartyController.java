@@ -71,7 +71,7 @@ public class PartyController {
                             activity.handleSuccess();
                             return;
                         }
-                        inviteGuestByEmail(activity, guests, partyDocumentReference.getId(), p.getName());
+                        inviteGuestByEmail(activity, guests, partyDocumentReference.getId(), p.getName(), String.format("%s %s",UserController.currentUserInfo.getFirstName(), UserController.currentUserInfo.getLastName()));
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -112,12 +112,12 @@ public class PartyController {
         }
     }
 
-    public void inviteGuestByEmail(CreatePartyActivity activity, ArrayList<Guest> guests, String partyId, String partyTitle) {
+    public void inviteGuestByEmail(CreatePartyActivity activity, ArrayList<Guest> guests, String partyId, String partyTitle, String hostName) {
 
         ArrayList<Invitation> invitations = new ArrayList<>();
 
         for( Guest g : guests){
-            invitations.add(new Invitation(partyId, partyTitle, g.getUid()));
+            invitations.add(new Invitation(partyId, partyTitle, hostName, g.getUid()));
         }
 
         Log.d("inviteGuestByEmail", ""+invitations.size());

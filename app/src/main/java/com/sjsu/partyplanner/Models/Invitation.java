@@ -6,6 +6,7 @@ import android.os.Parcelable;
 public class Invitation implements Parcelable {
 
     private String partyId;
+    private String hostName;
     private String inviteTitle;
     private boolean hasRead = false;
     private boolean hasSelected = false;    // selected to go or not
@@ -14,14 +15,15 @@ public class Invitation implements Parcelable {
 
     public Invitation(){}
 
-    public Invitation(String partyId, String inviteTitle, String guestId){
+    public Invitation(String partyId, String inviteTitle, String hostName, String guestId){
         this.partyId=partyId;
         this.inviteTitle=inviteTitle;
         this.guestId = guestId;
+        this.hostName =hostName;
     }
 
-    public Invitation(String partyId, String inviteTitle, String guessId, boolean accepted){
-        this(partyId,inviteTitle,guessId);
+    public Invitation(String partyId, String inviteTitle,  String hostName, String guessId, boolean accepted){
+        this(partyId,inviteTitle, hostName, guessId);
         this.accepted=accepted;
     }
 
@@ -66,6 +68,14 @@ public class Invitation implements Parcelable {
      */
     public void setHasRead() {
         hasRead = true;
+    }
+
+    public String getHostName() {
+        return hostName;
+    }
+
+    public void setHostName(String hostName) {
+        this.hostName = hostName;
     }
 
     public boolean getHasRead() {
