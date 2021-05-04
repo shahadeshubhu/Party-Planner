@@ -82,7 +82,7 @@ public class TaskDetailActivity extends AppCompatActivity implements AdapterView
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.emEdit) {
-            toastMsg("Edit Task");
+            toastMsg("Edit Task (Unfinished)");
             //startActivity(new Intent(this, EditTaskActivity.class));
             return true;
         }

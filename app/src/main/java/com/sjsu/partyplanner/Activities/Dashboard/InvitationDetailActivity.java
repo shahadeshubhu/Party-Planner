@@ -10,10 +10,14 @@ import android.widget.TextView;
 
 import com.sjsu.partyplanner.Models.Invitation;
 import com.sjsu.partyplanner.R;
+import com.sjsu.partyplanner.databinding.ActivityInvitationDetailBinding;
 
 import org.w3c.dom.Text;
 
 public class InvitationDetailActivity extends AppCompatActivity {
+
+    public static final String INVITATION_KEY = "INVITATION";
+    private ActivityInvitationDetailBinding binding;
 
     private Toolbar toolbar;
     private Invitation invite;
@@ -32,7 +36,9 @@ public class InvitationDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_invitation_detail);
+
+        binding = ActivityInvitationDetailBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         setUpToolbar();
         invite = new Invitation();

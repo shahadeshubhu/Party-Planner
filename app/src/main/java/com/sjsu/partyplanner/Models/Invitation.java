@@ -1,6 +1,9 @@
 package com.sjsu.partyplanner.Models;
 
-public class Invitation {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Invitation implements Parcelable {
 
     private String partyId;
     private String inviteTitle;
@@ -21,6 +24,42 @@ public class Invitation {
         this(partyId,inviteTitle,guessId);
         this.accepted=accepted;
     }
+
+    protected Invitation(Parcel in) {
+        partyId = in.readString();
+        inviteTitle = in.readString();
+        hasRead = in.readByte() != 0;
+        hasSelected = in.readByte() != 0;
+        accepted = in.readByte() != 0;
+        guestId = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(partyId);
+        dest.writeString(inviteTitle);
+        dest.writeByte((byte) (hasRead ? 1 : 0));
+        dest.writeByte((byte) (hasSelected ? 1 : 0));
+        dest.writeByte((byte) (accepted ? 1 : 0));
+        dest.writeString(guestId);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Invitation> CREATOR = new Creator<Invitation>() {
+        @Override
+        public Invitation createFromParcel(Parcel in) {
+            return new Invitation(in);
+        }
+
+        @Override
+        public Invitation[] newArray(int size) {
+            return new Invitation[size];
+        }
+    };
 
     /**
      * Permanently sets the invitation to hasRead.

@@ -10,9 +10,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.sjsu.partyplanner.Activities.Parties.TaskDetailActivity;
 import com.sjsu.partyplanner.Controllers.PartyController;
 import com.sjsu.partyplanner.Models.Invitation;
 import com.sjsu.partyplanner.Models.Party;
+import com.sjsu.partyplanner.Models.Task;
 import com.sjsu.partyplanner.R;
 import java.util.ArrayList;
 import com.sjsu.partyplanner.databinding.ActivityInvitationListBinding;
@@ -36,14 +38,6 @@ public class InvitationListActivity extends AppCompatActivity implements Invitat
         //TODO: Get input of Invitations List
         invites = new ArrayList<Invitation>();
         partyController.getUserInvitations(this);
-
-        //Recycler
-        setUpRecycler();
-
-        // Gets rid of extra text
-        if(invites.size() > 0) {
-            binding.noInvitations.setText("");
-        }
 
     }
 
@@ -74,8 +68,14 @@ public class InvitationListActivity extends AppCompatActivity implements Invitat
 
     public void handleGetInvitationSuccess(ArrayList<Invitation>invites){
         //TODO: Display this invitation list
-        this.invites=invites;
+        this.invites = invites;
         Log.d("Invitation", ""+invites.toString());
+
+        setUpRecycler();
+        // Gets rid of extra text
+        if(invites.size() > 0) {
+            binding.noInvitations.setText("");
+        }
     }
 
     @Override
@@ -86,21 +86,12 @@ public class InvitationListActivity extends AppCompatActivity implements Invitat
 
         Intent intent = new Intent(getApplicationContext(), InvitationDetailActivity.class);
 
-        //TODO: send invitation over (get party information in the invitation detail activity)
-        // We get the invitation to be able to set whether or not it has been accepted/declined
-        // and get the host name
-
-
         // DO HERE
+        Bundle extra =  new Bundle();
+        extra.putParcelable(InvitationDetailActivity.INVITATION_KEY, invitation);
+        intent.putExtras(extra);
+        startActivity(intent);
 
-
-
-
-
-
-
+        setUpRecycler();
     }
-
-
-
 }
