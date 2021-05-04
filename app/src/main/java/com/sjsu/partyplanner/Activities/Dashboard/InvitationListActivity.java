@@ -7,9 +7,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
+import com.sjsu.partyplanner.Controllers.PartyController;
 import com.sjsu.partyplanner.Models.Invitation;
+import com.sjsu.partyplanner.Models.Party;
 import com.sjsu.partyplanner.R;
 import java.util.ArrayList;
 import com.sjsu.partyplanner.databinding.ActivityInvitationListBinding;
@@ -20,7 +23,7 @@ public class InvitationListActivity extends AppCompatActivity implements Invitat
     private ActivityInvitationListBinding binding;
     private Toolbar toolbar;
     private ArrayList<Invitation> invites;
-
+    private PartyController partyController;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,12 +31,11 @@ public class InvitationListActivity extends AppCompatActivity implements Invitat
         setContentView(binding.getRoot());
 
         setUpToolbar();
-
+        partyController = PartyController.getInstance();
 
         //TODO: Get input of Invitations List
         invites = new ArrayList<Invitation>();
-
-
+        partyController.getUserInvitations(this);
 
         //Recycler
         setUpRecycler();
@@ -68,6 +70,12 @@ public class InvitationListActivity extends AppCompatActivity implements Invitat
         InvitationAdapter ia = new InvitationAdapter(invites, this);
         RecyclerView.Adapter<InvitationAdapter.ViewHolder> mAdapter = ia;
         binding.inviteListRecycler.setAdapter(mAdapter);
+    }
+
+    public void handleGetInvitationSuccess(ArrayList<Invitation>invites){
+        //TODO: Display this invitation list
+        this.invites=invites;
+        Log.d("Invitation", ""+invites.toString());
     }
 
     @Override

@@ -34,7 +34,7 @@ public class CreateTaskActivity extends AppCompatActivity implements AdapterView
     private Spinner dropDown;
     private String taskCategory;
     private ActivityCreateTaskBinding binding;
-    private ArrayList<Subtask> subtaskList;
+    private ArrayList<Subtask> subtaskList = new ArrayList<Subtask>();
     private RecyclerView.Adapter<SubtaskAdapter.ViewHolder> mAdapter;
 
     @Override
@@ -43,44 +43,10 @@ public class CreateTaskActivity extends AppCompatActivity implements AdapterView
         binding = ActivityCreateTaskBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
-        // Toolbar, Dropdown
+        // Toolbar, Dropdown, Recycler
         setUpToolbar();
         setUpSpinner();
-
-        //TODO: Subtask recyclerview is not scrolling
-
-        //T----TESTING WITH SUBTASKS RECYCLERVIEW
-        subtaskList = new ArrayList<Subtask>();
-        subtaskList.add(new Subtask("111task"));
-        subtaskList.add(new Subtask("222task"));
-        subtaskList.add(new Subtask("333task"));
-        subtaskList.add(new Subtask("444task"));
-        subtaskList.add(new Subtask("555task"));
-
-       setUpRecycler();
-    }
-
-
-
-    public void setUpRecycler() {
-
-        binding.etRecycler.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        binding.etRecycler.setLayoutManager(layoutManager);
-        mAdapter = new SubtaskAdapter(subtaskList, this);
-        binding.etRecycler.setAdapter(mAdapter);
-    }
-
-    // Sets up Spinner (Drop-down menu)
-    public void setUpSpinner() {
-        dropDown = (Spinner) findViewById(R.id.etCategoryDropDown);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.taskCategories, R.layout.spinner_text);
-
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(R.layout.spinner_dropdown_layout);
-        dropDown.setAdapter(adapter);
-        dropDown.setOnItemSelectedListener(this);
+        setUpRecycler();
     }
 
     // Sets up Toolbar
@@ -106,9 +72,7 @@ public class CreateTaskActivity extends AppCompatActivity implements AdapterView
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.cpCheck:
-
-                Task task = new Task(binding.etNameText.getText().toString(), taskCategory, binding.etCategory.getText().toString(), subtaskList );
-
+                Task task = new Task(binding.ctNameText.getText().toString(), taskCategory, binding.ctCategory.getText().toString(), subtaskList);
                 Intent rIntent =  new Intent(this, CreateTaskActivity.class);
                 rIntent.putExtra(TASK_KEY, task);
                 setResult(Activity.RESULT_OK, rIntent);
@@ -119,7 +83,25 @@ public class CreateTaskActivity extends AppCompatActivity implements AdapterView
         }
     }
 
+    // Sets up Spinner (Drop-down menu)
+    public void setUpSpinner() {
+        dropDown = (Spinner) findViewById(R.id.etCategoryDropDown);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.taskCategories, R.layout.spinner_text);
 
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_layout);
+        dropDown.setAdapter(adapter);
+        dropDown.setOnItemSelectedListener(this);
+    }
+
+    // Sets up recyclerview
+    public void setUpRecycler() {
+        binding.ctRecycler.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        binding.ctRecycler.setLayoutManager(layoutManager);
+        mAdapter = new SubtaskAdapter(subtaskList, this);
+        binding.ctRecycler.setAdapter(new SubtaskAdapter(subtaskList, this));
+    }
 
     // Handles selected task category
     @Override
@@ -132,32 +114,28 @@ public class CreateTaskActivity extends AppCompatActivity implements AdapterView
         // Empty
     }
 
+    @Override
+    public void OnSubtaskClick(int position) {
+        subtaskList.get(position).changeStatus();
+        mAdapter.notifyItemChanged(position);
+    }
+
+    @Override
+    public void getDialogText(String inputText) {
+        if (!inputText.isEmpty()) {
+            subtaskList.add(new Subtask(inputText));
+            mAdapter.notifyItemInserted(subtaskList.size() -1);
+        }
+    }
 
     public void toastMsg(String msg) {
         Toast toast = Toast.makeText(this, msg, Toast.LENGTH_LONG);
         toast.show();
     }
 
-    public void addSubTask(View view)
-    {
+    public void addSubTask(View view) {
         AddSubtaskDialog addSubtaskDialog = new AddSubtaskDialog();
         addSubtaskDialog.show(getSupportFragmentManager(), "test custom dialog");
     }
-    @Override
-    public void OnSubtaskClick(int position) {
 
-        subtaskList.get(position).changeStatus();
-        mAdapter.notifyItemChanged(position);
-
-
-    }
-
-    @Override
-    public void getDialogText(String inputText) {
-        if (!inputText.isEmpty())
-        {
-            subtaskList.add(new Subtask(inputText));
-            mAdapter.notifyItemInserted(subtaskList.size() -1);
-        }
-    }
 }

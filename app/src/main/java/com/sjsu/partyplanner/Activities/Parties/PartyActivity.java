@@ -29,13 +29,14 @@ import java.util.Date;
 
 public class PartyActivity extends AppCompatActivity {
 
+    private static final int RETURN_NEW_PARTY = 1111 ;
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private ArrayList<Party> pastParties = new ArrayList<>();
     private ArrayList<Party> upParties = new ArrayList<>();
 
-    private PartyController p = new PartyController();
+    private PartyController p;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,7 @@ public class PartyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_party_page);
         setupToolbar();
 
-        p = new PartyController();
+        p = PartyController.getInstance();
         // TODO: gets error when there are no parties
         p.getParties(this);
     }
@@ -53,7 +54,7 @@ public class PartyActivity extends AppCompatActivity {
         super.onResume();
         pastParties = new ArrayList<>();
         upParties = new ArrayList<>();
-        p = new PartyController();
+        p = PartyController.getInstance();
         //p.getParties(this);       // Does not update, adds a second version of the list into it.
     }
 
@@ -82,6 +83,14 @@ public class PartyActivity extends AppCompatActivity {
 
                 initializeTabLayout();
             }
+        }
+        else if (requestCode == RETURN_NEW_PARTY) {
+            if(resultCode == RESULT_OK) {
+                Party newParty = data.getParcelableExtra("newParty");
+                upParties.add(newParty);
+                Log.d("return PArty\n", newParty.toString());
+            }
+            initializeTabLayout();
         }
     }
 
@@ -213,7 +222,7 @@ public class PartyActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.clAdd:
-                startActivity(new Intent(this, CreatePartyActivity.class));
+                startActivityForResult(new Intent(this, CreatePartyActivity.class), RETURN_NEW_PARTY);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

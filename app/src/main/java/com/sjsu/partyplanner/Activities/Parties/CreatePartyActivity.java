@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.sjsu.partyplanner.Activities.Dashboard.GuestFragment;
 import com.sjsu.partyplanner.Controllers.PartyController;
 import com.sjsu.partyplanner.Controllers.UserController;
+import com.sjsu.partyplanner.Models.Guest;
 import com.sjsu.partyplanner.Models.Party;
 import com.sjsu.partyplanner.Models.Task;
 import com.sjsu.partyplanner.Models.User;
@@ -36,6 +37,7 @@ import java.util.Date;
 public class CreatePartyActivity extends AppCompatActivity implements View.OnClickListener {
     public static final int VIEW_CODE = 1;
     public static final int GUEST_INVITE_VIEW_CODE = 300;
+    public static final String GUEST_KEY = "GUEST_LIST";
 
     private Toolbar toolbar;
     private Button btnDatePicker, btnTimePicker;
@@ -43,6 +45,9 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
     private int mYear, mMonth, mDay, mHour, mMinute;
     private PartyController partyController;
     private Party party;
+    private ArrayList<Guest> selectedGuests = new ArrayList<>();
+
+    private ArrayList<Guest> guests;
     private Calendar pickedDateTime;
     protected ActivityCreatePartyBinding binding;
     public Party createdParty;
@@ -67,68 +72,84 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
         setupAutoComplete();
 
         // Party Controller
-        partyController = new PartyController();
+        partyController = PartyController.getInstance();
         party = new Party();
     }
 
     // Handles Menu Items on Toolbar
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.cpCheck:
-              Log.d("date", txtDate.getText().toString());
-              Log.d("time", txtTime.getText().toString());
-                if(pickedDateTime.getTime().compareTo(new Date())<= 0){
-                    toastMsg("Date and Time is invalid");
-                    // TODO: Flag the date and time field
-                    return false;
-                }else {
-                    createdParty = new Party(
-                            binding.cpNameText.getText().toString(),
-                            binding.cpPartyTypeTB.getText().toString(),
-                            binding.cpLocationText.getText().toString(),
-                            binding.cpDescriptionText.getText().toString(),
-                            pickedDateTime.getTime());
-                    partyController.createParty(this, createdParty);
-                    toastMsg(binding.cpNameText.getText().toString());
-                    return true;
-                }
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.cpCheck) {
+            Log.d("date", txtDate.getText().toString());
+            Log.d("time", txtTime.getText().toString());
+            if (pickedDateTime.getTime().compareTo(new Date()) <= 0) {
+                toastMsg("Date and Time is invalid");
+                // TODO: Flag the date and time field
+                return false;
+            }
+            else {
+                createdParty = new Party(
+                        binding.cpNameText.getText().toString(),
+                        binding.cpPartyTypeTB.getText().toString(),
+                        binding.cpLocationText.getText().toString(),
+                        binding.cpDescriptionText.getText().toString(),
+                        pickedDateTime.getTime());
+                createdParty.setGuests(selectedGuests);
+                partyController.createParty(this, createdParty);
+                toastMsg(binding.cpNameText.getText().toString());
+                return true;
+            }
         }
+        else { return super.onOptionsItemSelected(item); }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.d("COME_BACK!","CREATE_PARTY");
+
         if (requestCode == VIEW_CODE && resultCode == Activity.RESULT_OK) {
             //ArrayList<Task> t = data.getParcelableArrayListExtra(CreateTaskListActivity.TASKLIST_KEY);
             Bundle extras = data.getExtras();
             ArrayList<Task> t = extras.getParcelableArrayList(CreateTaskListActivity.TASKLIST_KEY);
-            Log.d("TASK!","Task name: \n"  + t.get(0));
+            Log.d("TASK!","Task name: \n"  + t.size());
             //party.addTask(t);
         }
-        else {
-
+        else if (requestCode == GUEST_INVITE_VIEW_CODE && resultCode == Activity.RESULT_OK) {
+            Bundle extras = data.getExtras();
+            selectedGuests = extras.getParcelableArrayList(CreateGuestListActivity.GUEST_LIST_KEY);
+            if(selectedGuests == null){
+                selectedGuests=new ArrayList<Guest>();
+            }
+            binding.cpGuestButton.setText(String.format("%s (%d)",binding.cpGuestButton.getText().toString(), selectedGuests.size()));
+            Log.d("Selected Guest size!", ""+ selectedGuests.size());
         }
     }
 
     public void addClick(View view) {
         if (view == findViewById(R.id.cpGuestButton)) {
-            UserController.getAllUsers(this);
-            //TODO Send to Invite Guests Page
-            startActivityForResult(new Intent(this, CreateGuestListActivity.class), VIEW_CODE);
+            if(guests == null || guests.size() <=0) {
+                UserController.getAllUsers(this);
+            }else{
+                showInviteGuestPage(guests);
+            }
         }
         else if (view == findViewById(R.id.cpTaskButton)) {
             startActivityForResult(new Intent(this, CreateTaskListActivity.class), VIEW_CODE);
         }
     }
 
-    public void showInviteGuestPage(ArrayList<User> allGuests){
-        startActivityForResult(new Intent(this, GuestFragment.class), GUEST_INVITE_VIEW_CODE);
 
+    public void showInviteGuestPage(ArrayList<Guest> allGuests){
+        guests = allGuests;
+        Intent intent = new Intent(this, CreateGuestListActivity.class);
+        Bundle uBundle = new Bundle();
+        uBundle.putParcelableArrayList(GUEST_KEY, allGuests);
+        intent.putExtras(uBundle);
+        startActivityForResult(intent, GUEST_INVITE_VIEW_CODE);
     }
+
 
     public void handleSuccess(){
       Intent intent = new Intent();
@@ -187,7 +208,7 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
 
             DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                     (view1, year, monthOfYear, dayOfMonth) -> {
-                        String dateSet = "";
+                        String dateSet;
                         pickedDateTime.set(Calendar.YEAR, year);
                         pickedDateTime.set(Calendar.MONTH, monthOfYear);
                         pickedDateTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -222,21 +243,21 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
                         pickedDateTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
                         pickedDateTime.set(Calendar.MINUTE, minute);
                       // Selecting Hour (AM/PM)
-                        String timeSet = "";
+                        String timeSet;
                         if (hourOfDay > 12) { hourOfDay -= 12; timeSet = "PM"; }
                         else if (hourOfDay == 0) { hourOfDay += 12; timeSet = "AM"; }
                         else if (hourOfDay == 12) timeSet = "PM";
                         else timeSet = "AM";
 
                         // Selecting Minute
-                        String min = "";
+                        String min;
                         if (minute < 10) min = "0" + minute;
                         else min = String.valueOf(minute);
                         String z = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(pickedDateTime.getTime());
                         Log.d("calendar", z);
 
                         // Append in a StringBuilder
-                        String time = new StringBuilder().append(hourOfDay).append(':').append(min ).append(" ").append(timeSet).toString();
+                        String time = String.valueOf(hourOfDay) + ':' + min + " " + timeSet;
                         txtTime.setText(time);
 
                     }, mHour, mMinute, false);

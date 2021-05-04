@@ -15,16 +15,9 @@ public class Task implements Parcelable {
     private String taskCategory;
     private String note;
     private ArrayList<Subtask> subtasks;
-//    private String partyID;
     private STATUS taskStatus;
     private int completedSubtasks;
 
-
-    public enum STATUS {
-        NOT_STARTED,
-        PENDING,
-        COMPLETE
-    }
     public Task(){};
 
     // Constructor
@@ -33,7 +26,6 @@ public class Task implements Parcelable {
         this.note = note;
         this.taskCategory = taskCategory;
         this.subtasks = subtasks;
-//        this.partyID = partyID;
         this.taskStatus = getTaskStatus();
     }
 
@@ -52,49 +44,20 @@ public class Task implements Parcelable {
     }
 
     /**
-     * For TaskAdapter, gets subtask completion
-     * @return s
-     */
-    public String getCompleted() {
-
-        String s = "";
-        setTaskStatus();
-
-        if (taskStatus == STATUS.NOT_STARTED) {
-            s = "Subtasks: 0/";
-        }
-        else if (taskStatus != STATUS.NOT_STARTED){
-            s = "Subtasks: " + String.valueOf(completedSubtasks) + "/";
-        }
-
-        s = s + String.valueOf(getTotalSubtasks());
-
-        return s;
-    }
-
-    /**
-     * For TaskAdapter, gets task state (string)
-     * @return task status
-     */
-    public String getStatus() {
-        if (taskStatus == STATUS.COMPLETE) {
-            return "Complete";
-        }
-        else if (taskStatus == STATUS.NOT_STARTED) {
-            return "Not Started";
-        }
-        else {
-            return "Pending";
-        }
-    }
-
-
-    /**
      * Gets the task category (task adapter)
      * @return taskCategory
      */
     public String getTaskCategory() {
         return taskCategory;
+    }
+
+    /**
+     * Sets the new subtasks
+     * @param subtasks
+     */
+    public void setSubtasks(ArrayList<Subtask> subtasks) {
+        this.subtasks = subtasks;
+        setTaskStatus();
     }
 
 
@@ -105,14 +68,6 @@ public class Task implements Parcelable {
     public ArrayList<Subtask> getSubtasks() {
         return subtasks;
     }
-
-//    /**
-//     * Get partyID who owns the task
-//     * @return partyID
-//     */
-//    public String getPartyID() {
-//        return partyID;
-//    }
 
     /**
      * Gets the number of completed subtasks
@@ -130,10 +85,33 @@ public class Task implements Parcelable {
         return subtasks.size();
     }
 
+    /**
+     * For TaskAdapter, gets subtask completion
+     * @return s
+     */
+    public String getCompleted() {
+        String s = "";
+        setTaskStatus();
+
+        if (taskStatus == STATUS.NOT_STARTED) { s = "Subtasks: 0/"; }
+        else if (taskStatus != STATUS.NOT_STARTED){ s = "Subtasks: " + String.valueOf(completedSubtasks) + "/"; }
+        s = s + String.valueOf(getTotalSubtasks());
+
+        return s;
+    }
+
+    /**
+     * For TaskAdapter, gets task state (string)
+     * @return task status
+     */
+    public String getStatus() {
+        if (taskStatus == STATUS.COMPLETE) { return "Complete"; }
+        else if (taskStatus == STATUS.NOT_STARTED) { return "Not Started"; }
+        else { return "Pending"; }
+    }
 
 
     //-------------Private Methods----------------
-
 
 
     /**
@@ -142,7 +120,7 @@ public class Task implements Parcelable {
     private void setCompletedSubtasks() {
         int count = 0;
 
-        for (int i = 0; i < getTotalSubtasks()-1; i++) {
+        for (int i = 0; i < getTotalSubtasks(); i++) {
             // Completed subtask returns true
             if (subtasks.get(i).getSubtaskStatus()) { count++; }
         }

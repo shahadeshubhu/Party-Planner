@@ -29,6 +29,7 @@
 
     <string name="noParties">No Parties Planned</string>
     <string name="noTasks">No Tasks Planned</string>
+    <string name="noGuests">No Guests Invited</string>
 
     <string name="name">Name</string>
     <string name="category">Category</string>
@@ -58,6 +59,7 @@
     <string name="pendingStatus">Pending</string>
     <string name="completeStatus">Complete</string>
     <string name="subtaskValue">Subtasks: 0/10</string>
+    <string name="plus">+</string>
 
     <string name="party">Parties</string>
     <string name="event">Events</string>

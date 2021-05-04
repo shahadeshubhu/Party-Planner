@@ -7,21 +7,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.View;
 
 import com.sjsu.partyplanner.Activities.Contacts.ContactAdapter;
 import com.sjsu.partyplanner.Activities.Contacts.ContactDialog;
+import com.sjsu.partyplanner.Models.Guest;
 import com.sjsu.partyplanner.Models.User;
 import com.sjsu.partyplanner.R;
 import com.sjsu.partyplanner.databinding.ActivityGuestListBinding;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class GuestListActivity extends AppCompatActivity implements ContactAdapter.ContactClick {
+public class GuestListActivity extends AppCompatActivity implements GuestAdapter.GuestClick {
 
     private ActivityGuestListBinding binding;
     private Toolbar toolbar;
-    private ArrayList<User> guestList = new ArrayList<User>();
+    private ArrayList<Guest> guestList;
     private Dialog myDialog;
 
     @Override
@@ -29,9 +33,6 @@ public class GuestListActivity extends AppCompatActivity implements ContactAdapt
         super.onCreate(savedInstanceState);
         binding = ActivityGuestListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        //TODO: Get Guest List of party from party details activity
-        guestList.add(new User("firstName", "lastName", "email"));
 
         // Toolbar, RecyclerView
         setUpToolbar();
@@ -48,25 +49,41 @@ public class GuestListActivity extends AppCompatActivity implements ContactAdapt
         toolbar.setNavigationOnClickListener(v -> finish());        // Closes Activity
     }
 
+    // Sets up Guest List
+    private void setUpGuestList() {
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            guestList = extras.getParcelableArrayList(PartyDetailActivity.GUEST_KEY);
+        }
+
+        // Checks Guest List
+        if (guestList == null) {
+            guestList = new ArrayList<>();
+        }
+
+        // Gets rid of extra text
+        if(guestList.size() > 0) {
+            binding.noGuestsTL.setText("");
+        }
+    }
+
     // Sets up Recycler
     private void setUpRecycler() {
+        setUpGuestList();
         binding.guestListRV.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         binding.guestListRV.setLayoutManager(layoutManager);
-
-        ContactAdapter ca = new ContactAdapter(guestList, this);
-        RecyclerView.Adapter<ContactAdapter.ViewHolder> mAdapter = ca;
-        binding.guestListRV.setAdapter(mAdapter);
+        binding.guestListRV.setAdapter(new GuestAdapter(guestList, this));
     }
 
     // onClick on RecyclerView Item
     @Override
-    public void onContactClick(View v, int position) {
+    public void onGuestClick(View v, int position) {
         myDialog = new Dialog(getApplicationContext());
         myDialog.setContentView(R.layout.dialog_contact);
 
-        final User contact = guestList.get(position);
-        openDialog(contact.getName(), contact.getEmail());
+        final Guest guest = guestList.get(position);
+        openDialog(guest.getName(), guest.getEmail());
     }
 
     // Creates a contact dialog
@@ -74,4 +91,5 @@ public class GuestListActivity extends AppCompatActivity implements ContactAdapt
         ContactDialog contactDialog = new ContactDialog(name, email);
         contactDialog.show(getSupportFragmentManager(), "contact dialog");
     }
+
 }
