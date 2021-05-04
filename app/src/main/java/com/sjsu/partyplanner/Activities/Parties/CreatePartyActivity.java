@@ -45,6 +45,8 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
     private int mYear, mMonth, mDay, mHour, mMinute;
     private PartyController partyController;
     private Party party;
+    private ArrayList<Guest> selectedGuests = new ArrayList<>();
+
     private ArrayList<Guest> guests;
     private Calendar pickedDateTime;
     protected ActivityCreatePartyBinding binding;
@@ -92,6 +94,7 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
                         binding.cpLocationText.getText().toString(),
                         binding.cpDescriptionText.getText().toString(),
                         pickedDateTime.getTime());
+                createdParty.setGuests(selectedGuests);
                 partyController.createParty(this, createdParty);
                 toastMsg(binding.cpNameText.getText().toString());
                 return true;
@@ -104,7 +107,7 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d("COMEBACK!","CREATEPARTY");
+        Log.d("COME_BACK!","CREATE_PARTY");
 
         if (requestCode == VIEW_CODE && resultCode == Activity.RESULT_OK) {
             //ArrayList<Task> t = data.getParcelableArrayListExtra(CreateTaskListActivity.TASKLIST_KEY);
@@ -114,11 +117,13 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
             //party.addTask(t);
         }
         else if (requestCode == GUEST_INVITE_VIEW_CODE && resultCode == Activity.RESULT_OK) {
-            //ArrayList<Task> t = data.getParcelableArrayListExtra(CreateTaskListActivity.TASKLIST_KEY);
             Bundle extras = data.getExtras();
-            ArrayList<Guest> t = extras.getParcelableArrayList(CreateGuestListActivity.GUEST_LIST_KEY);
-            Log.d("Selected Guest size!", ""+ t.size());
-            //party.addTask(t);
+            selectedGuests = extras.getParcelableArrayList(CreateGuestListActivity.GUEST_LIST_KEY);
+            if(selectedGuests == null){
+                selectedGuests=new ArrayList<Guest>();
+            }
+            binding.cpGuestButton.setText(String.format("%s (%d)",binding.cpGuestButton.getText().toString(), selectedGuests.size()));
+            Log.d("Selected Guest size!", ""+ selectedGuests.size());
         }
     }
 

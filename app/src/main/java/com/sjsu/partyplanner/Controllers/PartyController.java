@@ -17,8 +17,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.WriteBatch;
+import com.sjsu.partyplanner.Activities.Dashboard.InvitationListActivity;
 import com.sjsu.partyplanner.Activities.Parties.CreatePartyActivity;
 import com.sjsu.partyplanner.Activities.Parties.PartyActivity;
+import com.sjsu.partyplanner.Models.Guest;
 import com.sjsu.partyplanner.Models.Invitation;
 import com.sjsu.partyplanner.Models.Party;
 import com.sjsu.partyplanner.Models.User;
@@ -62,7 +64,12 @@ public class PartyController {
                                 .update("parties", FieldValue.arrayUnion(partyDocumentReference.getId()));
 
                         Log.d("#EC createEvent success", "DocumentSnapshot written with ID: " + partyDocumentReference.getId());
-                        activity.handleSuccess();
+                        ArrayList<Guest> guests = p.getGuests();
+                        if (guests == null || guests.size() <= 0){
+                            activity.handleSuccess();
+                            return;
+                        }
+                        inviteGuestByEmail(activity, guests, partyDocumentReference.getId(), p.getName());
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -102,54 +109,39 @@ public class PartyController {
         }
     }
 
-    public void inviteGuestByEmail(PartyActivity activity, ArrayList<String> emails, String partyId, String partyTitle) {
-        if (emails == null || emails.size() <= 0){
-           return;
+    public void inviteGuestByEmail(CreatePartyActivity activity, ArrayList<Guest> guests, String partyId, String partyTitle) {
+
+        ArrayList<Invitation> invitations = new ArrayList<>();
+
+        for( Guest g : guests){
+            invitations.add(new Invitation(partyId, partyTitle, g.getUid()));
         }
-        Set emailSet = new HashSet(emails);
-        db.collection(UserController.ASSOCIATE_DB_NAME).whereIn("email", emails)
-                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    ArrayList<User> appRegisteredGuests = new ArrayList<>();
-                    ArrayList<Invitation> invitations = new ArrayList<>();
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        User u = document.toObject(User.class);
-                        u.setUid(document.getId());
-                        appRegisteredGuests.add(u);
-                        emailSet.remove(u.getEmail());
-                        invitations.add(new Invitation(partyId, partyTitle, u.getUid()));
-                    }
 
-                    if (invitations.size()>0) {
-                        WriteBatch batch = db.batch();
-                        for(Invitation i : invitations){
-                            batch.set(db.collection(INVITE_DB_NAME).document(), i);
-                        }
-                        // Commit the batch
-                        batch.commit().addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                // ...
-                            }
-                        });
-                    }
-                    ArrayList<String> unregisteredGuests = new ArrayList<>(emailSet);
-                    //TODO: email the invitation to all unregisterGuests email
-//                    activity.handleFetchParties(true, appRegisteredGuests);
-                    Log.d("#invittByEmail", "" + appRegisteredGuests.size());
-
-                } else {
-                    Log.d("#invite error", "Error getting documents: ", task.getException());
-//                    activity.handleFetchParties(false, appRegisteredGuests);
-                }
+        Log.d("inviteGuestByEmail", ""+invitations.size());
+        if (invitations.size()>0) {
+            WriteBatch batch = db.batch();
+            for(Invitation i : invitations){
+                batch.set(db.collection(INVITE_DB_NAME).document(), i);
             }
-        });
+            // Commit the batch
+            batch.commit().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    activity.handleSuccess();
+                }
+            });
+        } else {
+            Log.d("inviteGuestByEmail", " No guest ");
+            activity.handleSuccess();
+        }
+
     }
 
-    public void getUserInvitations(){
-        db.collection(INVITE_DB_NAME).whereEqualTo("guestId", UserController.currentUser.getUid())
+    public void getUserInvitations(InvitationListActivity activity){
+//        String uId = UserController.currentUser.getUid();
+        //TODO:TESTING INVITATION NOW
+        String uId ="LGd3AlG18uS9uG238XRml58CSFI3";
+        db.collection(INVITE_DB_NAME).whereEqualTo("guestId", uId)
             .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -157,8 +149,8 @@ public class PartyController {
                 if(task.isComplete()){
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         invitations.add(document.toObject(Invitation.class));
-                        //Todo: pass this back to invitation
                     }
+                    activity.handleGetInvitationSuccess(invitations);
                 }
             }
         });

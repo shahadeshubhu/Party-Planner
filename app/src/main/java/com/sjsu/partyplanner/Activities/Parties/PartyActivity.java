@@ -29,6 +29,7 @@ import java.util.Date;
 
 public class PartyActivity extends AppCompatActivity {
 
+    private static final int RETURN_NEW_PARTY = 1111 ;
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -82,6 +83,14 @@ public class PartyActivity extends AppCompatActivity {
 
                 initializeTabLayout();
             }
+        }
+        else if (requestCode == RETURN_NEW_PARTY) {
+            if(resultCode == RESULT_OK) {
+                Party newParty = data.getParcelableExtra("newParty");
+                upParties.add(newParty);
+                Log.d("return PArty\n", newParty.toString());
+            }
+            initializeTabLayout();
         }
     }
 
@@ -213,7 +222,7 @@ public class PartyActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.clAdd:
-                startActivity(new Intent(this, CreatePartyActivity.class));
+                startActivityForResult(new Intent(this, CreatePartyActivity.class), RETURN_NEW_PARTY);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
