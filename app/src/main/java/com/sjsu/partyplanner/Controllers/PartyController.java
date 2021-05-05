@@ -142,6 +142,7 @@ public class PartyController {
 
     public void getUserInvitations(InvitationListActivity activity){
 //        String uId = UserController.currentUser.getUid();
+
         //TODO:TESTING INVITATION NOW
         String uId ="LGd3AlG18uS9uG238XRml58CSFI3";
         db.collection(INVITE_DB_NAME).whereEqualTo("guestId", uId)
@@ -154,6 +155,25 @@ public class PartyController {
                         invitations.add(document.toObject(Invitation.class));
                     }
                     activity.handleGetInvitationSuccess(invitations);
+                }
+            }
+        });
+    }
+
+    public void getParty(String partyId){
+        db.collection(EVENT_DB_NAME).whereEqualTo(FieldPath.documentId(), partyId)
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        Party p = document.toObject(Party.class);
+                        p.setpId(document.getId());
+                        Log.d("#getParty", document.getId() + " => " + p.toString());
+                    }
+                } else {
+                    Log.d("#getParty error", "Error getting documents: ", task.getException());
+
                 }
             }
         });
