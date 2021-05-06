@@ -95,31 +95,29 @@
             app:layout_constraintStart_toStartOf="@+id/cpType"
             app:layout_constraintTop_toBottomOf="@+id/cpPartyTypeTB" />
 
-        <EditText
-            android:id="@+id/cpLocationText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="@string/partyLocation"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/oswald"
-            app:layout_constraintStart_toStartOf="@+id/cpLocation"
+
+        <fragment
+            android:id="@+id/autocomplete_fragment"
+            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+            android:layout_width="414dp"
+            android:layout_height="31dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cpLocation" />
+
 
         <TextView
             android:id="@+id/cpDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/partyDescription"
-            android:textSize="25sp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
+            android:layout_marginTop="18dp"
             android:fontFamily="@font/iceberg"
+            android:text="@string/partyDescription"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/cpLocation"
-            app:layout_constraintTop_toBottomOf="@+id/cpLocationText" />
+            app:layout_constraintTop_toBottomOf="@+id/autocomplete_fragment" />
 
         <EditText
             android:id="@+id/cpDescriptionText"
