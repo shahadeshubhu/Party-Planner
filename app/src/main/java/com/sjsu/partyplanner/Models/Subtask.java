@@ -1,8 +1,5 @@
 package com.sjsu.partyplanner.Models;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import java.io.Serializable;
 
 public class Subtask implements  Serializable {
@@ -16,39 +13,8 @@ public class Subtask implements  Serializable {
         this.subtaskStatus = STATUS.PENDING;
     }
     // no argument constructor. Firestore requires it
-    public Subtask()
-    {
+    public Subtask() { }
 
-    }
-
-    /*
-    protected Subtask(Parcel in) {
-        name = in.readString();
-    }
-
-    public static final Creator<Subtask> CREATOR = new Creator<Subtask>() {
-        @Override
-        public Subtask createFromParcel(Parcel in) {
-            return new Subtask(in);
-        }
-
-        @Override
-        public Subtask[] newArray(int size) {
-            return new Subtask[size];
-        }
-    };
-
-    //TODO: Implement this
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(name);
-    }
-
-     */
     /**
      * Gets subtask name
      * @return name

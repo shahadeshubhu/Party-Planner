@@ -34,7 +34,9 @@ public class BudgetActivity extends AppCompatActivity implements BudgetAdapter.B
         // Toolbar
         setUpToolbar();
 
-        budgetList.add(new Budget("Food Budget", "Halloween Party", 300));
+        budgetList.add(new Budget("Example1 Budget", "Halloween Party", 300));
+        budgetList.add(new Budget("Example2 Budget", "Christmas Party", 500));
+        budgetList.add(new Budget("Example3 Budget", "Birthday Party", 400));
 
         setUpRecycler();
 

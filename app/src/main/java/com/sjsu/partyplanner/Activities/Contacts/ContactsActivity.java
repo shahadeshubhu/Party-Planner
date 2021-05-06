@@ -32,7 +32,9 @@ public class ContactsActivity extends AppCompatActivity implements ContactAdapte
         setContentView(binding.getRoot());
 
 
-        contacts.add(new User("firstName", "lastName", "email"));
+        contacts.add(new User("Example1", "Contact", "example1@gmail.com"));
+        contacts.add(new User("Example2", "Contact", "example2@gmail.com"));
+        contacts.add(new User("Example3", "Contact", "example3@gmail.com"));
 
         // Toolbar, RecyclerView
         setUpToolbar();
