@@ -31,6 +31,8 @@ public class Party implements Parcelable {
     this.type = type;
   }
 
+
+/*
   // Parcel Stuff------------------------------------------------
   protected Party(Parcel in) {
     name = in.readString();
@@ -71,7 +73,7 @@ public class Party implements Parcelable {
   };
 
   // END OF PARCEL STUFF
-
+*/
   public void setName(String name) {
     this.name = name;
   }
@@ -157,4 +159,66 @@ public class Party implements Parcelable {
             ", owner=" + ownerID +
             '}';
   }
+
+
+  // Parceable stuff
+  @Override
+  public int describeContents() {
+    return 0;
+  }
+
+  @Override
+  public void writeToParcel(Parcel dest, int flags) {
+    dest.writeString(this.name);
+    dest.writeString(this.address);
+    dest.writeString(this.description);
+    dest.writeString(this.type);
+    dest.writeLong(this.date != null ? this.date.getTime() : -1);
+    dest.writeList(this.partyNeededItem);
+    dest.writeTypedList(this.tasks);
+    dest.writeTypedList(this.guests);
+    dest.writeString(this.ownerID);
+  }
+
+  public void readFromParcel(Parcel source) {
+    this.name = source.readString();
+    this.address = source.readString();
+    this.description = source.readString();
+    this.type = source.readString();
+    long tmpDate = source.readLong();
+    this.date = tmpDate == -1 ? null : new Date(tmpDate);
+    this.partyNeededItem = new ArrayList<Item>();
+    source.readList(this.partyNeededItem, Item.class.getClassLoader());
+    this.tasks = source.createTypedArrayList(Task.CREATOR);
+    this.guests = source.createTypedArrayList(Guest.CREATOR);
+    this.ownerID = source.readString();
+  }
+
+  protected Party(Parcel in) {
+    this.name = in.readString();
+    this.address = in.readString();
+    this.description = in.readString();
+    this.type = in.readString();
+    long tmpDate = in.readLong();
+    this.date = tmpDate == -1 ? null : new Date(tmpDate);
+    this.partyNeededItem = new ArrayList<Item>();
+    in.readList(this.partyNeededItem, Item.class.getClassLoader());
+    this.tasks = in.createTypedArrayList(Task.CREATOR);
+    this.guests = in.createTypedArrayList(Guest.CREATOR);
+    this.ownerID = in.readString();
+  }
+
+  public static final Parcelable.Creator<Party> CREATOR = new Parcelable.Creator<Party>() {
+    @Override
+    public Party createFromParcel(Parcel source) {
+      return new Party(source);
+    }
+
+    @Override
+    public Party[] newArray(int size) {
+      return new Party[size];
+    }
+  };
+
+  // end of parceable
 }

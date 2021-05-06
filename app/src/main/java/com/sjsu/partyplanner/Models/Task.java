@@ -122,7 +122,7 @@ public class Task implements Parcelable {
 
         for (int i = 0; i < getTotalSubtasks(); i++) {
             // Completed subtask returns true
-            if (subtasks.get(i).getSubtaskStatus()) { count++; }
+            if (subtasks.get(i).getSubtaskStatusBool()) { count++; }
         }
         completedSubtasks = count;
     }

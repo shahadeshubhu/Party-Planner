@@ -61,8 +61,12 @@ public class Subtask implements  Serializable {
      * Gets subtask status (pending - false; complete - true)
      * @return subtaskStatus
      */
-    public boolean getSubtaskStatus() {
+    public boolean getSubtaskStatusBool() {
         return subtaskStatus == STATUS.COMPLETE;
+    }
+
+    public int getSubtaskStatus() {
+        return subtaskStatus;
     }
 
     /**

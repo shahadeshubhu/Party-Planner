@@ -38,6 +38,7 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
     public static final int VIEW_CODE = 1;
     public static final int GUEST_INVITE_VIEW_CODE = 300;
     public static final String GUEST_KEY = "GUEST_LIST";
+    public static final String CREATE_TASK_KEY = "CREATE_TASK_KEY";
 
     private Toolbar toolbar;
     private Button btnDatePicker, btnTimePicker;
@@ -67,6 +68,9 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
         binding = ActivityCreatePartyBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+
+        // setting up tasks
+         tasks = new ArrayList<Task>();
         // Toolbar, Date/Time Picker, Autocomplete Suggestions
         setUpToolbar();
         setupPickers();
@@ -95,7 +99,7 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
                         binding.cpLocationText.getText().toString(),
                         binding.cpDescriptionText.getText().toString(),
                         pickedDateTime.getTime());
-               // createdParty.setTasks(tasks);
+                createdParty.setTasks(tasks);
                 createdParty.setGuests(selectedGuests);
                 partyController.createParty(this, createdParty);
                 toastMsg(binding.cpNameText.getText().toString());
@@ -138,7 +142,12 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
             }
         }
         else if (view == findViewById(R.id.cpTaskButton)) {
-            startActivityForResult(new Intent(this, CreateTaskListActivity.class), VIEW_CODE);
+
+            Intent mIntent  = new Intent(this, CreateTaskListActivity.class);
+            Bundle extra =  new Bundle();
+            extra.putParcelableArrayList(CREATE_TASK_KEY, tasks);
+            mIntent.putExtras(extra);
+            startActivityForResult(mIntent, VIEW_CODE);
         }
     }
 

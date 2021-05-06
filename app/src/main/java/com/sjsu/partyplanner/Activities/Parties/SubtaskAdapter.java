@@ -38,7 +38,7 @@ public class SubtaskAdapter extends RecyclerView.Adapter<SubtaskAdapter.ViewHold
         holder.stName.setText(task.getName());
 
         // Complete - show complete image
-        if (task.getSubtaskStatus()) {
+        if (task.getSubtaskStatusBool()) {
             holder.stStatus.setImageResource(R.drawable.subtask_done);
         }
         else {
