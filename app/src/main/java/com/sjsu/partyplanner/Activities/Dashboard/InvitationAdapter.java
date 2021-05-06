@@ -22,8 +22,6 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
     public InvitationAdapter(ArrayList<Invitation> invites, InvitationAdapter.InvitationClick listener) {
         this.invites = invites;
         this.listener = listener;
-
-        Log.d("SIZE", String.valueOf(invites.size()));
     }
 
     @NonNull
@@ -42,7 +40,7 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
 
         holder.pName.setText(invite.getPartyId());
         holder.pDateTime.setText(invite.getPartyId());
-        holder.pHostName.setText(invite.getPartyId());
+        holder.pHostName.setText(invite.getHostName());
 
         // Changing Text Style/Color based on invitation status
         if (invite.getHasRead()) {

@@ -38,6 +38,7 @@ public class InvitationDetailActivity extends AppCompatActivity {
             invite = extras.getParcelable(INVITATION_KEY);
 
             // Sets Text
+            binding.idPHost.setText(invite.getHostName());
             /*
             binding.idPName.setText();
             binding.idPType.setText();

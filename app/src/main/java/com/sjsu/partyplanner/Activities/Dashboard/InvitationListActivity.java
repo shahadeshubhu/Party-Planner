@@ -21,26 +21,23 @@ import com.sjsu.partyplanner.R;
 import java.util.ArrayList;
 import com.sjsu.partyplanner.databinding.ActivityInvitationListBinding;
 
-
 public class InvitationListActivity extends AppCompatActivity implements InvitationAdapter.InvitationClick {
 
     private ActivityInvitationListBinding binding;
     private Toolbar toolbar;
-    private ArrayList<Invitation> invites;
     private PartyController partyController;
+    private ArrayList<Invitation> invites;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityInvitationListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // Toolbar, Invitations
         setUpToolbar();
-        partyController = PartyController.getInstance();
-
-        //TODO: Get input of Invitations List
-        invites = new ArrayList<Invitation>();
-        partyController.getUserInvitations(this);
-
+        setUpInvitations();
     }
 
     // Sets up Toolbar
@@ -53,9 +50,7 @@ public class InvitationListActivity extends AppCompatActivity implements Invitat
         toolbar.setNavigationOnClickListener(v -> finish());        // Closes Activity
     }
 
-    /**
-     * Sets up RecyclerView
-     */
+    // Sets up RecyclerView
     private void setUpRecycler() {
         binding.inviteListRecycler.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
@@ -66,11 +61,19 @@ public class InvitationListActivity extends AppCompatActivity implements Invitat
         binding.inviteListRecycler.setAdapter(mAdapter);
     }
 
+    // Set up invitations
+    private void setUpInvitations() {
+        partyController = PartyController.getInstance();
+        invites = new ArrayList<Invitation>();
+        partyController.getUserInvitations(this);
+    }
+    
+    // Handles Get Invitation Success
     public void handleGetInvitationSuccess(ArrayList<Invitation>invites){
-        //TODO: Display this invitation list
         this.invites = invites;
         Log.d("Invitation", ""+invites.toString());
 
+        // Setup RecyclerView When you get all invitations
         setUpRecycler();
         // Gets rid of extra text
         if(invites.size() > 0) {
@@ -85,8 +88,6 @@ public class InvitationListActivity extends AppCompatActivity implements Invitat
         invitation.setHasRead();        // The invitation has been read (clicked on before)
 
         Intent intent = new Intent(getApplicationContext(), InvitationDetailActivity.class);
-
-        // DO HERE
         Bundle extra =  new Bundle();
         extra.putParcelable(InvitationDetailActivity.INVITATION_KEY, invitation);
         intent.putExtras(extra);
