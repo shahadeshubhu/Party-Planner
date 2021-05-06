@@ -88,4 +88,10 @@
     <string name="budgetName">Budget Name</string>
     <string name="budgetAmount">Budget Amount</string>
 
+    <string name="confirm">Confirm</string>
+    <string name="add">Add</string>
+    <string name="help">Help</string>
+    <string name="invitation">Invitation</string>
+    <string name="edit">Edit</string>
+
 </resources>

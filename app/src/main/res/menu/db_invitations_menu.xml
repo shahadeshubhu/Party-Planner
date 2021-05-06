@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:title="Invitation"
+        android:title="@string/invitation"
         android:icon="@drawable/mail_icon"
         android:id="@+id/dbMail"
 

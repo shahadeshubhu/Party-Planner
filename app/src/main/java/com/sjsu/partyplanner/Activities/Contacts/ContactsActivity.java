@@ -11,7 +11,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
+import com.sjsu.partyplanner.Controllers.UserController;
+import com.sjsu.partyplanner.Models.Guest;
 import com.sjsu.partyplanner.Models.User;
 import com.sjsu.partyplanner.R;
 import com.sjsu.partyplanner.databinding.ActivityContactsListBinding;
@@ -31,19 +34,12 @@ public class ContactsActivity extends AppCompatActivity implements ContactAdapte
         binding = ActivityContactsListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
-        contacts.add(new User("Example1", "Contact", "example1@gmail.com"));
-        contacts.add(new User("Example2", "Contact", "example2@gmail.com"));
-        contacts.add(new User("Example3", "Contact", "example3@gmail.com"));
-
-        // Toolbar, RecyclerView
+        // Toolbar
         setUpToolbar();
-        setUpRecycler();
 
-        // Gets rid of extra text
-        if(contacts.size() > 0) {
-            binding.noContactsCL.setText("");
-        }
+        // Gets all users and sets up recycler view
+        UserController userController = UserController.getInstance();
+        userController.getAllUsers(this);
     }
 
     // Sets up Toolbar
@@ -60,22 +56,19 @@ public class ContactsActivity extends AppCompatActivity implements ContactAdapte
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.add_menu, menu);
+        inflater.inflate(R.menu.help_menu, menu);
         return true;
     }
 
     // Handles Menu Items on Toolbar
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.clAdd:
-                //TODO: ADD NEW CONTACT
-
-
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.clHelp) {
+            toastMsg("Contacts are other users");
+            return true;
         }
+
+        return super.onOptionsItemSelected(item);
     }
 
     // Sets up Recycler
@@ -103,5 +96,22 @@ public class ContactsActivity extends AppCompatActivity implements ContactAdapte
     private void openDialog(String name, String email) {
         ContactDialog contactDialog = new ContactDialog(name, email);
         contactDialog.show(getSupportFragmentManager(), "contact dialog");
+    }
+
+    // Gets All Users in Application as Contacts
+    public void getAllUsers(ArrayList<User> allUsers) {
+        contacts = allUsers;
+        setUpRecycler();
+
+        // Gets rid of extra text
+        if(contacts.size() > 0) {
+            binding.noContactsCL.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    // Toast Message
+    public void toastMsg(String msg) {
+        Toast toast = Toast.makeText(this, msg, Toast.LENGTH_LONG);
+        toast.show();
     }
 }

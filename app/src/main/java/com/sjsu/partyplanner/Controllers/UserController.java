@@ -20,6 +20,7 @@ import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.sjsu.partyplanner.Activities.Contacts.ContactsActivity;
 import com.sjsu.partyplanner.Activities.Parties.CreatePartyActivity;
 import com.sjsu.partyplanner.Activities.Users.LoginActivity;
 import com.sjsu.partyplanner.Models.Guest;
@@ -168,8 +169,7 @@ public class UserController {
         });
     }
 
-
-    //TODO: INVITe PArty guests activity will query this method to get all register list.
+    // Get all users for guest list in create party
     public static void getAllUsers(CreatePartyActivity createPartyActivity){
         String ownerId = currentUserInfo.getUid();
         db.collection(ASSOCIATE_DB_NAME).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -187,6 +187,32 @@ public class UserController {
                         Log.d("#getAllUsers", document.getId() + " => " + document.getData());
                     }
                     createPartyActivity.showInviteGuestPage(allGuests);
+
+                } else {
+                    Log.d("#getAllUsers", "Error getting documents: ", task.getException());
+                }
+            }
+        });
+    }
+
+    // Gets all users for the Contacts ACtivity
+    public static void getAllUsers(ContactsActivity ContactsActivity){
+        String ownerId = currentUserInfo.getUid();
+        db.collection(ASSOCIATE_DB_NAME).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    ArrayList<User> allUsers = new ArrayList<>();
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        if(!document.getId().equals(ownerId)) {
+                            User user = document.toObject(User.class);
+                            user.setUid(document.getId());
+                            Log.d("#User", user.toString());
+                            allUsers.add(user);
+                        }
+                        Log.d("#getAllUsers", document.getId() + " => " + document.getData());
+                    }
+                    ContactsActivity.getAllUsers(allUsers);
 
                 } else {
                     Log.d("#getAllUsers", "Error getting documents: ", task.getException());

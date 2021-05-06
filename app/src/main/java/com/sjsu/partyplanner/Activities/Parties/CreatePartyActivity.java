@@ -27,13 +27,11 @@ import com.google.android.libraries.places.api.model.TypeFilter;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
-import com.sjsu.partyplanner.Activities.Dashboard.GuestFragment;
 import com.sjsu.partyplanner.Controllers.PartyController;
 import com.sjsu.partyplanner.Controllers.UserController;
 import com.sjsu.partyplanner.Models.Guest;
 import com.sjsu.partyplanner.Models.Party;
 import com.sjsu.partyplanner.Models.Task;
-import com.sjsu.partyplanner.Models.User;
 import com.sjsu.partyplanner.R;
 import com.sjsu.partyplanner.databinding.ActivityCreatePartyBinding;
 
@@ -214,18 +212,6 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
   public void handleFailure(){
     //    TODO: Display error message
   }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
