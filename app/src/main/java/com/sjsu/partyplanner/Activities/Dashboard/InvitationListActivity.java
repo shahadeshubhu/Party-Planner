@@ -92,7 +92,5 @@ public class InvitationListActivity extends AppCompatActivity implements Invitat
         extra.putParcelable(InvitationDetailActivity.INVITATION_KEY, invitation);
         intent.putExtras(extra);
         startActivity(intent);
-
-        setUpRecycler();
     }
 }

@@ -65,20 +65,23 @@ public class InvitationDetailActivity extends AppCompatActivity {
         }
     }
 
-
     // Button Clicks
     public void onClick(View v) {
         invite.setHasSelected();        // A choice has been made
         if (v == findViewById(R.id.id_acceptButton)) {
             invite.setAccepted(true);
             invite.setHasSelected();
-            v.setVisibility(View.INVISIBLE);
         }
         else if (v == findViewById(R.id.id_declineButton)) {
             invite.setAccepted(false);
             invite.setHasSelected();
-            v.setVisibility(View.INVISIBLE);
         }
+        binding.idAcceptButton.setVisibility(View.INVISIBLE);
+        binding.idDeclineButton.setVisibility(View.INVISIBLE);
+
+        // TODO: REPUSH THE INVITE the INVITATION LIST
+        // TODO: ON INVITATIONLISTACTIVITY, reupdate the invites list!
+        // TODO REPUSH INVITE LIST TO FIREBASE
     }
 
     // Sets up Toolbar
