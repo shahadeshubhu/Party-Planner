@@ -136,6 +136,7 @@ public class UserController {
     public void signOutUser() {
         mAuth.signOut();
         currentUserInfo = null;
+        currentUser = null;
     }
 
     public static User getCurrentUser() {

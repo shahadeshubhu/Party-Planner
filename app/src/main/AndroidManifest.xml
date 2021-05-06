@@ -29,8 +29,6 @@
         <activity android:name=".Activities.Parties.CreatePartyActivity" />
         <activity android:name=".Activities.Parties.PartyActivity" />
         <activity android:name=".Activities.Dashboard.DashboardActivity" />
-        <activity android:name=".Activities.Dashboard.DetailFragment" />
-        <activity android:name=".Activities.Dashboard.DetailActivity" />
         <activity android:name=".Activities.Users.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

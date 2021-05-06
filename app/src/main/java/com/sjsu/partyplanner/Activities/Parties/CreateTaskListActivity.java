@@ -26,11 +26,11 @@ public class CreateTaskListActivity extends AppCompatActivity implements TaskAda
     public static final int TEXT_REQUEST = 501;
     public static final String TASKLIST_KEY = "TASKLISTd";
     private static final String TAG = "In Task List Activity";
-    private TextView noTasksAvailable;
+
     private  ActivityCreateTaskListBinding binding;
     private RecyclerView.Adapter<TaskAdapter.ViewHolder> mAdapter;
     private Toolbar toolbar;
-    private ArrayList<Task> taskList;
+    private ArrayList<Task> taskList = new ArrayList<Task>();
 
 
     @Override
@@ -39,36 +39,14 @@ public class CreateTaskListActivity extends AppCompatActivity implements TaskAda
         binding = ActivityCreateTaskListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Toolbar
-        setUpToolbar();
-
-        //TODO: get the input data of task list!
-        taskList = new ArrayList<Task>();
-
-
-        /* No need for this anymore
-        ArrayList<Subtask> st = new ArrayList<Subtask>();
-        st.add(new Subtask("NAMESS"));
-        st.add(new Subtask("NAMESS22"));
-
-        //taskList.add(new Task("name", "asdf", "dsaf", st));
-        */
-
+        // Update Task List
         Intent mIntent = getIntent();
         taskList = mIntent.getParcelableArrayListExtra(CreatePartyActivity.CREATE_TASK_KEY);
 
-        noTasksAvailable = binding.noTasksTL;
-
-        //Recycler
+        // Toolbar, Recycler
+        setUpToolbar();
         setUpRecycler();
-
-        // Gets rid of extra text
-        if(taskList.size() > 0) {
-            noTasksAvailable.setText("");
-        }
     }
-
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -87,10 +65,7 @@ public class CreateTaskListActivity extends AppCompatActivity implements TaskAda
 
                 taskList.add(data.getParcelableExtra(CreateTaskActivity.TASK_KEY));
                 setUpRecycler();
-                //mAdapter.notifyItemInserted(taskList.size() -1);
-                noTasksAvailable.setVisibility(View.INVISIBLE);
                 Log.d("taskReceived", "onActivityResult: Successfully loaded task named: ");
-
             }
         }
 
@@ -107,6 +82,11 @@ public class CreateTaskListActivity extends AppCompatActivity implements TaskAda
         TaskAdapter ta = new TaskAdapter(taskList, this);
         mAdapter = ta;
         binding.tasklistRecycler.setAdapter(mAdapter);
+
+        // Gets rid of extra text
+        if(taskList.size() > 0) {
+            binding.noTasksTL.setVisibility(View.INVISIBLE);
+        }
     }
 
     /**

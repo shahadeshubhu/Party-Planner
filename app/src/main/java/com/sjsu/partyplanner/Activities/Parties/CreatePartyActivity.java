@@ -128,7 +128,6 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
             Log.d("time", txtTime.getText().toString());
             if (pickedDateTime.getTime().compareTo(new Date()) <= 0) {
                 toastMsg("Date and Time is invalid");
-                // TODO: Flag the date and time field
                 return false;
             }
             else {
@@ -206,7 +205,6 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
       intent.putExtra("newParty", createdParty);
       setResult(RESULT_OK, intent);
       finish();
-    //TODO: reload the party list to get update party
   }
 
   public void handleFailure(){

@@ -79,9 +79,7 @@ public class InvitationDetailActivity extends AppCompatActivity {
         binding.idAcceptButton.setVisibility(View.INVISIBLE);
         binding.idDeclineButton.setVisibility(View.INVISIBLE);
 
-        // TODO: REPUSH THE INVITE the INVITATION LIST
-        // TODO: ON INVITATIONLISTACTIVITY, reupdate the invites list!
-        // TODO REPUSH INVITE LIST TO FIREBASE
+        // TODO: Repush invite to list and update list. repush list to firebase!
     }
 
     // Sets up Toolbar

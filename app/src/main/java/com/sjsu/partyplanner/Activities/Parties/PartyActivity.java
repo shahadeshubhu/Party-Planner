@@ -55,7 +55,6 @@ public class PartyActivity extends AppCompatActivity {
             if(resultCode == RESULT_OK) {
                 String strEditText = data.getStringExtra("editTextValue");
 
-                // TODO: DOesnt work!
                 String name = data.getStringExtra("name");
                 String type = data.getStringExtra("type");
                 String location = data.getStringExtra("location");
@@ -85,28 +84,17 @@ public class PartyActivity extends AppCompatActivity {
     }
 
 
-
-
-
+    // Fetches parties from database
     public void handleFetchParties(boolean isSuccessful, ArrayList<Party> p){
         Date now = new Date();
-        Log.d("current time", now.toString());
-        ArrayList<Party> allParties = new ArrayList<>();
+
         if (isSuccessful){
-            allParties = p;
-            for(Party party : allParties){
-                if(party != null && party.getDate().compareTo(now) < 0) {
-                    pastParties.add(party);
-                }else{
-                    upParties.add(party);
-                }
+            for(Party party : p){
+                if(party != null && party.getDate().compareTo(now) < 0) { pastParties.add(party); }
+                else{ upParties.add(party); }
             }
-            Log.d("parties length", ""+allParties.size());
-            Log.d("upcommingP length", ""+upParties.size());
-            Log.d("pastParties length", ""+pastParties.size());
-        }else{
-            //TODO: display some error message
         }
+
         initializeTabLayout();
     }
 
@@ -124,14 +112,10 @@ public class PartyActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-                // Empty
-            }
+            public void onTabUnselected(TabLayout.Tab tab) {}
 
             @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-                // Empty
-            }
+            public void onTabReselected(TabLayout.Tab tab) {}
         });
     }
 

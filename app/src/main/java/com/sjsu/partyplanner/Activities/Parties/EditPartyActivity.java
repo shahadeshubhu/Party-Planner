@@ -72,7 +72,7 @@ public class EditPartyActivity extends AppCompatActivity implements View.OnClick
      */
     public void addClick(View view) {
         if (view == findViewById(R.id.cpGuestButton)) {
-            //TODO Send to Invite Guests Page
+            // TODO Send to Invite Guests Page
 
         }
         else if (view == findViewById(R.id.cpTaskButton)) {
