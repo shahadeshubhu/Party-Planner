@@ -11,6 +11,7 @@ import java.util.Date;
 
 @IgnoreExtraProperties
 public class Party implements Parcelable {
+  private String pId;
   private String name;
   private String address;
   private String description;
@@ -71,6 +72,14 @@ public class Party implements Parcelable {
   };
 
   // END OF PARCEL STUFF
+
+  public String getpId() {
+    return pId;
+  }
+
+  public void setpId(String pId) {
+    this.pId = pId;
+  }
 
   public void setName(String name) {
     this.name = name;
