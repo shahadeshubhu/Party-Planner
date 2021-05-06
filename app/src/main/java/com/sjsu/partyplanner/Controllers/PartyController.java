@@ -77,7 +77,8 @@ public class PartyController {
                         }
                         inviteGuestByEmail(activity, guests, partyDocumentReference.getId(), p.getName(),
                                 String.format("%s %s",UserController.currentUserInfo.getFirstName(),
-                                        UserController.currentUserInfo.getLastName()));
+                                        UserController.currentUserInfo.getLastName()),
+                                String.valueOf(p.getDate()));
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -118,12 +119,12 @@ public class PartyController {
         }
     }
 
-    public void inviteGuestByEmail(CreatePartyActivity activity, ArrayList<Guest> guests, String partyId, String partyTitle, String hostName) {
+    public void inviteGuestByEmail(CreatePartyActivity activity, ArrayList<Guest> guests, String partyId, String partyTitle, String hostName, String dateTime) {
 
         ArrayList<Invitation> invitations = new ArrayList<>();
 
         for( Guest g : guests){
-            invitations.add(new Invitation(partyId, partyTitle, hostName, g.getUid()));
+            invitations.add(new Invitation(partyId, partyTitle, hostName, g.getUid(), dateTime));
         }
 
         Log.d("inviteGuestByEmail", ""+invitations.size());
@@ -164,26 +165,6 @@ public class PartyController {
     }
 
     public void getParty(String partyId, InvitationDetailActivity activity){
-        db.collection(EVENT_DB_NAME).whereEqualTo(FieldPath.documentId(), partyId)
-                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        Party p = document.toObject(Party.class);
-                        p.setpId(document.getId());
-                        Log.d("#getParty", document.getId() + " => " + p.toString());
-                        activity.handleGetPartySuccess(p);
-                    }
-                } else {
-                    Log.d("#getParty error", "Error getting documents: ", task.getException());
-
-                }
-            }
-        });
-    }
-
-    public void getParty(String partyId, InvitationAdapter activity){
         db.collection(EVENT_DB_NAME).whereEqualTo(FieldPath.documentId(), partyId)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override

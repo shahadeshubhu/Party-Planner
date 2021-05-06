@@ -45,17 +45,7 @@ public class PartyActivity extends AppCompatActivity {
         setupToolbar();
 
         p = PartyController.getInstance();
-        // TODO: gets error when there are no parties
         p.getParties(this);
-    }
-
-    @Override
-    public void onResume(){
-        super.onResume();
-        pastParties = new ArrayList<>();
-        upParties = new ArrayList<>();
-        p = PartyController.getInstance();
-        //p.getParties(this);       // Does not update, adds a second version of the list into it.
     }
 
     // When Create Party Activity Finishes

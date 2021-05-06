@@ -21,7 +21,6 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
     private ArrayList<Invitation> invites;
     private InvitationAdapter.InvitationClick listener;
     Invitation invite;
-    ViewHolder holder;
 
     // Constructor
     public InvitationAdapter(ArrayList<Invitation> invites, InvitationAdapter.InvitationClick listener) {
@@ -44,10 +43,9 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
 
         invite = invites.get(position);
 
-
         holder.pHostName.setText(invite.getHostName());
         holder.pName.setText(invite.getInviteTitle());
-        //holder.pDateTime.setText(String.valueOf(party.getDate()));
+        holder.pDateTime.setText(invite.getDateTime());
 
         // Changing Text Style/Color based on invitation status
         if (invite.getHasRead()) {
@@ -63,13 +61,6 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
         }
 
     }
-
-    // Gets the party for invitation from the database
-    public void handleGetPartySuccess(Party party) {
-        holder.pName.setText(party.getName());
-        holder.pDateTime.setText(String.valueOf(party.getDate()));
-    }
-
 
     @Override
     public int getItemCount() {

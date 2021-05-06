@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/dpaymentName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="28dp"
+        android:fontFamily="@font/iceberg"
+        android:text="@string/paymentName"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/paymentNameET"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:fontFamily="@font/iceberg"
+        android:text=""
+        app:layout_constraintStart_toStartOf="@+id/dpaymentName"
+        app:layout_constraintTop_toBottomOf="@+id/dpaymentName" />
+
+    <TextView
+        android:id="@+id/dpaymentAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/iceberg"
+        android:text="@string/amount"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/paymentNameET"
+        app:layout_constraintTop_toBottomOf="@+id/paymentNameET" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="132dp"
+        android:fontFamily="@font/iceberg"
+        android:text="$"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/paymentAmountET"
+        app:layout_constraintStart_toStartOf="@+id/paymentNameET"
+        app:layout_constraintTop_toTopOf="@+id/paymentAmountET" />
+
+    <EditText
+        android:id="@+id/paymentAmountET"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:fontFamily="@font/iceberg"
+        android:inputType="number"
+        app:layout_constraintStart_toStartOf="@+id/dpaymentAmount"
+        app:layout_constraintTop_toBottomOf="@+id/dpaymentAmount" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

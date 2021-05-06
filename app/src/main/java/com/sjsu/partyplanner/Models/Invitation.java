@@ -8,8 +8,8 @@ import com.sjsu.partyplanner.Controllers.PartyController;
 public class Invitation implements Parcelable {
 
     private String partyId;
-    private String hostName;
     private String inviteTitle;
+    private String hostName;
     private String dateTime;
 
     private boolean hasRead = false;        // Has read the invitation
@@ -19,11 +19,12 @@ public class Invitation implements Parcelable {
 
     public Invitation() {}
 
-    public Invitation(String partyId, String inviteTitle, String hostName, String guestId){
+    public Invitation(String partyId, String inviteTitle, String hostName, String guestId, String dateTime){
         this.partyId=partyId;
         this.inviteTitle=inviteTitle;
         this.guestId = guestId;
         this.hostName =hostName;
+        this.dateTime =dateTime;
     }
 
     /**
