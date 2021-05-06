@@ -21,6 +21,7 @@ import com.sjsu.partyplanner.Activities.Budget.BudgetActivity;
 import com.sjsu.partyplanner.Activities.Contacts.ContactsActivity;
 import com.sjsu.partyplanner.Activities.Parties.PartyActivity;
 import com.sjsu.partyplanner.Activities.Users.LoginActivity;
+import com.sjsu.partyplanner.Controllers.UserController;
 import com.sjsu.partyplanner.databinding.ActivityDashboardBinding;
 import com.sjsu.partyplanner.R;
 
@@ -117,9 +118,8 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
                 toastMsg("About");
                 break;
             case R.id.nav_logout:
-                FirebaseAuth.getInstance().signOut();
+                UserController.getInstance().signOutUser();
                 startActivity(new Intent(DashboardActivity.this, LoginActivity.class));
-                finish();
                 break;
             case R.id.nav_parties:
                 onClick(binding.partiesButton);

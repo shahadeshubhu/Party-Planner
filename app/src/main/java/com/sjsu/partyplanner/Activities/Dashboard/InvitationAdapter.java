@@ -26,8 +26,6 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
     public InvitationAdapter(ArrayList<Invitation> invites, InvitationAdapter.InvitationClick listener) {
         this.invites = invites;
         this.listener = listener;
-
-        Log.d("PRINT SIZE: ", String.valueOf(invites.size()));
     }
 
     @NonNull
@@ -59,7 +57,6 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
                 else { holder.pName.setTextColor(Color.GRAY); }
             }
         }
-
     }
 
     @Override

@@ -118,9 +118,39 @@ public class LoginActivity extends AppCompatActivity {
      */
     public void loginClick(View view) {
 
-        controller.signInUser(this, binding.emailLoginTB.getText().toString(), binding.pwLoginTB.getText().toString());
+        boolean emailGood = false;
+        boolean passwordGood = false;
 
-        toastMsg("Login Button");
+
+
+        // Checks Email
+        String email = binding.emailLoginTB.getText().toString();
+        String emailAcceptedPattern = "[a-zA-z0-9._-]+@[a-z]+\\.+[a-z]+";
+        if (email.length() <= 0 || !email.matches(emailAcceptedPattern)) {
+            binding.emailLoginTB.setBackground(getResources().getDrawable(R.drawable.text_box_error));
+        }
+        else {
+            binding.emailLoginTB.setBackground(getResources().getDrawable(R.drawable.textbox_background));
+            emailGood = true;
+        }
+
+        // Checks password
+        String password = binding.pwLoginTB.getText().toString();
+        if(password.length() < 8){
+            binding.pwLoginTB.setBackground(getResources().getDrawable(R.drawable.text_box_error));
+        }
+        else{
+            binding.pwLoginTB.setBackground(getResources().getDrawable(R.drawable.textbox_background));
+            passwordGood = true;
+        }
+
+        // Check Login
+        if(passwordGood && emailGood) {
+            controller.signInUser(this, binding.emailLoginTB.getText().toString(), binding.pwLoginTB.getText().toString());
+        }
+        else {
+            binding.loginErrorMsg.setText(String.format("Invalid Login"));
+        }
     }
 
     /**
@@ -128,7 +158,6 @@ public class LoginActivity extends AppCompatActivity {
      * Goes to the 'sign up' page
      */
     public void signupPageClick(View view) {
-        toastMsg("Go to sign up page");
         startActivity(new Intent(LoginActivity.this, RegistrationActivity.class));
         finish();
     }
