@@ -2,6 +2,7 @@ package com.sjsu.partyplanner.Activities.Dashboard;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,8 +22,9 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
     public InvitationAdapter(ArrayList<Invitation> invites, InvitationAdapter.InvitationClick listener) {
         this.invites = invites;
         this.listener = listener;
-    }
 
+        Log.d("SIZE", String.valueOf(invites.size()));
+    }
 
     @NonNull
     @Override
@@ -38,11 +40,9 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
         final Invitation invite = invites.get(position);
         // TODO: get party from database using invite's partyID and set it in values
 
-        //holder.pName = ;
-        //holder.pDateTime = ;
-        //holder.pHostName = ;
-
-
+        holder.pName.setText(invite.getPartyId());
+        holder.pDateTime.setText(invite.getPartyId());
+        holder.pHostName.setText(invite.getPartyId());
 
         // Changing Text Style/Color based on invitation status
         if (invite.getHasRead()) {

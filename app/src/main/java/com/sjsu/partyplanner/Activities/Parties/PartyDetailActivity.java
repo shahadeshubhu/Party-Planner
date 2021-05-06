@@ -75,7 +75,7 @@ public class PartyDetailActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.emEdit) {
-            toastMsg("Edit Button");
+            toastMsg("Edit Button (Unfinished)");
             /*
             Intent intent = new Intent(this, EditPartyActivity.class);
             intent.putExtra("partyInfo", party);

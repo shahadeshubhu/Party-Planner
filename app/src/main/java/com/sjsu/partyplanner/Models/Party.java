@@ -11,6 +11,7 @@ import java.util.Date;
 
 @IgnoreExtraProperties
 public class Party implements Parcelable {
+  private String pId;
   private String name;
   private String address;
   private String description;
@@ -32,48 +33,17 @@ public class Party implements Parcelable {
   }
 
 
-/*
-  // Parcel Stuff------------------------------------------------
-  protected Party(Parcel in) {
-    name = in.readString();
-    address = in.readString();
-    description = in.readString();
-    type = in.readString();
-    ownerID = in.readString();
-    date= (java.util.Date) in.readSerializable();
 
+
+  public String getpId() {
+    return pId;
   }
 
-  @Override
-  public void writeToParcel(Parcel dest, int flags) {
-    dest.writeString(name);
-    dest.writeString(address);
-    dest.writeString(description);
-    dest.writeString(type);
-    dest.writeString(ownerID);
-    dest.writeSerializable(date);
+  public void setpId(String pId) {
+    this.pId = pId;
   }
 
-  @Override
-  public int describeContents() {
-    return 0;
-  }
 
-  public static final Creator<Party> CREATOR = new Creator<Party>() {
-    @Override
-    public Party createFromParcel(Parcel in) {
-      Log.d("#####Party","Create From Parce");
-      return new Party(in);
-    }
-
-    @Override
-    public Party[] newArray(int size) {
-      return new Party[size];
-    }
-  };
-
-  // END OF PARCEL STUFF
-*/
   public void setName(String name) {
     this.name = name;
   }
@@ -161,7 +131,9 @@ public class Party implements Parcelable {
   }
 
 
-  // Parceable stuff
+
+  // Parcelable Code
+
   @Override
   public int describeContents() {
     return 0;
@@ -169,6 +141,7 @@ public class Party implements Parcelable {
 
   @Override
   public void writeToParcel(Parcel dest, int flags) {
+    dest.writeString(this.pId);
     dest.writeString(this.name);
     dest.writeString(this.address);
     dest.writeString(this.description);
@@ -181,6 +154,7 @@ public class Party implements Parcelable {
   }
 
   public void readFromParcel(Parcel source) {
+    this.pId = source.readString();
     this.name = source.readString();
     this.address = source.readString();
     this.description = source.readString();
@@ -195,6 +169,7 @@ public class Party implements Parcelable {
   }
 
   protected Party(Parcel in) {
+    this.pId = in.readString();
     this.name = in.readString();
     this.address = in.readString();
     this.description = in.readString();
@@ -220,5 +195,5 @@ public class Party implements Parcelable {
     }
   };
 
-  // end of parceable
+  // end of Parcelable code
 }

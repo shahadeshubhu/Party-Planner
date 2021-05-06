@@ -44,13 +44,13 @@
         <EditText
             android:id="@+id/cpNameText"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="@string/partyName"
-            android:textSize="20sp"
-            android:textColor="@color/black"
             android:fontFamily="@font/oswald"
+            android:hint="@string/partyName"
+            android:inputType="textPersonName"
+            android:textColor="@color/black"
+            android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@+id/cpName"
             app:layout_constraintTop_toBottomOf="@+id/cpName" />
 
@@ -69,15 +69,13 @@
 
         <AutoCompleteTextView
             android:id="@+id/cpPartyTypeTB"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/partyType"
+            android:layout_width="297dp"
+            android:layout_height="47dp"
             android:ems="10"
-            android:textSize="20sp"
-            android:textColor="@color/black"
             android:fontFamily="@font/oswald"
-            tools:layout_editor_absoluteX="150dp"
-            tools:layout_editor_absoluteY="186dp"
+            android:hint="@string/partyType"
+            android:textColor="@color/black"
+            android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@+id/cpType"
             app:layout_constraintTop_toBottomOf="@+id/cpType" />
 
@@ -94,6 +92,7 @@
             android:fontFamily="@font/iceberg"
             app:layout_constraintStart_toStartOf="@+id/cpType"
             app:layout_constraintTop_toBottomOf="@+id/cpPartyTypeTB" />
+
 
 
         <fragment
@@ -122,13 +121,13 @@
         <EditText
             android:id="@+id/cpDescriptionText"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="@string/shortPartyDescription"
-            android:textSize="20sp"
-            android:textColor="@color/black"
             android:fontFamily="@font/oswald"
+            android:hint="@string/shortPartyDescription"
+            android:inputType="textPersonName"
+            android:textColor="@color/black"
+            android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@+id/cpDescription"
             app:layout_constraintTop_toBottomOf="@+id/cpDescription" />
 
@@ -147,8 +146,8 @@
 
         <EditText
             android:id="@+id/cpDateTimeText"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
+            android:layout_width="206dp"
+            android:layout_height="46dp"
             android:ems="10"
             android:focusable="false"
             android:fontFamily="@font/oswald"
@@ -175,16 +174,16 @@
 
         <EditText
             android:id="@+id/cpTimeText"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
+            android:layout_width="205dp"
+            android:layout_height="46dp"
             android:layout_marginTop="5dp"
             android:ems="10"
-            android:inputType="time"
-            android:hint="Time"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/oswald"
             android:focusable="false"
+            android:fontFamily="@font/oswald"
+            android:hint="Time"
+            android:inputType="time"
+            android:textColor="@color/black"
+            android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@+id/cpDateTimeText"
             app:layout_constraintTop_toBottomOf="@+id/cpDateTimeText" />
 
