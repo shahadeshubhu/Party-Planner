@@ -47,52 +47,12 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-
-
-
-
-// TODO Dashboard Buttons
-
-
-  /**
-   * onClick method for 'parties'
-   * Goes to the 'parties' page
-   */
-  public void partyClick(View view) {
-      startActivity(new Intent(this, PartyActivity.class));
-  }
-
-  /**
-   * onClick method for 'events'
-   * Goes to the 'events' page
-   */
-  public void eventClick(View view) {
-    toastMsg("Event Click");
-  }
-
-  /**
-   * onClick method for 'contacts'
-   * Goes to the 'contacts' page
-   */
-  public void contactClick(View view) {
-      startActivity(new Intent(this, ContactsActivity.class));
-  }
-
-  /**
-   * onClick method for 'budget'
-   * Goes to the 'budget' page
-   */
-  public void budgetClick(View view) {
-      startActivity(new Intent(this, BudgetActivity.class));
-  }
-
-    /**
-     * Testing onClick methods
-     * @param msg to toast
-     */
-    public void toastMsg(String msg) {
-      Toast toast = Toast.makeText(this, msg, Toast.LENGTH_LONG);
-      toast.show();
+    // onClick Methods
+    public void onClick(View v) {
+        if (v == binding.partiesButton)  { startActivity(new Intent(this, PartyActivity.class)); }
+        else if (v == binding.eventsButton) { toastMsg("Event Click"); }
+        else if (v == binding.contactsButton) { startActivity(new Intent(this, ContactsActivity.class)); }
+        else if (v == binding.budgetButton) { startActivity(new Intent(this, BudgetActivity.class)); }
     }
 
     // Sets up navigation view (side bar)
@@ -149,16 +109,12 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-        //TODO: Set up Side bar options for profile and about
-        //TODO: Set displayname for sidebar
-
         switch (item.getItemId()) {
             case R.id.nav_profile:
-
+                toastMsg("Profile");
                 break;
             case R.id.nav_about:
-
+                toastMsg("About");
                 break;
             case R.id.nav_logout:
                 FirebaseAuth.getInstance().signOut();
@@ -166,20 +122,28 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
                 finish();
                 break;
             case R.id.nav_parties:
-                partyClick(findViewById(R.id.nav_parties));
+                onClick(binding.partiesButton);
                 break;
             case R.id.nav_events:
-                eventClick(findViewById(R.id.nav_events));
+                onClick(binding.eventsButton);
                 break;
             case R.id.nav_contacts:
-                contactClick(findViewById(R.id.nav_contacts));
+                onClick(binding.contactsButton);
                 break;
             case R.id.nav_budget:
-                budgetClick(findViewById(R.id.nav_budget));
+                onClick(binding.budgetButton);
                 break;
         }
-
         return true;
+    }
+
+    /**
+     * Testing onClick methods
+     * @param msg to toast
+     */
+    public void toastMsg(String msg) {
+        Toast toast = Toast.makeText(this, msg, Toast.LENGTH_LONG);
+        toast.show();
     }
 
 }
