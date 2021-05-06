@@ -4,7 +4,7 @@ import androidx.annotation.IntDef;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-/*
+
 @IntDef({STATUS.NOT_STARTED, STATUS.PENDING, STATUS.COMPLETE, STATUS.UNPAID, STATUS.PAID})
 @Retention(RetentionPolicy.SOURCE)
 @interface STATUS {
@@ -14,9 +14,9 @@ import java.lang.annotation.RetentionPolicy;
     int UNPAID = 3;
     int PAID = 4;
 }
-*/
 
 
+/*
 public enum STATUS {
     NOT_STARTED,
     PENDING,
@@ -24,3 +24,4 @@ public enum STATUS {
     UNPAID,
     PAID
 }
+*/

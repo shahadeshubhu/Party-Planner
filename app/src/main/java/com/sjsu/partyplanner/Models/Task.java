@@ -15,7 +15,7 @@ public class Task implements Parcelable {
     private String taskCategory;
     private String note;
     private ArrayList<Subtask> subtasks;
-    private STATUS taskStatus;
+    private int taskStatus;
     private int completedSubtasks;
 
     public Task(){};
@@ -133,7 +133,7 @@ public class Task implements Parcelable {
      * otherwise, task is pending
      * @return STATUS
      */
-    private STATUS getTaskStatus() {
+    private int getTaskStatus() {
         setCompletedSubtasks();
         if (completedSubtasks == getTotalSubtasks()) {
             return STATUS.COMPLETE;
@@ -153,11 +153,19 @@ public class Task implements Parcelable {
 
 
 
+
+/*
+    // Pareceable
+
     // Methods needed to parcel this class
     @Override
     public int describeContents() {
         return 0;
     }
+
+
+
+
 
 
 
@@ -208,6 +216,7 @@ public class Task implements Parcelable {
         }
     };
 
+*/
     @Override
     public String toString() {
         return "Task{" +
@@ -220,4 +229,56 @@ public class Task implements Parcelable {
                 ", completedSubtasks=" + completedSubtasks +
                 '}';
     }
+
+
+    // Parceable methods
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.taskID);
+        dest.writeString(this.name);
+        dest.writeString(this.taskCategory);
+        dest.writeString(this.note);
+        dest.writeList(this.subtasks);
+        dest.writeInt(this.taskStatus);
+        dest.writeInt(this.completedSubtasks);
+    }
+
+    public void readFromParcel(Parcel source) {
+        this.taskID = source.readString();
+        this.name = source.readString();
+        this.taskCategory = source.readString();
+        this.note = source.readString();
+        this.subtasks = new ArrayList<Subtask>();
+        source.readList(this.subtasks, Subtask.class.getClassLoader());
+        this.taskStatus = source.readInt();
+        this.completedSubtasks = source.readInt();
+    }
+
+    protected Task(Parcel in) {
+        this.taskID = in.readString();
+        this.name = in.readString();
+        this.taskCategory = in.readString();
+        this.note = in.readString();
+        this.subtasks = new ArrayList<Subtask>();
+        in.readList(this.subtasks, Subtask.class.getClassLoader());
+        this.taskStatus = in.readInt();
+        this.completedSubtasks = in.readInt();
+    }
+
+    public static final Parcelable.Creator<Task> CREATOR = new Parcelable.Creator<Task>() {
+        @Override
+        public Task createFromParcel(Parcel source) {
+            return new Task(source);
+        }
+
+        @Override
+        public Task[] newArray(int size) {
+            return new Task[size];
+        }
+    };
 }

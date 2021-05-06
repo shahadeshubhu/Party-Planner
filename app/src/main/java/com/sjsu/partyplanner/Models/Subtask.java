@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class Subtask implements  Serializable {
 
     private String name;
-    private STATUS subtaskStatus;
+    private int subtaskStatus;
 
     // Constructor
     public Subtask(String name) {
@@ -72,7 +72,7 @@ public class Subtask implements  Serializable {
     public void setName(String name) {
         this.name = name;
     }
-    public void setSubtaskStatus(STATUS subtaskStatus){
+    public void setSubtaskStatus(int subtaskStatus){
         this.subtaskStatus = subtaskStatus;
     }
 
