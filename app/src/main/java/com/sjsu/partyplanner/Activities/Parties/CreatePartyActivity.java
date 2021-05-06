@@ -1,5 +1,6 @@
 package com.sjsu.partyplanner.Activities.Parties;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -19,6 +20,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.Status;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.model.TypeFilter;
+import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.sjsu.partyplanner.Activities.Dashboard.GuestFragment;
 import com.sjsu.partyplanner.Controllers.PartyController;
 import com.sjsu.partyplanner.Controllers.UserController;
@@ -31,6 +39,7 @@ import com.sjsu.partyplanner.databinding.ActivityCreatePartyBinding;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -38,6 +47,8 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
     public static final int VIEW_CODE = 1;
     public static final int GUEST_INVITE_VIEW_CODE = 300;
     public static final String GUEST_KEY = "GUEST_LIST";
+    public static final String CREATE_TASK_KEY = "CREATE_TASK_KEY";
+    private static final String TAG = "OnCreatePartyActivity";
 
     private Toolbar toolbar;
     private Button btnDatePicker, btnTimePicker;
@@ -52,6 +63,7 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
     private Calendar pickedDateTime;
     protected ActivityCreatePartyBinding binding;
     public Party createdParty;
+    private String location;
     // Autocomplete suggestions:
     private static final String[] PARTY_TYPES = new String[] {
             "Birthday Party", "Graduation Party", "Anniversary Party", "Christmas Party", "Easter Party", "Thanksgiving Party", "Costume Party",
@@ -67,6 +79,9 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
         binding = ActivityCreatePartyBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+
+        // setting up tasks
+         tasks = new ArrayList<Task>();
         // Toolbar, Date/Time Picker, Autocomplete Suggestions
         setUpToolbar();
         setupPickers();
@@ -75,8 +90,38 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
         // Party Controller
         partyController = PartyController.getInstance();
         party = new Party();
+
+        // Setting up autocomplete fragment
+      // Initializing Google Places
+      Places.initialize(getApplicationContext(), "AIzaSyBEB2d7C3dCIXAKII3eBRpjofu0Rokw36A");
+      PlacesClient placesClient = Places.createClient(this);
+      location = "";
+      setUpLocationAutocompleteFragment();
     }
 
+    private void setUpLocationAutocompleteFragment()
+    {
+        // Set up autocomplete fragement
+        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment) getSupportFragmentManager().findFragmentById(R.id.autocomplete_fragment);
+        autocompleteFragment.setTypeFilter(TypeFilter.ADDRESS);
+        autocompleteFragment.setCountries("US");
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.NAME, Place.Field.ADDRESS));
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(@NonNull Place place) {
+                Log.d(TAG, "onPlaceSelected: Place: Address: "  + place.getAddress()) ;
+                location = place.getAddress();
+                autocompleteFragment.setText(location);
+
+            }
+
+            @Override
+            public void onError(@NonNull Status status) {
+                Log.d(TAG, "onError: Error in Places API " + status.toString());
+                location = "";
+            }
+        });
+    }
     // Handles Menu Items on Toolbar
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -92,10 +137,10 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
                 createdParty = new Party(
                         binding.cpNameText.getText().toString(),
                         binding.cpPartyTypeTB.getText().toString(),
-                        binding.cpLocationText.getText().toString(),
+                        location,
                         binding.cpDescriptionText.getText().toString(),
                         pickedDateTime.getTime());
-               // createdParty.setTasks(tasks);
+                createdParty.setTasks(tasks);
                 createdParty.setGuests(selectedGuests);
                 partyController.createParty(this, createdParty);
                 toastMsg(binding.cpNameText.getText().toString());
@@ -138,7 +183,12 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
             }
         }
         else if (view == findViewById(R.id.cpTaskButton)) {
-            startActivityForResult(new Intent(this, CreateTaskListActivity.class), VIEW_CODE);
+
+            Intent mIntent  = new Intent(this, CreateTaskListActivity.class);
+            Bundle extra =  new Bundle();
+            extra.putParcelableArrayList(CREATE_TASK_KEY, tasks);
+            mIntent.putExtras(extra);
+            startActivityForResult(mIntent, VIEW_CODE);
         }
     }
 

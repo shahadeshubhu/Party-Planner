@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class Subtask implements  Serializable {
 
     private String name;
-    private STATUS subtaskStatus;
+    private int subtaskStatus;
 
     // Constructor
     public Subtask(String name) {
@@ -61,8 +61,12 @@ public class Subtask implements  Serializable {
      * Gets subtask status (pending - false; complete - true)
      * @return subtaskStatus
      */
-    public boolean getSubtaskStatus() {
+    public boolean getSubtaskStatusBool() {
         return subtaskStatus == STATUS.COMPLETE;
+    }
+
+    public int getSubtaskStatus() {
+        return subtaskStatus;
     }
 
     /**
@@ -72,7 +76,7 @@ public class Subtask implements  Serializable {
     public void setName(String name) {
         this.name = name;
     }
-    public void setSubtaskStatus(STATUS subtaskStatus){
+    public void setSubtaskStatus(int subtaskStatus){
         this.subtaskStatus = subtaskStatus;
     }
 

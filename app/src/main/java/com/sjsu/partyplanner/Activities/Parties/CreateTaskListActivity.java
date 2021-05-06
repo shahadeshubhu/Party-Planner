@@ -44,11 +44,18 @@ public class CreateTaskListActivity extends AppCompatActivity implements TaskAda
 
         //TODO: get the input data of task list!
         taskList = new ArrayList<Task>();
+
+
+        /* No need for this anymore
         ArrayList<Subtask> st = new ArrayList<Subtask>();
         st.add(new Subtask("NAMESS"));
         st.add(new Subtask("NAMESS22"));
 
-        taskList.add(new Task("name", "asdf", "dsaf", st));
+        //taskList.add(new Task("name", "asdf", "dsaf", st));
+        */
+
+        Intent mIntent = getIntent();
+        taskList = mIntent.getParcelableArrayListExtra(CreatePartyActivity.CREATE_TASK_KEY);
 
         noTasksAvailable = binding.noTasksTL;
 

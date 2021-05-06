@@ -5,7 +5,7 @@ public class Payment {
 
     private String name;
     private float amount;
-    private STATUS status;
+    private int status;
 
     public Payment(String name, float amount) {
         this.name = name;
@@ -29,7 +29,7 @@ public class Payment {
         this.amount = amount;
     }
 
-    public STATUS getStatus() {
+    public int getStatus() {
         return status;
     }
 
