@@ -17,6 +17,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.WriteBatch;
+import com.sjsu.partyplanner.Activities.Dashboard.InvitationAdapter;
+import com.sjsu.partyplanner.Activities.Dashboard.InvitationDetailActivity;
 import com.sjsu.partyplanner.Activities.Dashboard.InvitationListActivity;
 import com.sjsu.partyplanner.Activities.Parties.CreatePartyActivity;
 import com.sjsu.partyplanner.Activities.Parties.PartyActivity;
@@ -160,7 +162,7 @@ public class PartyController {
         });
     }
 
-    public void getParty(String partyId){
+    public void getParty(String partyId, InvitationDetailActivity activity){
         db.collection(EVENT_DB_NAME).whereEqualTo(FieldPath.documentId(), partyId)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -170,6 +172,27 @@ public class PartyController {
                         Party p = document.toObject(Party.class);
                         p.setpId(document.getId());
                         Log.d("#getParty", document.getId() + " => " + p.toString());
+                        activity.handleGetPartySuccess(p);
+                    }
+                } else {
+                    Log.d("#getParty error", "Error getting documents: ", task.getException());
+
+                }
+            }
+        });
+    }
+
+    public void getParty(String partyId, InvitationAdapter activity){
+        db.collection(EVENT_DB_NAME).whereEqualTo(FieldPath.documentId(), partyId)
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        Party p = document.toObject(Party.class);
+                        p.setpId(document.getId());
+                        Log.d("#getParty", document.getId() + " => " + p.toString());
+                        activity.handleGetPartySuccess(p);
                     }
                 } else {
                     Log.d("#getParty error", "Error getting documents: ", task.getException());

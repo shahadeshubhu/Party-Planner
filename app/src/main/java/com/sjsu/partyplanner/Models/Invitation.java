@@ -3,15 +3,20 @@ package com.sjsu.partyplanner.Models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.sjsu.partyplanner.Controllers.PartyController;
+
 public class Invitation implements Parcelable {
 
     private String partyId;
     private String hostName;
     private String inviteTitle;
+
     private boolean hasRead = false;        // Has read the invitation
     private boolean hasSelected = false;    // Made a choice to go or not to got (has decided)
     private boolean accepted = false;       // Going or Not Going (By default, not going)
     private String guestId;
+
+    public Invitation() {}
 
     public Invitation(String partyId, String inviteTitle, String hostName, String guestId){
         this.partyId=partyId;
@@ -130,6 +135,7 @@ public class Invitation implements Parcelable {
             return new Invitation[size];
         }
     };
+
 
 
 }

@@ -69,7 +69,7 @@ public class InvitationListActivity extends AppCompatActivity implements Invitat
     }
     
     // Handles Get Invitation Success
-    public void handleGetInvitationSuccess(ArrayList<Invitation>invites){
+    public void handleGetInvitationSuccess(ArrayList<Invitation> invites){
         this.invites = invites;
         Log.d("Invitation", ""+invites.toString());
 

@@ -9,7 +9,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.sjsu.partyplanner.Controllers.PartyController;
 import com.sjsu.partyplanner.Models.Invitation;
+import com.sjsu.partyplanner.Models.Party;
 import com.sjsu.partyplanner.R;
 import java.util.ArrayList;
 
@@ -17,6 +20,8 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
 
     private ArrayList<Invitation> invites;
     private InvitationAdapter.InvitationClick listener;
+    Invitation invite;
+    ViewHolder holder;
 
     // Constructor
     public InvitationAdapter(ArrayList<Invitation> invites, InvitationAdapter.InvitationClick listener) {
@@ -35,11 +40,13 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        final Invitation invite = invites.get(position);
-        // TODO: get party from database using invite's partyID and set it in values
+        invite = invites.get(position);
+        this.holder = holder;
 
-        holder.pName.setText(invite.getPartyId());
-        holder.pDateTime.setText(invite.getPartyId());
+        PartyController partyController = PartyController.getInstance();
+        partyController.getParty(invite.getPartyId(), this);
+
+
         holder.pHostName.setText(invite.getHostName());
 
         // Changing Text Style/Color based on invitation status
@@ -56,6 +63,14 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
         }
 
     }
+
+    // Gets the party for invitation from the database
+    public void handleGetPartySuccess(Party party) {
+
+        holder.pName.setText(party.getName());
+        holder.pDateTime.setText(String.valueOf(party.getDate()));
+    }
+
 
     @Override
     public int getItemCount() {

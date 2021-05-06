@@ -6,17 +6,22 @@ import androidx.appcompat.widget.Toolbar;
 import android.os.Bundle;
 import android.view.View;
 
+import com.sjsu.partyplanner.Controllers.PartyController;
 import com.sjsu.partyplanner.Models.Invitation;
+import com.sjsu.partyplanner.Models.Party;
 import com.sjsu.partyplanner.R;
 import com.sjsu.partyplanner.databinding.ActivityInvitationDetailBinding;
+
+import java.util.ArrayList;
 
 public class InvitationDetailActivity extends AppCompatActivity {
 
     public static final String INVITATION_KEY = "INVITATION";
+    public static final String PARTY_KEY = "PARTY";
     private ActivityInvitationDetailBinding binding;
 
     private Toolbar toolbar;
-    private Invitation invite;
+    Invitation invite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,24 +42,29 @@ public class InvitationDetailActivity extends AppCompatActivity {
         if (extras != null) {
             invite = extras.getParcelable(INVITATION_KEY);
 
-            // Sets Text
-            binding.idPHost.setText(invite.getHostName());
-            /*
-            binding.idPName.setText();
-            binding.idPType.setText();
-            binding.idPHost.setText();
-            binding.idPDescriptionText.setText();
-            binding.idLocationText.setText();
-            binding.idDateTimeText.setText();
+            PartyController partyController = PartyController.getInstance();
+            partyController.getParty(invite.getPartyId(), this);
 
-             */
-
-            if(invite.getHasSelected()) {
-                binding.idAcceptButton.setVisibility(View.INVISIBLE);
-                binding.idDeclineButton.setVisibility(View.INVISIBLE);
-            }
         }
     }
+
+    // Gets the party for invitation from the database
+    public void handleGetPartySuccess(Party party) {
+
+        // Sets Text
+        binding.idPHost.setText(invite.getHostName());
+        binding.idPName.setText(party.getName());
+        binding.idPType.setText(party.getType());
+        binding.idPDescriptionText.setText(party.getDescription());
+        binding.idLocationText.setText(party.getAddress());
+        binding.idDateTimeText.setText(String.valueOf(party.getDate()));
+
+        if(invite.getHasSelected()) {
+            binding.idAcceptButton.setVisibility(View.INVISIBLE);
+            binding.idDeclineButton.setVisibility(View.INVISIBLE);
+        }
+    }
+
 
     // Button Clicks
     public void onClick(View v) {
