@@ -38,7 +38,6 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
         float amount = budget.getAmount();
         String amountString = "$" + String.valueOf(amount);
 
-
         holder.bName.setText(budget.getName());
         holder.bParty.setText(budget.getParty());
         holder.blAmount.setText(amountString);

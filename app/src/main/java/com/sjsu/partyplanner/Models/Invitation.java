@@ -10,6 +10,7 @@ public class Invitation implements Parcelable {
     private String partyId;
     private String hostName;
     private String inviteTitle;
+    private String dateTime;
 
     private boolean hasRead = false;        // Has read the invitation
     private boolean hasSelected = false;    // Made a choice to go or not to got (has decided)
@@ -137,5 +138,11 @@ public class Invitation implements Parcelable {
     };
 
 
+    public String getDateTime() {
+        return dateTime;
+    }
 
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
+    }
 }

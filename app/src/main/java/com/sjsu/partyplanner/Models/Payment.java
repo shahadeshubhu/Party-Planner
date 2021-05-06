@@ -37,4 +37,9 @@ public class Payment {
         if (status == STATUS.PAID) { status = STATUS.UNPAID; }
         else { status = STATUS.PAID; }
     }
+
+    // Returns true if paid, false if unpaid
+    public boolean getStatusBool() {
+        return status == STATUS.PAID;
+    }
 }

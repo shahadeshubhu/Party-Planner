@@ -5,14 +5,18 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.sjsu.partyplanner.Activities.Contacts.ContactAdapter;
+import com.sjsu.partyplanner.Activities.Parties.TaskDetailActivity;
 import com.sjsu.partyplanner.Models.Budget;
+import com.sjsu.partyplanner.Models.Task;
 import com.sjsu.partyplanner.Models.User;
 import com.sjsu.partyplanner.R;
 import com.sjsu.partyplanner.databinding.ActivityBudgetBinding;
@@ -69,9 +73,7 @@ public class BudgetActivity extends AppCompatActivity implements BudgetAdapter.B
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.clAdd:
-                //TODO: ADD NEW BUDGET
-
-
+                toastMsg("Unimplemented");
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -91,6 +93,17 @@ public class BudgetActivity extends AppCompatActivity implements BudgetAdapter.B
 
     @Override
     public void onBudgetClick(View v, int position) {
-
+        Budget budget = budgetList.get(position);
+        Intent intent = new Intent(getApplicationContext(), BudgetDetailActivity.class);
+        Bundle extra =  new Bundle();
+        extra.putParcelable(BudgetDetailActivity.BUDGET_KEY, budget);
+        intent.putExtras(extra);
+        startActivity(intent);
     }
+
+    public void toastMsg(String msg) {
+        Toast toast = Toast.makeText(this, msg, Toast.LENGTH_LONG);
+        toast.show();
+    }
+
 }

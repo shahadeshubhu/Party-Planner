@@ -28,7 +28,6 @@ public class InvitationListActivity extends AppCompatActivity implements Invitat
     private PartyController partyController;
     private ArrayList<Invitation> invites;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +63,6 @@ public class InvitationListActivity extends AppCompatActivity implements Invitat
     // Set up invitations
     private void setUpInvitations() {
         partyController = PartyController.getInstance();
-        invites = new ArrayList<Invitation>();
         partyController.getUserInvitations(this);
     }
     
@@ -75,6 +73,7 @@ public class InvitationListActivity extends AppCompatActivity implements Invitat
 
         // Setup RecyclerView When you get all invitations
         setUpRecycler();
+
         // Gets rid of extra text
         if(invites.size() > 0) {
             binding.noInvitations.setText("");

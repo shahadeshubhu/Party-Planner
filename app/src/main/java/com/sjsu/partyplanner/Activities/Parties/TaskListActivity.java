@@ -124,7 +124,5 @@ public class TaskListActivity extends AppCompatActivity implements TaskAdapter.T
         extra.putParcelable(TaskDetailActivity.TASK_KEY, task);
         intent.putExtras(extra);
         startActivity(intent);
-
-        setUpRecycler();
     }
 }

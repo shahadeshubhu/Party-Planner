@@ -1,8 +1,11 @@
 package com.sjsu.partyplanner.Models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
-public class Budget {
+public class Budget implements Parcelable {
 
     private String name;
     private String party;
@@ -15,6 +18,36 @@ public class Budget {
         this.party = party;
         this.amount = amount;
     }
+
+    protected Budget(Parcel in) {
+        name = in.readString();
+        party = in.readString();
+        amount = in.readFloat();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(party);
+        dest.writeFloat(amount);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Budget> CREATOR = new Creator<Budget>() {
+        @Override
+        public Budget createFromParcel(Parcel in) {
+            return new Budget(in);
+        }
+
+        @Override
+        public Budget[] newArray(int size) {
+            return new Budget[size];
+        }
+    };
 
     public String getName() {
         return name;

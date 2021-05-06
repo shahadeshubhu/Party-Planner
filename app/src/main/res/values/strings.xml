@@ -93,5 +93,8 @@
     <string name="help">Help</string>
     <string name="invitation">Invitation</string>
     <string name="edit">Edit</string>
+    <string name="payment">Payments</string>
+    <string name="paymentName">Payment Name</string>
+    <string name="amount">Amount</string>
 
 </resources>

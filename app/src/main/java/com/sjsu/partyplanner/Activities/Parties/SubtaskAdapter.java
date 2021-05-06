@@ -17,7 +17,7 @@ public class SubtaskAdapter extends RecyclerView.Adapter<SubtaskAdapter.ViewHold
     private ArrayList<Subtask> mSubtasks;
     private OnSubtaskListener mOnSubtaskListener;
 
-    // Constructore
+    // Constructor
     public SubtaskAdapter(ArrayList<Subtask> mSubtasks, OnSubtaskListener onSubtaskListener) {
         this.mSubtasks = mSubtasks;
         this.mOnSubtaskListener = onSubtaskListener;
@@ -56,20 +56,14 @@ public class SubtaskAdapter extends RecyclerView.Adapter<SubtaskAdapter.ViewHold
         private TextView stName;
         private ImageView stStatus;
         private OnSubtaskListener onSubtaskListener;
+
         public ViewHolder(@NonNull View itemView, OnSubtaskListener onSubtaskListener) {
             super(itemView);
             stName = itemView.findViewById(R.id.stNameTextLayout);
             stStatus = itemView.findViewById(R.id.subtaskStatusLayout);
             this.onSubtaskListener = onSubtaskListener;
 
-            stStatus.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    onSubtaskListener.OnSubtaskClick(getAdapterPosition());
-
-                }
-            });
+            stStatus.setOnClickListener(v -> onSubtaskListener.OnSubtaskClick(getAdapterPosition()));
         }
     }
 

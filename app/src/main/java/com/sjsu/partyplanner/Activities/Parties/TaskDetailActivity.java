@@ -46,7 +46,6 @@ public class TaskDetailActivity extends AppCompatActivity implements AdapterView
         setUpToolbar();
         setTV();
         setUpRecycler();
-
     }
 
     // Sets up Toolbar

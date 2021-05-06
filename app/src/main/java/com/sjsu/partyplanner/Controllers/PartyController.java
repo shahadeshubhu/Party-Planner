@@ -54,6 +54,8 @@ public class PartyController {
 
         return PartyController_instance;
     }
+
+
     public void createParty(CreatePartyActivity activity, Party p) {
         Log.d("databaseDebug", "createParty: saving database");
         String ownerId = UserController.currentUser.getUid();
@@ -73,7 +75,9 @@ public class PartyController {
                             activity.handleSuccess();
                             return;
                         }
-                        inviteGuestByEmail(activity, guests, partyDocumentReference.getId(), p.getName(), String.format("%s %s",UserController.currentUserInfo.getFirstName(), UserController.currentUserInfo.getLastName()));
+                        inviteGuestByEmail(activity, guests, partyDocumentReference.getId(), p.getName(),
+                                String.format("%s %s",UserController.currentUserInfo.getFirstName(),
+                                        UserController.currentUserInfo.getLastName()));
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -143,10 +147,7 @@ public class PartyController {
     }
 
     public void getUserInvitations(InvitationListActivity activity){
-//        String uId = UserController.currentUser.getUid();
-
-        //TODO:TESTING INVITATION NOW
-        String uId ="LGd3AlG18uS9uG238XRml58CSFI3";
+        String uId = UserController.currentUser.getUid();
         db.collection(INVITE_DB_NAME).whereEqualTo("guestId", uId)
             .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override

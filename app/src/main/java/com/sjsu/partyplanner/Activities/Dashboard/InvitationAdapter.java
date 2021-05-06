@@ -27,6 +27,8 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
     public InvitationAdapter(ArrayList<Invitation> invites, InvitationAdapter.InvitationClick listener) {
         this.invites = invites;
         this.listener = listener;
+
+        Log.d("PRINT SIZE: ", String.valueOf(invites.size()));
     }
 
     @NonNull
@@ -41,13 +43,11 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         invite = invites.get(position);
-        this.holder = holder;
-
-        PartyController partyController = PartyController.getInstance();
-        partyController.getParty(invite.getPartyId(), this);
 
 
         holder.pHostName.setText(invite.getHostName());
+        holder.pName.setText(invite.getInviteTitle());
+        //holder.pDateTime.setText(String.valueOf(party.getDate()));
 
         // Changing Text Style/Color based on invitation status
         if (invite.getHasRead()) {
@@ -66,7 +66,6 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
 
     // Gets the party for invitation from the database
     public void handleGetPartySuccess(Party party) {
-
         holder.pName.setText(party.getName());
         holder.pDateTime.setText(String.valueOf(party.getDate()));
     }
