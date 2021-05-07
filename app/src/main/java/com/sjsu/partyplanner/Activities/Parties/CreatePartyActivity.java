@@ -327,5 +327,4 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
         Toast toast = Toast.makeText(this, msg, Toast.LENGTH_LONG);
         toast.show();
     }
-
 }

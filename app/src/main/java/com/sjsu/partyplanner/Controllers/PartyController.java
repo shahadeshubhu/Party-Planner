@@ -125,6 +125,7 @@ public class PartyController {
 
         for( Guest g : guests){
             invitations.add(new Invitation(partyId, partyTitle, hostName, g.getUid(), dateTime));
+            // Send email code from here
         }
 
         Log.d("inviteGuestByEmail", ""+invitations.size());
@@ -183,5 +184,4 @@ public class PartyController {
             }
         });
     }
-
 }
