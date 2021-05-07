@@ -22,21 +22,35 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     private EditText passwordEmail;
     private Button resetPassword;
     private FirebaseAuth firebaseAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
 
-        passwordEmail = (EditText)findViewById(R.id.passwordEmail);
+        passwordEmail = (EditText) findViewById(R.id.passwordEmail);
         resetPassword = findViewById(R.id.SubmitBtn);
         firebaseAuth = FirebaseAuth.getInstance();
 
-        resetPassword.setOnClickListener(v -> {
-            String userEmail = passwordEmail.getText().toString();
-            firebaseAuth.sendPasswordResetEmail(userEmail).addOnSuccessListener(aVoid -> Toast.makeText(ForgotPasswordActivity.this,"Password reset email sent", Toast.LENGTH_SHORT).show()).addOnFailureListener(e -> Toast.makeText(ForgotPasswordActivity.this,"Error sending reset password email",Toast.LENGTH_SHORT).show());
+        resetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                firebaseAuth.sendPasswordResetEmail(passwordEmail.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(ForgotPasswordActivity.this,
+                                    "Password reset email sent", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(ForgotPasswordActivity.this,
+                                    task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
         });
     }
-
+}
     /*
     if (task.isSuccessful()){
                         Toast.makeText(ForgotPasswordActivity.this,"Password reset email sent", Toast.LENGTH_SHORT).show();
@@ -47,4 +61,4 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                     }
                 });
      */
-}
+
