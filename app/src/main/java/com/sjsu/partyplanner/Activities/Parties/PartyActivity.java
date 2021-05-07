@@ -42,10 +42,12 @@ public class PartyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_party_page);
-        setupToolbar();
 
         p = PartyController.getInstance();
         p.getParties(this);
+        Log.d("PRINTINGPRINGING", "PRINTINGIPNT");
+
+        setupToolbar();
     }
 
     // When Create Party Activity Finishes
