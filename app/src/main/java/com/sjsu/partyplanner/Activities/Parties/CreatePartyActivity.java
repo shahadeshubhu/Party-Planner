@@ -164,9 +164,9 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
             Bundle extras = data.getExtras();
             selectedGuests = extras.getParcelableArrayList(CreateGuestListActivity.GUEST_LIST_KEY);
             if(selectedGuests == null){
-                selectedGuests=new ArrayList<Guest>();
+                selectedGuests = new ArrayList<Guest>();
             }
-            binding.cpGuestButton.setText(String.format("%s (%d)",binding.cpGuestButton.getText().toString(), selectedGuests.size()));
+            binding.cpGuestButton.setText(String.format("%s (%d)", "Invited Guests", selectedGuests.size()));
             Log.d("Selected Guest size!", ""+ selectedGuests.size());
         }
     }
@@ -201,6 +201,10 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
 
 
     public void handleSuccess(){
+
+      UserController.getUserInfo();
+
+
       Intent intent = new Intent();
       intent.putExtra("newParty", createdParty);
       setResult(RESULT_OK, intent);
