@@ -35,7 +35,6 @@ public class PartyActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private ArrayList<Party> pastParties = new ArrayList<>();
     private ArrayList<Party> upParties = new ArrayList<>();
-
     private PartyController p;
 
     @Override
@@ -45,7 +44,6 @@ public class PartyActivity extends AppCompatActivity {
 
         p = PartyController.getInstance();
         p.getParties(this);
-        Log.d("PRINTINGPRINGING", "PRINTINGIPNT");
 
         setupToolbar();
     }
@@ -124,7 +122,7 @@ public class PartyActivity extends AppCompatActivity {
     /**
      * Inner Class for ViewPager Adapter
      */
-    public class PagerAdapter extends FragmentPagerAdapter {
+    public static class PagerAdapter extends FragmentPagerAdapter {
 
         private int numOfTabs;
         private ArrayList<Party> pastParties;
@@ -158,11 +156,9 @@ public class PartyActivity extends AppCompatActivity {
                     Bundle pBundle = new Bundle();
                     pBundle.putParcelableArrayList("key", (ArrayList<? extends Parcelable>) pastParties);
 
-
                     // Create Fragment with Arguments
                     PartiesFragment pastFrag = new PartiesFragment();
                     pastFrag.setArguments(pBundle);
-
 
                     return pastFrag;
                 default:
@@ -176,12 +172,13 @@ public class PartyActivity extends AppCompatActivity {
         }
     }
 
+    // Set up Toolbar
     private void setupToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle("Parties");
+        getSupportActionBar().setTitle("My Planned Parties");
         toolbar.setNavigationOnClickListener(v -> finish());    // Goes back to Dashboard
     }
 

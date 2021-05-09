@@ -19,6 +19,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.sjsu.partyplanner.Activities.Budget.BudgetActivity;
 import com.sjsu.partyplanner.Activities.Contacts.ContactsActivity;
+import com.sjsu.partyplanner.Activities.Events.EventActivity;
 import com.sjsu.partyplanner.Activities.Parties.PartyActivity;
 import com.sjsu.partyplanner.Activities.Users.LoginActivity;
 import com.sjsu.partyplanner.Controllers.UserController;
@@ -51,7 +52,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     // onClick Methods
     public void onClick(View v) {
         if (v == binding.partiesButton)  { startActivity(new Intent(this, PartyActivity.class)); }
-        else if (v == binding.eventsButton) { toastMsg("Event Click"); }
+        else if (v == binding.eventsButton) { startActivity(new Intent(this, EventActivity.class)); }
         else if (v == binding.contactsButton) { startActivity(new Intent(this, ContactsActivity.class)); }
         else if (v == binding.budgetButton) { startActivity(new Intent(this, BudgetActivity.class)); }
     }

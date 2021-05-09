@@ -1,4 +1,4 @@
-package com.sjsu.partyplanner.Activities.Parties;
+package com.sjsu.partyplanner.Activities.Events;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,19 +12,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.sjsu.partyplanner.Activities.Parties.PartyAdapter;
+import com.sjsu.partyplanner.Activities.Parties.PartyDetailActivity;
 import com.sjsu.partyplanner.Models.Party;
 import com.sjsu.partyplanner.R;
 
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link PartiesFragment} factory method to
- * create an instance of this fragment.
- */
-public class PartiesFragment extends Fragment implements PartyAdapter.PartyClick {
+
+public class EventFragment extends Fragment implements PartyAdapter.PartyClick {
 
     // RecyclerView
     private View v;
@@ -32,8 +29,7 @@ public class PartiesFragment extends Fragment implements PartyAdapter.PartyClick
     private PartyAdapter pAdapter;
     private ArrayList<Party> parties = new ArrayList<>();       // Get from activity
 
-    // Constructor
-    public PartiesFragment() {
+    public EventFragment() {
         // Required empty public constructor
     }
 
@@ -91,9 +87,8 @@ public class PartiesFragment extends Fragment implements PartyAdapter.PartyClick
     @Override
     public void onPartyClick(View v, int position) {
         Party party = parties.get(position);
-        Intent intent = new Intent(getContext(), PartyDetailActivity.class);
+        Intent intent = new Intent(getContext(), EventDetailActivity.class);
         intent.putExtra("party", party);
         startActivity(intent);
     }
-
 }

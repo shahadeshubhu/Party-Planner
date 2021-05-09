@@ -86,25 +86,13 @@ public class TaskListActivity extends AppCompatActivity implements TaskAdapter.T
     // Sets up Task List
     private void setUpTaskList() {
         Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            taskList = extras.getParcelableArrayList(PartyDetailActivity.TASK_KEY);
-
-            ArrayList<Subtask> st = new ArrayList<Subtask>();
-            st.add(new Subtask("NAMESS"));
-            st.add(new Subtask("NAMESS22"));
-            taskList.add(new Task("FRNEHC", "asdf", "dsaf", st));
-
-        }
+        if (extras != null) { taskList = extras.getParcelableArrayList(PartyDetailActivity.TASK_KEY); }
 
         // Checks Guest List
-        if (taskList == null) {
-            taskList = new ArrayList<>();
-        }
+        if (taskList == null) { taskList = new ArrayList<>(); }
 
         // Gets rid of extra text
-        if(taskList.size() > 0) {
-            binding.noTasksTLDetail.setText("");
-        }
+        if(taskList.size() > 0) { binding.noTasksTLDetail.setText(""); }
     }
 
     // Sets up Recycler
