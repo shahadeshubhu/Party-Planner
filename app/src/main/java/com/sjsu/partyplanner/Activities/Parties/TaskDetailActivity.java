@@ -10,6 +10,7 @@ import com.sjsu.partyplanner.Models.Task;
 import com.sjsu.partyplanner.R;
 import com.sjsu.partyplanner.databinding.ActivityTaskDetailBinding;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,7 +29,10 @@ public class TaskDetailActivity extends AppCompatActivity implements AdapterView
         SubtaskAdapter.OnSubtaskListener, AddSubtaskDialog.AddSubtaskInterface {
 
     public static final String TASK_KEY = "TASK";
+    public static final String EXTRA_REPLY = "com.sjsu.partyplanner.Activities.Parties.reply";
+    public static final String INDEX_REPLY = "com.sjsu.partyplanner.Activities.Parties.IndexReply";
     private Task task;
+    private int usedIndex;
 
     private ActivityTaskDetailBinding binding;
     private Toolbar toolbar;
@@ -41,7 +45,7 @@ public class TaskDetailActivity extends AppCompatActivity implements AdapterView
 
         binding = ActivityTaskDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        usedIndex = -1; // setting default value
         // Toolbar, TextViews, Recycler
         setUpToolbar();
         setTV();
@@ -60,6 +64,19 @@ public class TaskDetailActivity extends AppCompatActivity implements AdapterView
             @Override
             public void onClick(View v) {
                 // TODO: SEND TASK OBJECT BACK
+                Toast.makeText(TaskDetailActivity.this, "Clicked Back! Kevin", Toast.LENGTH_SHORT).show();
+
+                if (task != null)
+                {
+                    Intent replyIntent = new Intent();
+                    Bundle extra =  new Bundle();
+                    extra.putParcelable(EXTRA_REPLY, task);
+                    extra.putInt(INDEX_REPLY, usedIndex);
+                    replyIntent.putExtras(extra);
+                    setResult(RESULT_OK,replyIntent);
+
+                }
+
 
                 //task
 
@@ -97,7 +114,7 @@ public class TaskDetailActivity extends AppCompatActivity implements AdapterView
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             task = extras.getParcelable(TASK_KEY);
-
+            usedIndex = extras.getInt(CreateTaskListActivity.INDEX_KEY);
             // Sets Text
             binding.tdNameText.setText(task.getName());
             binding.tdStatus.setText(task.getStatus());
