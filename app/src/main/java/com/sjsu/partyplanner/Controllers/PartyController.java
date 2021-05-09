@@ -1,5 +1,7 @@
 package com.sjsu.partyplanner.Controllers;
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -122,10 +124,27 @@ public class PartyController {
     public void inviteGuestByEmail(CreatePartyActivity activity, ArrayList<Guest> guests, String partyId, String partyTitle, String hostName, String dateTime) {
 
         ArrayList<Invitation> invitations = new ArrayList<>();
+        ArrayList<String> emailList = new ArrayList<>();
+        String subject = "Invitation email subject";
+        String text =" Party invitation email";
 
+        // Add activity so user can write subject party invitation message?
+        // Also click button to sent email?
         for( Guest g : guests){
             invitations.add(new Invitation(partyId, partyTitle, hostName, g.getUid(), dateTime));
-            // Send email code from here
+            emailList.add(g.getEmail());
+        }
+
+        final Intent emailLauncher = new Intent(Intent.ACTION_SEND_MULTIPLE);
+        emailLauncher.setType("message/rfc822");
+        emailLauncher.putExtra(Intent.EXTRA_EMAIL, emailList);
+        emailLauncher.putExtra(Intent.EXTRA_SUBJECT, subject);
+        emailLauncher.putExtra(Intent.EXTRA_TEXT, text);
+        try{
+            // startActivity(emailLauncher);
+            //Which activity to start?
+        }catch(ActivityNotFoundException e){
+
         }
 
         Log.d("inviteGuestByEmail", ""+invitations.size());
