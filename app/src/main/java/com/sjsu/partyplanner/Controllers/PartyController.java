@@ -125,11 +125,11 @@ public class PartyController {
 
         ArrayList<Invitation> invitations = new ArrayList<>();
         ArrayList<String> emailList = new ArrayList<>();
-        String subject = "Invitation email subject";
-        String text =" Party invitation email";
+        String subject = "YOU ARE INVITED!!!";
+        String text = ("Hi," +"\n" + "You have been invited to a party. Please accept the " +
+                "invitation on the PartyPlanner app as your presence would mean a lot to us"
+                + "\n" + "Regards,"+"\n" + "Team PartyPlanner");
 
-        // Add activity so user can write subject party invitation message?
-        // Also click button to sent email?
         for( Guest g : guests){
             invitations.add(new Invitation(partyId, partyTitle, hostName, g.getUid(), dateTime));
             emailList.add(g.getEmail());
@@ -141,10 +141,8 @@ public class PartyController {
         emailLauncher.putExtra(Intent.EXTRA_SUBJECT, subject);
         emailLauncher.putExtra(Intent.EXTRA_TEXT, text);
         try{
-            // startActivity(emailLauncher);
-            //Which activity to start?
+             activity.startActivity(emailLauncher);
         }catch(ActivityNotFoundException e){
-
         }
 
         Log.d("inviteGuestByEmail", ""+invitations.size());
