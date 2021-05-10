@@ -97,4 +97,11 @@
     <string name="paymentName">Payment Name</string>
     <string name="amount">Amount</string>
 
+    <string name="upParty">Upcoming Parties</string>
+    <string name="pastParty">Past Parties</string>
+    <string name="myParty">My Upcoming Parties</string>
+    <string name="inviteParty">Invited Parties</string>
+    <string name="noEvent">No Upcoming Events</string>
+
+
 </resources>

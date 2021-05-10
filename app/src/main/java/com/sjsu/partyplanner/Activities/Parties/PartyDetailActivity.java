@@ -6,36 +6,31 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sjsu.partyplanner.Models.Party;
 import com.sjsu.partyplanner.R;
+import com.sjsu.partyplanner.databinding.ActivityPartyDetailBinding;
 
 import java.util.ArrayList;
 
 public class PartyDetailActivity extends AppCompatActivity {
 
+    private ActivityPartyDetailBinding binding;
     private Toolbar toolbar;
     private Party party;
     public static final String GUEST_KEY = "GUEST_LIST";
     public static final String TASK_KEY = "TASK_LIST";
 
-    private TextView name;
-    private TextView type;
-    private TextView description;
-    private TextView location;
-    private TextView dateTime;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_party_detail);
+        binding = ActivityPartyDetailBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         // Toolbar, TextView
         setUpToolbar();
@@ -100,18 +95,14 @@ public class PartyDetailActivity extends AppCompatActivity {
 
     // Sets up TextViews
     private void setTV() {
-        name = findViewById(R.id.id_pName);
-        type = findViewById(R.id.id_pType);
-        description = findViewById(R.id.id_pDescriptionText);
-        location = findViewById(R.id.id_locationText);
-        dateTime = findViewById(R.id.id_dateTimeText);
 
         party = getIntent().getParcelableExtra("party");
-        name.setText(party.getName());
-        type.setText(party.getType());
-        description.setText(party.getDescription());
-        location.setText(party.getAddress());
-        dateTime.setText((party.getDate()).toString());
+
+        binding.idPName.setText(party.getName());
+        binding.idPType.setText(party.getType());
+        binding.idPDescriptionText.setText(party.getDescription());
+        binding.idLocationText.setText(party.getAddress());
+        binding.idDateTimeText.setText(String.valueOf(party.getDate()));
 
     }
 

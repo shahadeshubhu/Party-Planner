@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.Parties.PartyActivity">
+    tools:context=".Activities.Events.EventActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -38,13 +38,13 @@
             android:id="@+id/upcomingPartyTab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/upParty" />
+            android:text="@string/myParty" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/pastPartyTab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/pastParty" />
+            android:text="@string/inviteParty" />
 
     </com.google.android.material.tabs.TabLayout>
 
@@ -60,6 +60,5 @@
 
 
     </androidx.viewpager.widget.ViewPager>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,6 +2,7 @@ package com.sjsu.partyplanner.Controllers;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.util.EventLog;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,7 @@ import com.google.firebase.firestore.WriteBatch;
 import com.sjsu.partyplanner.Activities.Dashboard.InvitationAdapter;
 import com.sjsu.partyplanner.Activities.Dashboard.InvitationDetailActivity;
 import com.sjsu.partyplanner.Activities.Dashboard.InvitationListActivity;
+import com.sjsu.partyplanner.Activities.Events.EventActivity;
 import com.sjsu.partyplanner.Activities.Parties.CreatePartyActivity;
 import com.sjsu.partyplanner.Activities.Parties.PartyActivity;
 import com.sjsu.partyplanner.Models.Guest;
@@ -43,10 +45,8 @@ public class PartyController {
     private static final FirebaseAuth mAuth=FirebaseAuth.getInstance();
     private static PartyController PartyController_instance = null;
 
-    private PartyController()
-    {
-
-    }
+    // Constructor
+    private PartyController() {}
 
     // static method to create instance of Singleton class
     public static PartyController getInstance()
@@ -57,7 +57,7 @@ public class PartyController {
         return PartyController_instance;
     }
 
-
+    // Create Party in database
     public void createParty(CreatePartyActivity activity, Party p) {
         Log.d("databaseDebug", "createParty: saving database");
         String ownerId = UserController.currentUser.getUid();
@@ -93,6 +93,7 @@ public class PartyController {
                 });
     }
 
+    // Gets Parties from database for PartyActivity
     public void getParties(PartyActivity activity) {
         ArrayList<Party> parties = new ArrayList<>();
         ArrayList<String> userParties = UserController.getCurrentUser().getParties();
@@ -121,6 +122,36 @@ public class PartyController {
         }
     }
 
+    // Gets Parties from database for EventActivity
+    public void getParties(EventActivity activity) {
+        ArrayList<Party> parties = new ArrayList<>();
+        ArrayList<String> userParties = UserController.getCurrentUser().getParties();
+        if(userParties != null && userParties.size() > 0) {
+            db.collection(EVENT_DB_NAME).whereIn(FieldPath.documentId(), userParties)
+                    .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            Party p = document.toObject(Party.class);
+                            Log.d("#document data", "" + document.getId());
+
+                            parties.add(p);
+                        }
+                        activity.handleFetchParties(true, parties);
+                        Log.d("#getParties", "" + parties.size());
+
+                    } else {
+                        Log.d("#getParties error", "Error getting documents: ", task.getException());
+                        activity.handleFetchParties(false, parties);
+
+                    }
+                }
+            });
+        }
+    }
+
+    // Create Invitations for Party Created
     public void inviteGuestByEmail(CreatePartyActivity activity, ArrayList<Guest> guests, String partyId, String partyTitle, String hostName, String dateTime) {
 
         ArrayList<Invitation> invitations = new ArrayList<>();
@@ -165,6 +196,7 @@ public class PartyController {
 
     }
 
+    // Get Invitations for InvitationListActivity
     public void getUserInvitations(InvitationListActivity activity){
         String uId = UserController.currentUser.getUid();
         db.collection(INVITE_DB_NAME).whereEqualTo("guestId", uId)
@@ -182,7 +214,47 @@ public class PartyController {
         });
     }
 
+    // Get Invitations for InvitationListActivity
+    public void getUserInvitations(EventActivity activity){
+        String uId = UserController.currentUser.getUid();
+        db.collection(INVITE_DB_NAME).whereEqualTo("guestId", uId)
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                ArrayList<Invitation> invitations = new ArrayList<>();
+                if(task.isComplete()){
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        invitations.add(document.toObject(Invitation.class));
+                    }
+                    activity.handleGetInvitationSuccess(invitations);
+                }
+            }
+        });
+    }
+
+    // Get Party for InvitationListActivity based on partyID
     public void getParty(String partyId, InvitationDetailActivity activity){
+        db.collection(EVENT_DB_NAME).whereEqualTo(FieldPath.documentId(), partyId)
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        Party p = document.toObject(Party.class);
+                        p.setpId(document.getId());
+                        Log.d("#getParty", document.getId() + " => " + p.toString());
+                        activity.handleGetPartySuccess(p);
+                    }
+                } else {
+                    Log.d("#getParty error", "Error getting documents: ", task.getException());
+
+                }
+            }
+        });
+    }
+
+    // Get Party for EventActivity based on partyID
+    public void getParty(String partyId, EventActivity activity){
         db.collection(EVENT_DB_NAME).whereEqualTo(FieldPath.documentId(), partyId)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
