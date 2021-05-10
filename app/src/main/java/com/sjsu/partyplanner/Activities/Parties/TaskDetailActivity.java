@@ -63,8 +63,7 @@ public class TaskDetailActivity extends AppCompatActivity implements AdapterView
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: SEND TASK OBJECT BACK
-                Toast.makeText(TaskDetailActivity.this, "Clicked Back! Kevin", Toast.LENGTH_SHORT).show();
+
 
                 if (task != null)
                 {

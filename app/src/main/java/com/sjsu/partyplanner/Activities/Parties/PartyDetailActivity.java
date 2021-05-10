@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sjsu.partyplanner.Models.Party;
+import com.sjsu.partyplanner.Models.Task;
 import com.sjsu.partyplanner.R;
 
 import java.util.ArrayList;
@@ -25,6 +26,9 @@ public class PartyDetailActivity extends AppCompatActivity {
     private Party party;
     public static final String GUEST_KEY = "GUEST_LIST";
     public static final String TASK_KEY = "TASK_LIST";
+    public static final int DETAIL_REQUEST = 515;
+    private static final String TAG = "OnPartyDetail";
+
 
     private TextView name;
     private TextView type;
@@ -51,7 +55,7 @@ public class PartyDetailActivity extends AppCompatActivity {
             Bundle uBundle = new Bundle();
             uBundle.putParcelableArrayList(TASK_KEY, (ArrayList<? extends Parcelable>) party.getTasks());
             intent.putExtras(uBundle);
-            startActivity(intent);
+            startActivityForResult(intent, DETAIL_REQUEST);
         }
         // Guest List Button OnClick
         else if (v == findViewById(R.id.pdGuestButton)) {
@@ -107,6 +111,7 @@ public class PartyDetailActivity extends AppCompatActivity {
         dateTime = findViewById(R.id.id_dateTimeText);
 
         party = getIntent().getParcelableExtra("party");
+        Log.d(TAG, "setTV: calling intent again. ");
         name.setText(party.getName());
         type.setText(party.getType());
         description.setText(party.getDescription());
@@ -118,5 +123,37 @@ public class PartyDetailActivity extends AppCompatActivity {
     public void toastMsg(String msg) {
         Toast toast = Toast.makeText(this, msg, Toast.LENGTH_LONG);
         toast.show();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "onActivityResult: recieved intent, request code: " + requestCode + " result code: " + resultCode);
+
+        if (requestCode == DETAIL_REQUEST)
+        {
+            if (resultCode == RESULT_OK)
+            {
+                Bundle bundle = data.getExtras();
+                //ArrayList<Task> temp2 = data.getParcelableArrayListExtra(TaskListActivity.REPLY_KEY);
+
+                if (bundle != null)
+                {
+                    Log.d(TAG, "onActivityResult: correctly recieved result intent");
+                    ArrayList<Task> tempTaskList = bundle.getParcelableArrayList(TaskListActivity.REPLY_KEY);
+                    party.setTasks(tempTaskList);
+
+                    for ( int i = 0; i < tempTaskList.size(); i++)
+                    {
+                        Log.d(TAG, "onActivityResult: " + tempTaskList.get(i));
+                    }
+                }
+                else
+                {
+                    Log.d(TAG, "onActivityResult: result list is empty");
+                }
+
+            }
+        }
     }
 }

@@ -46,7 +46,7 @@ public class PartyActivity extends AppCompatActivity {
 
         p = PartyController.getInstance();
         // TODO: gets error when there are no parties
-        p.getParties(this);
+        p.getParties(this); // call this again, when you are ready to reload. Before calling this again, make pasParties and upParties empty again! Wait until.
     }
 
     @Override
@@ -90,7 +90,7 @@ public class PartyActivity extends AppCompatActivity {
                 upParties.add(newParty);
                 Log.d("return PArty\n", newParty.toString());
             }
-            initializeTabLayout();
+            initializeTabLayout(); // will reload all the fragment
         }
     }
 

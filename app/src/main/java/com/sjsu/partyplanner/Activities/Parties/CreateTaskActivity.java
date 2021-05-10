@@ -76,7 +76,7 @@ public class CreateTaskActivity extends AppCompatActivity implements AdapterView
                 Task task = new Task(binding.ctNameText.getText().toString(), taskCategory, binding.ctCategory.getText().toString(), subtaskList);
                 Intent rIntent = new Intent(); // Changed from: new Intent(this, CreateTaskListActivity.class);
                 rIntent.putExtra(TASK_KEY, task);
-                setResult(Activity.RESULT_OK, rIntent);
+                setResult(RESULT_OK, rIntent);
                 finish();
                 return true;
             default:
