@@ -31,6 +31,7 @@ import com.sjsu.partyplanner.Models.Invitation;
 import com.sjsu.partyplanner.Models.Party;
 import com.sjsu.partyplanner.Models.User;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -158,22 +159,24 @@ public class PartyController {
         ArrayList<String> emailList = new ArrayList<>();
         String subject = "YOU ARE INVITED!!!";
         String text = ("Hi," +"\n" + "You have been invited to a party. Please accept the " +
-                "invitation on the PartyPlanner app as your presence would mean a lot to us"
+                "invitation on the PartyPlanner app. Your presence would certainly mean a lot to us"
                 + "\n" + "Regards,"+"\n" + "Team PartyPlanner");
 
         for( Guest g : guests){
             invitations.add(new Invitation(partyId, partyTitle, hostName, g.getUid(), dateTime));
             emailList.add(g.getEmail());
         }
+        String[] emailArray = emailList.toArray(new String[0]);
 
-        final Intent emailLauncher = new Intent(Intent.ACTION_SEND_MULTIPLE);
-        emailLauncher.setType("message/rfc822");
-        emailLauncher.putExtra(Intent.EXTRA_EMAIL, emailList);
+        final Intent emailLauncher = new Intent(Intent.ACTION_SEND);
         emailLauncher.putExtra(Intent.EXTRA_SUBJECT, subject);
+        emailLauncher.putExtra(Intent.EXTRA_EMAIL, emailArray);
         emailLauncher.putExtra(Intent.EXTRA_TEXT, text);
+        emailLauncher.setType("message/rfc822");
         try{
-             activity.startActivity(emailLauncher);
+            activity.startActivity(emailLauncher);
         }catch(ActivityNotFoundException e){
+
         }
 
         Log.d("inviteGuestByEmail", ""+invitations.size());
