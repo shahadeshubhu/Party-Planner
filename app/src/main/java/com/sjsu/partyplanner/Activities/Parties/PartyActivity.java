@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
@@ -43,6 +45,7 @@ public class PartyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_party_page);
         setupToolbar();
+        Log.d("PartyUpdate", "onCreate:  on Party ");
 
         p = PartyController.getInstance();
         // TODO: gets error when there are no parties
@@ -92,6 +95,7 @@ public class PartyActivity extends AppCompatActivity {
             }
             initializeTabLayout(); // will reload all the fragment
         }
+        
     }
 
 
@@ -99,6 +103,8 @@ public class PartyActivity extends AppCompatActivity {
 
 
     public void handleFetchParties(boolean isSuccessful, ArrayList<Party> p){
+        Log.d("Testing", "handleFetchParties: Executing handleFetchParties on PartyActivity with successful status of " + isSuccessful);
+        Log.d("Testing", "handleFetchParties: Staus of " + p.get(0).getName() + " Subtask TWO Status: " + p.get(0).getTasks().get(1));
         Date now = new Date();
         Log.d("current time", now.toString());
         ArrayList<Party> allParties = new ArrayList<>();
@@ -117,11 +123,19 @@ public class PartyActivity extends AppCompatActivity {
         }else{
             //TODO: display some error message
         }
+
         initializeTabLayout();
+    }
+    
+    public void changeParty()
+    {
+        Toast.makeText(this, "testing", Toast.LENGTH_SHORT).show();
     }
 
     // Initialize TabLayout
-    private void initializeTabLayout() {
+    private void initializeTabLayout()
+    {
+        Log.d("Testing", "initializeTabLayout: Calling initializeTabLayout....................................");
         tabLayout = (TabLayout) findViewById(R.id.partiesTabLayout);
         viewPager = findViewById(R.id.partiesViewPager);
         PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount(), pastParties,upParties);
@@ -143,19 +157,20 @@ public class PartyActivity extends AppCompatActivity {
                 // Empty
             }
         });
+
     }
 
     /**
      * Inner Class for ViewPager Adapter
      */
-    public class PagerAdapter extends FragmentPagerAdapter {
+    public class PagerAdapter extends FragmentStatePagerAdapter {
 
         private int numOfTabs;
         private ArrayList<Party> pastParties;
         private ArrayList<Party> upcomingParties;
 
         public PagerAdapter(FragmentManager fm, int numOfTabs, ArrayList<Party> pastParties,ArrayList<Party> upcomingParties) {
-            super(fm, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+            super(fm, FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
             this.numOfTabs = numOfTabs;
             this.pastParties = pastParties;
             this.upcomingParties = upcomingParties;
@@ -227,6 +242,29 @@ public class PartyActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void updateParty(Party inputParty)
+    {
+        // resetting values
+        Log.d("Testing", "updateParty: Executing updateParty methdo on Party activity");
+        pastParties = new ArrayList<>();
+        upParties = new ArrayList<>();
+
+        Log.d("Testing", "updateParty: calling party controller to updae party");
+        p.updateParty(this, inputParty);
+    }
+    public void handleUpdateFailure()
+    {
+        Toast.makeText(this, "Could not save changes to database!", Toast.LENGTH_SHORT).show();
+    }
+    public void handleUpdateSuccess()
+    {
+        Log.d("Testing", "handleUpdateSuccess: On handleUpdateSuccess");
+        pastParties = new ArrayList<>();
+        upParties = new ArrayList<>();
+        p = PartyController.getInstance();
+        p.getParties(this);
     }
 
 }

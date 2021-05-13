@@ -39,22 +39,26 @@ public class TaskListActivity extends AppCompatActivity implements TaskAdapter.T
     private ArrayList<Task> taskList;
     private int usedIndex;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityTaskListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        Log.d("PartyUpdate", "onCreate: on task list");
         usedIndex = -1;
 
         Intent mIntent = getIntent();
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             taskList = extras.getParcelableArrayList(PartyDetailActivity.TASK_KEY);
+
         }
         else
         {
             taskList = new ArrayList<Task>();
+
         }
 
 
@@ -92,6 +96,9 @@ public class TaskListActivity extends AppCompatActivity implements TaskAdapter.T
                 Log.d(TAG, "createTasks: Launched CreateTaskActivity");
                 return true; // added this
             case R.id.cpCheck:
+
+                // update database
+
                 Intent rIntent =  new Intent();//new Intent(this, CreateTaskActivity.class);
                 Bundle extra =  new Bundle();
                 extra.putParcelableArrayList(REPLY_KEY, taskList);

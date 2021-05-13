@@ -86,7 +86,7 @@ public class PartyController {
 
     public void getParties(PartyActivity activity) {
         ArrayList<Party> parties = new ArrayList<>();
-        ArrayList<String> userParties = UserController.getCurrentUser().getParties();
+        ArrayList<String> userParties = UserController.getCurrentUser().getParties();     //************changed!
         if(userParties != null && userParties.size() > 0) {
             db.collection(EVENT_DB_NAME).whereIn(FieldPath.documentId(), userParties)
                     .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -96,7 +96,7 @@ public class PartyController {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             Party p = document.toObject(Party.class);
                             Log.d("#document data", "" + document.getId());
-
+                            p.setpId(document.getId()); /// ***********changed;
                             parties.add(p);
                         }
                         activity.handleFetchParties(true, parties);
@@ -177,6 +177,40 @@ public class PartyController {
                 }
             }
         });
+    }
+
+    public void updateParty(PartyActivity activity, Party inputParty)
+    {
+
+        Log.d("Testing", "updateParty: executing updatePary in PartyController");
+        if (inputParty != null && inputParty.getpId() != null && !inputParty.getpId().isEmpty())
+        {
+            String documentId  = inputParty.getpId();
+            DocumentReference reference = db.collection(EVENT_DB_NAME).document(documentId);
+
+            reference.set(inputParty).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful())
+                    {
+                        Log.d("Testing", "onComplete: successfully updated document");
+                        //getParties(activity);
+                        activity.handleUpdateSuccess();
+                    }
+                    else
+                    {
+                        Log.d("Testing", "onComplete: failed to update document");
+                        activity.handleUpdateFailure();
+
+                    }
+                }
+            });
+        }
+        else
+        {
+            Log.d("Testing", "updateParty: Failure, party or document ID are null or empty");
+            activity.handleUpdateFailure();
+        }
     }
 
 

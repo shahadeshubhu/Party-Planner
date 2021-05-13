@@ -26,6 +26,8 @@ public class PartyDetailActivity extends AppCompatActivity {
     private Party party;
     public static final String GUEST_KEY = "GUEST_LIST";
     public static final String TASK_KEY = "TASK_LIST";
+    public static final String PARTY_ID = "com.sjsu.partyplanner.Activities.Parties.partyid";
+    public static final String NEW_PARTY = "com.sjsu.partyplanner.Activities.Parties.newparty";
     public static final int DETAIL_REQUEST = 515;
     private static final String TAG = "OnPartyDetail";
 
@@ -41,6 +43,7 @@ public class PartyDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_party_detail);
 
+
         // Toolbar, TextView
         setUpToolbar();
         setTV();
@@ -54,6 +57,7 @@ public class PartyDetailActivity extends AppCompatActivity {
             Intent intent = new Intent(this, TaskListActivity.class);
             Bundle uBundle = new Bundle();
             uBundle.putParcelableArrayList(TASK_KEY, (ArrayList<? extends Parcelable>) party.getTasks());
+
             intent.putExtras(uBundle);
             startActivityForResult(intent, DETAIL_REQUEST);
         }
@@ -87,6 +91,18 @@ public class PartyDetailActivity extends AppCompatActivity {
              */
             return true;
         }
+        else if (item.getItemId() == R.id.partyCheck)
+        {
+
+            Intent intent = new Intent();
+            Bundle extra = new Bundle();
+            extra.putParcelable(NEW_PARTY, party);
+            intent.putExtras(extra);
+            Log.d("Testing", "onOptionsItemSelected: setting a reply");
+            setResult(RESULT_OK, intent);
+            finish();
+            return true;
+        }
         else {
             return super.onOptionsItemSelected(item);
         }
@@ -102,6 +118,9 @@ public class PartyDetailActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(v -> finish());        // Closes Activity
     }
 
+
+    // Added this:
+
     // Sets up TextViews
     private void setTV() {
         name = findViewById(R.id.id_pName);
@@ -111,6 +130,8 @@ public class PartyDetailActivity extends AppCompatActivity {
         dateTime = findViewById(R.id.id_dateTimeText);
 
         party = getIntent().getParcelableExtra("party");
+        Log.d("Testing", "setTV: Loading party details");
+        Log.d("Testing", "Testing: Party recieved on PartyDetailsActivity: " + party.getTasks().get(1));
         Log.d(TAG, "setTV: calling intent again. ");
         name.setText(party.getName());
         type.setText(party.getType());

@@ -42,7 +42,7 @@ public class TaskDetailActivity extends AppCompatActivity implements AdapterView
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Log.d("PartyUpdate", "onCreate: On task detail");
         binding = ActivityTaskDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         usedIndex = -1; // setting default value
