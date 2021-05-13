@@ -103,10 +103,7 @@ public class PartyActivity extends AppCompatActivity {
 
 
     public void handleFetchParties(boolean isSuccessful, ArrayList<Party> p){
-        Log.d("Testing", "handleFetchParties: Executing handleFetchParties on PartyActivity with successful status of " + isSuccessful);
-        Log.d("Testing", "handleFetchParties: Staus of " + p.get(0).getName() + " Subtask TWO Status: " + p.get(0).getTasks().get(1));
         Date now = new Date();
-        Log.d("current time", now.toString());
         ArrayList<Party> allParties = new ArrayList<>();
         if (isSuccessful){
             allParties = p;

@@ -75,7 +75,7 @@ public class PartyDetailActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.edit_menu, menu);
+        inflater.inflate(R.menu.check_edit_menu, menu);
         return true;
     }
 
@@ -130,9 +130,6 @@ public class PartyDetailActivity extends AppCompatActivity {
         dateTime = findViewById(R.id.id_dateTimeText);
 
         party = getIntent().getParcelableExtra("party");
-        Log.d("Testing", "setTV: Loading party details");
-        Log.d("Testing", "Testing: Party recieved on PartyDetailsActivity: " + party.getTasks().get(1));
-        Log.d(TAG, "setTV: calling intent again. ");
         name.setText(party.getName());
         type.setText(party.getType());
         description.setText(party.getDescription());
