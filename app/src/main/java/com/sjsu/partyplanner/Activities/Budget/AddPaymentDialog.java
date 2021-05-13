@@ -1,4 +1,4 @@
-package com.sjsu.partyplanner.Activities.Parties;
+package com.sjsu.partyplanner.Activities.Budget;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -14,10 +14,11 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.sjsu.partyplanner.R;
 
-public class AddSubtaskDialog  extends AppCompatDialogFragment {
+public class AddPaymentDialog extends AppCompatDialogFragment {
 
-    private AddSubtaskInterface addSubtaskInterface;
-    private EditText subTaskName;
+    private AddPaymentDialog.AddPaymentInterface addPaymentInterface;
+    private EditText paymentName;
+    private EditText paymentAmount;
 
     @NonNull
     @Override
@@ -26,17 +27,17 @@ public class AddSubtaskDialog  extends AppCompatDialogFragment {
         // Create Dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_add_subtask, null);
+        View view = inflater.inflate(R.layout.dialog_add_payment, null);
 
         // Get Input
-        subTaskName = view.findViewById(R.id.subTaskEditText);
+        paymentName = view.findViewById(R.id.paymentNameET);
+        paymentAmount = view.findViewById(R.id.paymentAmountET);
 
         // Set Dialog Buttons
         builder.setView(view).setNegativeButton("Cancel", (dialog, which) -> {})
-            .setPositiveButton("Ok", (dialog, which) -> {
-                String editText = subTaskName.getText().toString();
-                addSubtaskInterface.getDialogText(editText);
-            });
+                .setPositiveButton("Ok", (dialog, which) -> {
+                    addPaymentInterface.getDialogInputs(paymentName.getText().toString(), paymentAmount.getText().toString()) ;
+                });
 
         return builder.create();
     }
@@ -44,10 +45,10 @@ public class AddSubtaskDialog  extends AppCompatDialogFragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        addSubtaskInterface = (AddSubtaskInterface) context;
+        addPaymentInterface = (AddPaymentDialog.AddPaymentInterface) context;
     }
 
-    public interface AddSubtaskInterface {
-        void getDialogText(String inputText);
+    public interface AddPaymentInterface {
+        void getDialogInputs(String inputName, String inputNumber);
     }
 }

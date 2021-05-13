@@ -67,8 +67,7 @@ public class SubtaskAdapter extends RecyclerView.Adapter<SubtaskAdapter.ViewHold
         }
     }
 
-    public interface OnSubtaskListener
-    {
-        public void OnSubtaskClick(int position);
+    public interface OnSubtaskListener {
+        void OnSubtaskClick(int position);
     }
 }

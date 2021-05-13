@@ -1,5 +1,15 @@
 package com.sjsu.partyplanner.Activities.Parties;
 
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,42 +20,35 @@ import com.sjsu.partyplanner.Models.Task;
 import com.sjsu.partyplanner.R;
 import com.sjsu.partyplanner.databinding.ActivityTaskDetailBinding;
 
-import android.content.Intent;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import java.util.ArrayList;
 
 public class TaskDetailActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener,
         SubtaskAdapter.OnSubtaskListener, AddSubtaskDialog.AddSubtaskInterface {
 
+    // Saving Task Details
     public static final String TASK_KEY = "TASK";
     public static final String EXTRA_REPLY = "com.sjsu.partyplanner.Activities.Parties.reply";
     public static final String INDEX_REPLY = "com.sjsu.partyplanner.Activities.Parties.IndexReply";
-    private Task task;
     private int usedIndex;
 
+    // Binding, Toolbar
     private ActivityTaskDetailBinding binding;
     private Toolbar toolbar;
+
+    // Task, Subtasks
+    private Task task;
     private ArrayList<Subtask> subtaskList = new ArrayList<>();
     private RecyclerView.Adapter<SubtaskAdapter.ViewHolder> mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("PartyUpdate", "onCreate: On task detail");
+
         binding = ActivityTaskDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
         usedIndex = -1; // setting default value
+
         // Toolbar, TextViews, Recycler
         setUpToolbar();
         setTV();
@@ -59,29 +62,17 @@ public class TaskDetailActivity extends AppCompatActivity implements AdapterView
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Task Details");
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        toolbar.setNavigationOnClickListener(v -> {
 
-
-                if (task != null)
-                {
-                    Intent replyIntent = new Intent();
-                    Bundle extra =  new Bundle();
-                    extra.putParcelable(EXTRA_REPLY, task);
-                    extra.putInt(INDEX_REPLY, usedIndex);
-                    replyIntent.putExtras(extra);
-                    setResult(RESULT_OK,replyIntent);
-
-                }
-
-
-                //task
-
-
-
-                finish();
+            if (task != null) {
+                Intent replyIntent = new Intent();
+                Bundle extra =  new Bundle();
+                extra.putParcelable(EXTRA_REPLY, task);
+                extra.putInt(INDEX_REPLY, usedIndex);
+                replyIntent.putExtras(extra);
+                setResult(RESULT_OK,replyIntent);
             }
+            finish();
         });
     }
 
@@ -113,6 +104,7 @@ public class TaskDetailActivity extends AppCompatActivity implements AdapterView
         if (extras != null) {
             task = extras.getParcelable(TASK_KEY);
             usedIndex = extras.getInt(CreateTaskListActivity.INDEX_KEY);
+
             // Sets Text
             binding.tdNameText.setText(task.getName());
             binding.tdStatus.setText(task.getStatus());
@@ -130,6 +122,7 @@ public class TaskDetailActivity extends AppCompatActivity implements AdapterView
         // Sets up subtask
         subtaskList = task.getSubtasks();
 
+        // Sets up recyclerview
         binding.tdRecycler.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         binding.tdRecycler.setLayoutManager(layoutManager);
@@ -170,6 +163,7 @@ public class TaskDetailActivity extends AppCompatActivity implements AdapterView
         }
     }
 
+    // Adds a Subtask using Dialog
     public void addSubTask(View view) {
         AddSubtaskDialog addSubtaskDialog = new AddSubtaskDialog();
         addSubtaskDialog.show(getSupportFragmentManager(), "test custom dialog");
@@ -186,6 +180,7 @@ public class TaskDetailActivity extends AppCompatActivity implements AdapterView
         else { binding.tdStatus.setTextColor(Color.BLUE); }
     }
 
+    // Toasts Message
     public void toastMsg(String msg) {
         Toast toast = Toast.makeText(this, msg, Toast.LENGTH_LONG);
         toast.show();
