@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.sjsu.partyplanner.Models.Party;
+import com.sjsu.partyplanner.Models.Task;
 import com.sjsu.partyplanner.R;
 import com.sjsu.partyplanner.databinding.ActivityPartyDetailBinding;
 
@@ -25,12 +26,18 @@ public class PartyDetailActivity extends AppCompatActivity {
     private Party party;
     public static final String GUEST_KEY = "GUEST_LIST";
     public static final String TASK_KEY = "TASK_LIST";
+    public static final String PARTY_ID = "com.sjsu.partyplanner.Activities.Parties.partyid";
+    public static final String NEW_PARTY = "com.sjsu.partyplanner.Activities.Parties.newparty";
+    public static final int DETAIL_REQUEST = 515;
+    private static final String TAG = "OnPartyDetail";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityPartyDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
 
         // Toolbar, TextView
         setUpToolbar();
@@ -45,8 +52,9 @@ public class PartyDetailActivity extends AppCompatActivity {
             Intent intent = new Intent(this, TaskListActivity.class);
             Bundle uBundle = new Bundle();
             uBundle.putParcelableArrayList(TASK_KEY, (ArrayList<? extends Parcelable>) party.getTasks());
+
             intent.putExtras(uBundle);
-            startActivity(intent);
+            startActivityForResult(intent, DETAIL_REQUEST);
         }
         // Guest List Button OnClick
         else if (v == findViewById(R.id.pdGuestButton)) {
@@ -62,7 +70,7 @@ public class PartyDetailActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.edit_menu, menu);
+        inflater.inflate(R.menu.check_edit_menu, menu);
         return true;
     }
 
@@ -76,6 +84,18 @@ public class PartyDetailActivity extends AppCompatActivity {
             intent.putExtra("partyInfo", party);
             startActivity(intent);
              */
+            return true;
+        }
+        else if (item.getItemId() == R.id.partyCheck)
+        {
+
+            Intent intent = new Intent();
+            Bundle extra = new Bundle();
+            extra.putParcelable(NEW_PARTY, party);
+            intent.putExtras(extra);
+            Log.d("Testing", "onOptionsItemSelected: setting a reply");
+            setResult(RESULT_OK, intent);
+            finish();
             return true;
         }
         else {
@@ -93,6 +113,9 @@ public class PartyDetailActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(v -> finish());        // Closes Activity
     }
 
+
+    // Added this:
+
     // Sets up TextViews
     private void setTV() {
 
@@ -109,5 +132,37 @@ public class PartyDetailActivity extends AppCompatActivity {
     public void toastMsg(String msg) {
         Toast toast = Toast.makeText(this, msg, Toast.LENGTH_LONG);
         toast.show();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "onActivityResult: recieved intent, request code: " + requestCode + " result code: " + resultCode);
+
+        if (requestCode == DETAIL_REQUEST)
+        {
+            if (resultCode == RESULT_OK)
+            {
+                Bundle bundle = data.getExtras();
+                //ArrayList<Task> temp2 = data.getParcelableArrayListExtra(TaskListActivity.REPLY_KEY);
+
+                if (bundle != null)
+                {
+                    Log.d(TAG, "onActivityResult: correctly recieved result intent");
+                    ArrayList<Task> tempTaskList = bundle.getParcelableArrayList(TaskListActivity.REPLY_KEY);
+                    party.setTasks(tempTaskList);
+
+                    for ( int i = 0; i < tempTaskList.size(); i++)
+                    {
+                        Log.d(TAG, "onActivityResult: " + tempTaskList.get(i));
+                    }
+                }
+                else
+                {
+                    Log.d(TAG, "onActivityResult: result list is empty");
+                }
+
+            }
+        }
     }
 }

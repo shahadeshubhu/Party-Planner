@@ -3,6 +3,7 @@ package com.sjsu.partyplanner.Activities.Parties;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +20,8 @@ import com.sjsu.partyplanner.R;
 
 import java.util.ArrayList;
 
+import static android.app.Activity.RESULT_OK;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link PartiesFragment} factory method to
@@ -26,6 +29,8 @@ import java.util.ArrayList;
  */
 public class PartiesFragment extends Fragment implements PartyAdapter.PartyClick {
 
+
+    public static final int PARY_REQUEST = 520;
     // RecyclerView
     private View v;
     private RecyclerView rView;
@@ -37,6 +42,7 @@ public class PartiesFragment extends Fragment implements PartyAdapter.PartyClick
         // Required empty public constructor
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +53,7 @@ public class PartiesFragment extends Fragment implements PartyAdapter.PartyClick
             parties = extras.getParcelableArrayList("key");
             Log.d("parties in Frag", ""+ parties);
         }
+
     }
 
     @Override
@@ -61,6 +68,7 @@ public class PartiesFragment extends Fragment implements PartyAdapter.PartyClick
         }
 
         //pAdapter.notifyDataSetChanged();
+
     }
 
 
@@ -93,7 +101,43 @@ public class PartiesFragment extends Fragment implements PartyAdapter.PartyClick
         Party party = parties.get(position);
         Intent intent = new Intent(getContext(), PartyDetailActivity.class);
         intent.putExtra("party", party);
-        startActivity(intent);
+        Log.d("Testing", "onPartyClick: starting party details");
+        startActivityForResult(intent,PARY_REQUEST);
     }
 
+    public void toastMsg(String msg) {
+        Toast toast = Toast.makeText(getContext(), msg, Toast.LENGTH_LONG);
+        toast.show();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PARY_REQUEST)
+        {
+            if(resultCode == RESULT_OK) {
+                Log.d("Testing", "onActivityResult: recieved back a reply");
+                PartyActivity activity = (PartyActivity) getActivity();
+
+                Bundle bundleRecieved = data.getExtras();
+
+                if (bundleRecieved != null)
+                {
+                    Party temp = bundleRecieved.getParcelable(PartyDetailActivity.NEW_PARTY);
+
+                    if (temp != null)
+                    {
+                        Log.d("Testing", "onActivityResult: Recieved: Party name: " + temp.getName() + " id " + temp.getpId());
+                        Log.d("Testing", "onActivityResult: calling method UpdateParty on Party Activity");
+                        activity.updateParty(temp);
+
+                    }
+
+
+                }
+
+            }
+        }
+    }
 }

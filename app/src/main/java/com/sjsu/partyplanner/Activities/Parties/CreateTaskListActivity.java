@@ -24,9 +24,11 @@ import java.util.ArrayList;
 public class CreateTaskListActivity extends AppCompatActivity implements TaskAdapter.TaskClick {
 
     public static final int TEXT_REQUEST = 501;
+    public static final int DETAIL_REQUEST = 502;
     public static final String TASKLIST_KEY = "TASKLISTd";
-    private static final String TAG = "In Task List Activity";
-
+    public static final String INDEX_KEY = "com.sjsu.partyplanner.Activities.Parties.index";
+    private static final String TAG = "OnCreateTaskList";
+    private TextView noTasksAvailable;
     private  ActivityCreateTaskListBinding binding;
     private RecyclerView.Adapter<TaskAdapter.ViewHolder> mAdapter;
     private Toolbar toolbar;
@@ -65,7 +67,29 @@ public class CreateTaskListActivity extends AppCompatActivity implements TaskAda
 
                 taskList.add(data.getParcelableExtra(CreateTaskActivity.TASK_KEY));
                 setUpRecycler();
+                //mAdapter.notifyItemInserted(taskList.size() -1);
+                noTasksAvailable.setVisibility(View.INVISIBLE);
                 Log.d("taskReceived", "onActivityResult: Successfully loaded task named: ");
+
+            }
+        }
+        else if ( requestCode == DETAIL_REQUEST)
+        {
+            if (resultCode == RESULT_OK)
+            {
+                Log.d(TAG, "onActivityResult: received information back from TaskDetailActivity");
+                Bundle responseExtras = data.getExtras();
+                if (responseExtras != null)
+                {
+                    Task temp =responseExtras.getParcelable(TaskDetailActivity.EXTRA_REPLY);
+                    int usedIndex = responseExtras.getInt(TaskDetailActivity.INDEX_REPLY);
+                    taskList.set(usedIndex,temp);
+                    setUpRecycler();
+
+                    Log.d(TAG, "onActivityResult: Task recieved = " + temp.getName());
+                }
+
+
             }
         }
 
@@ -100,8 +124,9 @@ public class CreateTaskListActivity extends AppCompatActivity implements TaskAda
         Intent intent = new Intent(getApplicationContext(), TaskDetailActivity.class);
         Bundle extra =  new Bundle();
         extra.putParcelable(TaskDetailActivity.TASK_KEY, task);
+        extra.putInt(INDEX_KEY, position);
         intent.putExtras(extra);
-        startActivity(intent);
+        startActivityForResult(intent, DETAIL_REQUEST);
     }
 
     // Sets up Toolbar

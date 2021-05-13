@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
@@ -41,11 +43,19 @@ public class PartyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_party_page);
+        setupToolbar();
 
         p = PartyController.getInstance();
         p.getParties(this);
+    }
 
-        setupToolbar();
+    @Override
+    public void onResume(){
+        super.onResume();
+        pastParties = new ArrayList<>();
+        upParties = new ArrayList<>();
+        p = PartyController.getInstance();
+        //p.getParties(this);       // Does not update, adds a second version of the list into it.
     }
 
     // When Create Party Activity Finishes
@@ -98,6 +108,11 @@ public class PartyActivity extends AppCompatActivity {
         initializeTabLayout();
     }
 
+    public void changeParty()
+    {
+        Toast.makeText(this, "testing", Toast.LENGTH_SHORT).show();
+    }
+
     // Initialize TabLayout
     private void initializeTabLayout() {
         tabLayout = (TabLayout) findViewById(R.id.partiesTabLayout);
@@ -117,19 +132,20 @@ public class PartyActivity extends AppCompatActivity {
             @Override
             public void onTabReselected(TabLayout.Tab tab) {}
         });
+
     }
 
     /**
      * Inner Class for ViewPager Adapter
      */
-    public static class PagerAdapter extends FragmentPagerAdapter {
+    public class PagerAdapter extends FragmentStatePagerAdapter {
 
         private int numOfTabs;
         private ArrayList<Party> pastParties;
         private ArrayList<Party> upcomingParties;
 
         public PagerAdapter(FragmentManager fm, int numOfTabs, ArrayList<Party> pastParties,ArrayList<Party> upcomingParties) {
-            super(fm, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+            super(fm, FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
             this.numOfTabs = numOfTabs;
             this.pastParties = pastParties;
             this.upcomingParties = upcomingParties;
@@ -200,6 +216,29 @@ public class PartyActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void updateParty(Party inputParty)
+    {
+        // resetting values
+        Log.d("Testing", "updateParty: Executing updateParty methdo on Party activity");
+        pastParties = new ArrayList<>();
+        upParties = new ArrayList<>();
+
+        Log.d("Testing", "updateParty: calling party controller to updae party");
+        p.updateParty(this, inputParty);
+    }
+    public void handleUpdateFailure()
+    {
+        Toast.makeText(this, "Could not save changes to database!", Toast.LENGTH_SHORT).show();
+    }
+    public void handleUpdateSuccess()
+    {
+        Log.d("Testing", "handleUpdateSuccess: On handleUpdateSuccess");
+        pastParties = new ArrayList<>();
+        upParties = new ArrayList<>();
+        p = PartyController.getInstance();
+        p.getParties(this);
     }
 
 }
