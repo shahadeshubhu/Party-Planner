@@ -23,9 +23,7 @@ import java.util.ArrayList;
 public class ContactsActivity extends AppCompatActivity implements ContactAdapter.ContactClick {
 
     private ActivityContactsListBinding binding;
-    private Toolbar toolbar;
     private ArrayList<User> contacts = new ArrayList<>();
-    private Dialog myDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +41,7 @@ public class ContactsActivity extends AppCompatActivity implements ContactAdapte
 
     // Sets up Toolbar
     private void setUpToolbar() {
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -81,7 +79,7 @@ public class ContactsActivity extends AppCompatActivity implements ContactAdapte
     // onClick on RecyclerView Item
     @Override
     public void onContactClick(View v, int position) {
-        myDialog = new Dialog(getApplicationContext());
+        Dialog myDialog = new Dialog(getApplicationContext());
         myDialog.setContentView(R.layout.dialog_contact);
 
         final User contact = contacts.get(position);

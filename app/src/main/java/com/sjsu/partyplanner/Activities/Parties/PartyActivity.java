@@ -2,7 +2,6 @@ package com.sjsu.partyplanner.Activities.Parties;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,8 +29,6 @@ import java.util.Date;
 public class PartyActivity extends AppCompatActivity {
 
     private static final int RETURN_NEW_PARTY = 1111 ;
-    private Toolbar toolbar;
-    private TabLayout tabLayout;
     private ViewPager viewPager;
     private ArrayList<Party> pastParties = new ArrayList<>();
     private ArrayList<Party> upParties = new ArrayList<>();
@@ -113,9 +110,9 @@ public class PartyActivity extends AppCompatActivity {
 
     // Initialize TabLayout
     private void initializeTabLayout() {
-        tabLayout = findViewById(R.id.partiesTabLayout);
+        TabLayout tabLayout = findViewById(R.id.partiesTabLayout);
         viewPager = findViewById(R.id.partiesViewPager);
-        PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount(), pastParties,upParties);
+        PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount(), pastParties, upParties);
         viewPager.setAdapter(pagerAdapter);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -136,7 +133,7 @@ public class PartyActivity extends AppCompatActivity {
     /**
      * Inner Class for ViewPager Adapter
      */
-    public class PagerAdapter extends FragmentStatePagerAdapter {
+    public static class PagerAdapter extends FragmentStatePagerAdapter {
 
         private final int numOfTabs;
         private final ArrayList<Party> pastParties;
@@ -188,7 +185,7 @@ public class PartyActivity extends AppCompatActivity {
 
     // Set up Toolbar
     private void setupToolbar() {
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

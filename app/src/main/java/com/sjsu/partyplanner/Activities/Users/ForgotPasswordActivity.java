@@ -13,7 +13,6 @@ import com.sjsu.partyplanner.R;
 public class ForgotPasswordActivity extends AppCompatActivity {
 
     private EditText passwordEmail;
-    private Button resetPassword;
     private FirebaseAuth firebaseAuth;
 
     @Override
@@ -22,7 +21,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_forgot_password);
 
         passwordEmail = findViewById(R.id.passwordEmail);
-        resetPassword = findViewById(R.id.SubmitBtn);
+        Button resetPassword = findViewById(R.id.SubmitBtn);
         firebaseAuth = FirebaseAuth.getInstance();
 
         resetPassword.setOnClickListener(v -> firebaseAuth.sendPasswordResetEmail(passwordEmail.getText().toString()).addOnCompleteListener(task -> {

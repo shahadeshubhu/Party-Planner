@@ -148,7 +148,7 @@ public class LoginActivity extends AppCompatActivity {
             controller.signInUser(this, binding.emailLoginTB.getText().toString(), binding.pwLoginTB.getText().toString());
         }
         else {
-            binding.loginErrorMsg.setText(String.format("Invalid Login"));
+            binding.loginErrorMsg.setText("Invalid Login");
         }
     }
 

@@ -28,8 +28,6 @@ public class CreateTaskListActivity extends AppCompatActivity implements TaskAda
     public static final String INDEX_KEY = "com.sjsu.partyplanner.Activities.Parties.index";
     private static final String TAG = "OnCreateTaskList";
     private  ActivityCreateTaskListBinding binding;
-    private RecyclerView.Adapter<TaskAdapter.ViewHolder> mAdapter;
-    private Toolbar toolbar;
     private ArrayList<Task> taskList = new ArrayList<Task>();
 
 
@@ -101,9 +99,7 @@ public class CreateTaskListActivity extends AppCompatActivity implements TaskAda
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         binding.tasklistRecycler.setLayoutManager(layoutManager);
 
-        TaskAdapter ta = new TaskAdapter(taskList, this);
-        mAdapter = ta;
-        binding.tasklistRecycler.setAdapter(mAdapter);
+        binding.tasklistRecycler.setAdapter(new TaskAdapter(taskList, this));
 
         // Gets rid of extra text
         if(taskList.size() > 0) {
@@ -111,11 +107,6 @@ public class CreateTaskListActivity extends AppCompatActivity implements TaskAda
         }
     }
 
-    /**
-     * Task Item Click method for recycler view
-     * @param v
-     * @param position
-     */
     @Override
     public void onTaskClick(View v, int position) {
         Task task = taskList.get(position);
@@ -129,7 +120,7 @@ public class CreateTaskListActivity extends AppCompatActivity implements TaskAda
 
     // Sets up Toolbar
     private void setUpToolbar() {
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

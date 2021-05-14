@@ -22,7 +22,6 @@ import java.util.ArrayList;
 public class BudgetActivity extends AppCompatActivity implements BudgetAdapter.BudgetClick{
 
     private ActivityBudgetBinding binding;
-    private Toolbar toolbar;
     private final ArrayList<Budget> budgetList = new ArrayList<>();
 
     @Override
@@ -43,7 +42,7 @@ public class BudgetActivity extends AppCompatActivity implements BudgetAdapter.B
 
     // Sets up Toolbar
     private void setUpToolbar() {
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

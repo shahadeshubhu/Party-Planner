@@ -20,10 +20,6 @@ import java.util.ArrayList;
 
 public class EventFragment extends Fragment implements PartyAdapter.PartyClick {
 
-    // RecyclerView
-    private View v;
-    private RecyclerView rView;
-    private PartyAdapter pAdapter;
     private ArrayList<Party> parties = new ArrayList<>();       // Get from activity
 
     public EventFragment() {
@@ -55,7 +51,8 @@ public class EventFragment extends Fragment implements PartyAdapter.PartyClick {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        v = inflater.inflate(R.layout.fragment_parties, container, false);
+        // RecyclerView
+        View v = inflater.inflate(R.layout.fragment_parties, container, false);
 
         // Set text to empty string if there are parties
         if(parties != null && parties.size() > 0) {
@@ -63,8 +60,8 @@ public class EventFragment extends Fragment implements PartyAdapter.PartyClick {
         }
 
         // Recycler View
-        rView = v.findViewById(R.id.partyRecyclerView);
-        pAdapter = new PartyAdapter(getContext(), parties, this);
+        RecyclerView rView = v.findViewById(R.id.partyRecyclerView);
+        PartyAdapter pAdapter = new PartyAdapter(getContext(), parties, this);
 
         rView.setLayoutManager(new LinearLayoutManager(getActivity()));
         rView.setAdapter(pAdapter);

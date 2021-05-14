@@ -43,7 +43,7 @@ public class GuestRecyclerViewAdapter extends RecyclerView.Adapter<GuestRecycler
     return mValues.size();
   }
 
-  public class GuestViewHolder extends RecyclerView.ViewHolder {
+  public static class GuestViewHolder extends RecyclerView.ViewHolder {
     protected final FragmentGuestRowBinding rowBinding;
 
 

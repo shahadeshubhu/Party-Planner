@@ -19,8 +19,6 @@ import java.util.ArrayList;
 public class InvitationListActivity extends AppCompatActivity implements InvitationAdapter.InvitationClick {
 
     private ActivityInvitationListBinding binding;
-    private Toolbar toolbar;
-    private PartyController partyController;
     private ArrayList<Invitation> invites;
 
     @Override
@@ -36,7 +34,7 @@ public class InvitationListActivity extends AppCompatActivity implements Invitat
 
     // Sets up Toolbar
     public void setUpToolbar() {
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -49,10 +47,7 @@ public class InvitationListActivity extends AppCompatActivity implements Invitat
         binding.inviteListRecycler.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         binding.inviteListRecycler.setLayoutManager(layoutManager);
-
-        InvitationAdapter ia = new InvitationAdapter(invites, this);
-        RecyclerView.Adapter<InvitationAdapter.ViewHolder> mAdapter = ia;
-        binding.inviteListRecycler.setAdapter(mAdapter);
+        binding.inviteListRecycler.setAdapter(new InvitationAdapter(invites, this));
 
         // Gets rid of extra text
         if(invites.size() > 0) {
@@ -62,7 +57,7 @@ public class InvitationListActivity extends AppCompatActivity implements Invitat
 
     // Set up invitations
     private void setUpInvitations() {
-        partyController = PartyController.getInstance();
+        PartyController partyController = PartyController.getInstance();
         partyController.getUserInvitations(this);
     }
     

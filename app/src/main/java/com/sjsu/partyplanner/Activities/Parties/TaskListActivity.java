@@ -30,7 +30,6 @@ public class TaskListActivity extends AppCompatActivity implements TaskAdapter.T
 
     private ActivityTaskListBinding binding;
     private RecyclerView.Adapter<TaskAdapter.ViewHolder> mAdapter;
-    private Toolbar toolbar;
     private ArrayList<Task> taskList;
     private int usedIndex;
 
@@ -64,7 +63,7 @@ public class TaskListActivity extends AppCompatActivity implements TaskAdapter.T
 
     // Sets up Toolbar
     private void setUpToolbar() {
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

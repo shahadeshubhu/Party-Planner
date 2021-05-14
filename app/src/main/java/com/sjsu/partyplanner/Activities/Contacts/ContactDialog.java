@@ -15,8 +15,6 @@ import com.sjsu.partyplanner.R;
 
 public class ContactDialog extends AppCompatDialogFragment {
 
-    private TextView contactName;
-    private TextView contactEmail;
     private final String cName;
     private final String cEmail;
 
@@ -33,8 +31,8 @@ public class ContactDialog extends AppCompatDialogFragment {
         View view = inflater.inflate(R.layout.dialog_contact, null);
 
         builder.setView(view);
-        contactName = view.findViewById(R.id.cdName);
-        contactEmail = view.findViewById(R.id.cdEmail);
+        TextView contactName = view.findViewById(R.id.cdName);
+        TextView contactEmail = view.findViewById(R.id.cdEmail);
 
         contactName.setText(cName);
         contactEmail.setText(cEmail);

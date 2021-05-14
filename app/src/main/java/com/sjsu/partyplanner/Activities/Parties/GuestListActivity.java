@@ -19,9 +19,7 @@ import java.util.ArrayList;
 public class GuestListActivity extends AppCompatActivity implements GuestAdapter.GuestClick {
 
     private ActivityGuestListBinding binding;
-    private Toolbar toolbar;
     private ArrayList<Guest> guestList;
-    private Dialog myDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +34,7 @@ public class GuestListActivity extends AppCompatActivity implements GuestAdapter
 
     // Sets up Toolbar
     private void setUpToolbar() {
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -74,7 +72,7 @@ public class GuestListActivity extends AppCompatActivity implements GuestAdapter
     // onClick on RecyclerView Item
     @Override
     public void onGuestClick(View v, int position) {
-        myDialog = new Dialog(getApplicationContext());
+        Dialog myDialog = new Dialog(getApplicationContext());
         myDialog.setContentView(R.layout.dialog_contact);
 
         final Guest guest = guestList.get(position);

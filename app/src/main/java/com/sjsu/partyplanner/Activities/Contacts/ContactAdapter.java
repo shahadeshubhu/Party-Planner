@@ -31,7 +31,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.contact_layout, parent, false);
-        return new ContactAdapter.ViewHolder(view, listener);
+        return new ViewHolder(view, listener);
     }
 
     @Override
@@ -46,16 +46,15 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         return contacts.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private final ConstraintLayout dialogLayout;
         private final TextView cName;
         private final TextView cEmail;
         private final ContactAdapter.ContactClick rvClick;
 
         public ViewHolder(@NonNull final View itemView, ContactAdapter.ContactClick rvClick) {
             super(itemView);
-            dialogLayout = itemView.findViewById(R.id.contact_item_id);
+            ConstraintLayout dialogLayout = itemView.findViewById(R.id.contact_item_id);
             cName = itemView.findViewById(R.id.cName);
             cEmail = itemView.findViewById(R.id.cEmail);
 

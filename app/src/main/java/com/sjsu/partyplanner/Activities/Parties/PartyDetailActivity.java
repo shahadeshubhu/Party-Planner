@@ -2,7 +2,6 @@ package com.sjsu.partyplanner.Activities.Parties;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,7 +22,6 @@ import java.util.ArrayList;
 public class PartyDetailActivity extends AppCompatActivity {
 
     private ActivityPartyDetailBinding binding;
-    private Toolbar toolbar;
     private Party party;
     public static final String GUEST_KEY = "GUEST_LIST";
     public static final String TASK_KEY = "TASK_LIST";
@@ -106,7 +104,7 @@ public class PartyDetailActivity extends AppCompatActivity {
 
     // Sets up Toolbar
     private void setUpToolbar() {
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

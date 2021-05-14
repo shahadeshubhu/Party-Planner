@@ -30,7 +30,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.payment_row_layout, parent, false);
-        return new PaymentAdapter.ViewHolder(view, mOnPaymentListener);
+        return new ViewHolder(view, mOnPaymentListener);
     }
 
     @Override
@@ -55,19 +55,17 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
     }
 
     // View Holder Class
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView name;
         private final TextView amount;
         private final ImageView status;
-        private final OnPaymentListener onPaymentListener;
 
         public ViewHolder(@NonNull View itemView, OnPaymentListener onPaymentListener) {
             super(itemView);
             name = itemView.findViewById(R.id.paymentNameLayout);
             amount = itemView.findViewById(R.id.paymentAmountLayout);
             status = itemView.findViewById(R.id.paymentStatusLayout);
-            this.onPaymentListener = onPaymentListener;
 
             status.setOnClickListener(v -> onPaymentListener.OnPaymentClick(getAdapterPosition()));
         }

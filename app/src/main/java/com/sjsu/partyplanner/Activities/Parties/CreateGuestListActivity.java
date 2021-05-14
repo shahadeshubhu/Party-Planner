@@ -23,12 +23,11 @@ import java.util.ArrayList;
 public class CreateGuestListActivity extends AppCompatActivity{
 
     public static final String GUEST_LIST_KEY = "Selected Guests";
-    private Toolbar toolbar;
     private ListView listview ;
     private SparseBooleanArray sparseBooleanArray;
     private final ArrayList<String> ListViewItems= new ArrayList<>();
     private ArrayList<Guest> guestList = new ArrayList<>();
-    private ArrayList<Guest> invitedGuests = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +70,7 @@ public class CreateGuestListActivity extends AppCompatActivity{
 
     // When you click the checkmark, you create a guest list to pass back!
     private void passSelectedGuest() {
-        invitedGuests = new ArrayList<>();
+        ArrayList<Guest> invitedGuests = new ArrayList<>();
         int i = 0;
         while (i < sparseBooleanArray.size()) {
             if(sparseBooleanArray.valueAt(i)){
@@ -91,7 +90,7 @@ public class CreateGuestListActivity extends AppCompatActivity{
 
     // Sets up Toolbar
     public void setUpToolbar() {
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

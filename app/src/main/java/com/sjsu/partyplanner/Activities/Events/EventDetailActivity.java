@@ -12,8 +12,6 @@ import com.sjsu.partyplanner.databinding.ActivityEventDetailBinding;
 public class EventDetailActivity extends AppCompatActivity {
 
     private ActivityEventDetailBinding binding;
-    private Toolbar toolbar;
-    private Party party;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +25,7 @@ public class EventDetailActivity extends AppCompatActivity {
 
     // Sets up Toolbar
     private void setUpToolbar() {
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -37,7 +35,7 @@ public class EventDetailActivity extends AppCompatActivity {
 
     // Sets up TextViews
     private void setTV() {
-        party = getIntent().getParcelableExtra("party");
+        Party party = getIntent().getParcelableExtra("party");
         binding.edpName.setText(party.getName());
         binding.edpType.setText(party.getType());
         binding.edpDescriptionText.setText(party.getDescription());

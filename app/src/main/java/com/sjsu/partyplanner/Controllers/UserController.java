@@ -139,10 +139,6 @@ public class UserController {
         return currentUserInfo;
     }
 
-    private boolean isEmailExist() {
-        return false;
-    }
-
     public static void getUserInfo() {
         Log.d("#getUserInfo", "************************"+ currentUser.getUid());
 

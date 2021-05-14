@@ -33,7 +33,6 @@ public class TaskDetailActivity extends AppCompatActivity implements AdapterView
 
     // Binding, Toolbar
     private ActivityTaskDetailBinding binding;
-    private Toolbar toolbar;
 
     // Task, Subtasks
     private Task task;
@@ -57,7 +56,7 @@ public class TaskDetailActivity extends AppCompatActivity implements AdapterView
 
     // Sets up Toolbar
     private void setUpToolbar() {
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

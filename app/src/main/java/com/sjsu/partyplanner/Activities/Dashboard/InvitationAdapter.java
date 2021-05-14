@@ -32,7 +32,7 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.invitation_layout, parent, false);
-        return new InvitationAdapter.ViewHolder(view, listener);
+        return new ViewHolder(view, listener);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
         return invites.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private final TextView pName;
         private final TextView pDateTime;

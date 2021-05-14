@@ -166,7 +166,7 @@ public class PartyController {
         try{
             activity.startActivity(emailLauncher);
         }catch(ActivityNotFoundException e){
-
+            Log.d("Error", e.getMessage());
         }
 
         Log.d("inviteGuestByEmail", ""+invitations.size());

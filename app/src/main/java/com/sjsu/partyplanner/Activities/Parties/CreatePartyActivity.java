@@ -48,12 +48,9 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
     public static final String CREATE_TASK_KEY = "CREATE_TASK_KEY";
     private static final String TAG = "OnCreatePartyActivity";
 
-    private Toolbar toolbar;
     private Button btnDatePicker, btnTimePicker;
     private EditText txtDate, txtTime;
-    private int mYear, mMonth, mDay, mHour, mMinute;
     private PartyController partyController;
-    private Party party;
     private ArrayList<Guest> selectedGuests = new ArrayList<>();
 
     private ArrayList<Guest> guests;
@@ -87,7 +84,7 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
 
         // Party Controller
         partyController = PartyController.getInstance();
-        party = new Party();
+      Party party = new Party();
 
         // Setting up autocomplete fragment
       // Initializing Google Places
@@ -241,9 +238,9 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
         // Date Picker
         if (view == btnDatePicker) {
             // Get Current Date
-            mYear = c.get(Calendar.YEAR);
-            mMonth = c.get(Calendar.MONTH);
-            mDay = c.get(Calendar.DAY_OF_MONTH);
+            int mYear = c.get(Calendar.YEAR);
+            int mMonth = c.get(Calendar.MONTH);
+            int mDay = c.get(Calendar.DAY_OF_MONTH);
             Log.d("calendar", ""+c );
 
             DatePickerDialog datePickerDialog = new DatePickerDialog(this,
@@ -274,8 +271,8 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
 
             // Get Current Time
 //            final Calendar c = Calendar.getInstance();
-            mHour = c.get(Calendar.HOUR_OF_DAY);
-            mMinute = c.get(Calendar.MINUTE);
+            int mHour = c.get(Calendar.HOUR_OF_DAY);
+            int mMinute = c.get(Calendar.MINUTE);
 
             // Launch Time Picker Dialog
             TimePickerDialog timePickerDialog = new TimePickerDialog(this,
@@ -303,15 +300,11 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
                     }, mHour, mMinute, false);
             timePickerDialog.show();
         }
-      String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(c.getTime());
-      Log.d("calendar", time );
-
-      time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(pickedDateTime.getTime());
     }
 
     // Sets up Toolbar
     public void setUpToolbar() {
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

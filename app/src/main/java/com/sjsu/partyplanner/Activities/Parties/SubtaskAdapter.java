@@ -57,13 +57,11 @@ public class SubtaskAdapter extends RecyclerView.Adapter<SubtaskAdapter.ViewHold
 
         private final TextView stName;
         private final ImageView stStatus;
-        private final OnSubtaskListener onSubtaskListener;
 
         public ViewHolder(@NonNull View itemView, OnSubtaskListener onSubtaskListener) {
             super(itemView);
             stName = itemView.findViewById(R.id.stNameTextLayout);
             stStatus = itemView.findViewById(R.id.subtaskStatusLayout);
-            this.onSubtaskListener = onSubtaskListener;
 
             stStatus.setOnClickListener(v -> onSubtaskListener.OnSubtaskClick(getAdapterPosition()));
         }

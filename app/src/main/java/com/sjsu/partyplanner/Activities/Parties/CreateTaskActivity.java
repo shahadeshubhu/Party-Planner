@@ -26,8 +26,6 @@ import java.util.ArrayList;
 public class CreateTaskActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener,
         SubtaskAdapter.OnSubtaskListener, AddSubtaskDialog.AddSubtaskInterface {
     public static final String TASK_KEY = "ABCDE";
-    private Toolbar toolbar;
-    private Spinner dropDown;
     private String taskCategory;
     private ActivityCreateTaskBinding binding;
     private final ArrayList<Subtask> subtaskList = new ArrayList<>();
@@ -47,7 +45,7 @@ public class CreateTaskActivity extends AppCompatActivity implements AdapterView
 
     // Sets up Toolbar
     public void setUpToolbar() {
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -81,7 +79,7 @@ public class CreateTaskActivity extends AppCompatActivity implements AdapterView
 
     // Sets up Spinner (Drop-down menu)
     public void setUpSpinner() {
-        dropDown = findViewById(R.id.ctCategoryDropDown);
+        Spinner dropDown = findViewById(R.id.ctCategoryDropDown);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.taskCategories, R.layout.spinner_text);
 
         // Specify the layout to use when the list of choices appears

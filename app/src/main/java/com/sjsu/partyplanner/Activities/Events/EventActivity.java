@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
@@ -22,8 +21,6 @@ import java.util.Date;
 
 public class EventActivity extends AppCompatActivity {
 
-    private Toolbar toolbar;
-    private TabLayout tabLayout;
     private ViewPager viewPager;
     private final ArrayList<Party> myParties = new ArrayList<>();
     private final ArrayList<Party> invitedParties = new ArrayList<>();
@@ -40,7 +37,7 @@ public class EventActivity extends AppCompatActivity {
 
     // Sets up toolbar
     private void setupToolbar() {
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -82,9 +79,9 @@ public class EventActivity extends AppCompatActivity {
 
     // Initialize TabLayout
     private void initializeTabLayout() {
-        tabLayout = findViewById(R.id.partiesTabLayout);
+        TabLayout tabLayout = findViewById(R.id.partiesTabLayout);
         viewPager = findViewById(R.id.partiesViewPager);
-        EventActivity.PagerAdapter pagerAdapter = new EventActivity.PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount(), myParties, invitedParties);
+        EventActivity.PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount(), myParties, invitedParties);
         viewPager.setAdapter(pagerAdapter);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -104,7 +101,7 @@ public class EventActivity extends AppCompatActivity {
     /**
      * Inner Class for ViewPager Adapter
      */
-    public class PagerAdapter extends FragmentStatePagerAdapter {
+    public static class PagerAdapter extends FragmentStatePagerAdapter {
 
         private final int numOfTabs;
         private final ArrayList<Party> myParties;

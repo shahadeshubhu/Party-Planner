@@ -24,7 +24,6 @@ public class BudgetDetailActivity extends AppCompatActivity implements AdapterVi
 
     // Binding, Toolbar
     private ActivityBudgetDetailBinding binding;
-    private Toolbar toolbar;
 
     // Budget, Payments
     private Budget budget;
@@ -46,7 +45,7 @@ public class BudgetDetailActivity extends AppCompatActivity implements AdapterVi
 
     // Sets up Toolbar
     private void setUpToolbar() {
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

@@ -31,7 +31,6 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     private ActivityDashboardBinding binding;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
-    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +62,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         navigationView.bringToFront();
 
         // Set up toolbar
-        toolbar = findViewById(R.id.dash_toolbar);
+        Toolbar toolbar = findViewById(R.id.dash_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

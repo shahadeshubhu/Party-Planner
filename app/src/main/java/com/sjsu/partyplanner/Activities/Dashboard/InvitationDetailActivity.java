@@ -22,7 +22,6 @@ public class InvitationDetailActivity extends AppCompatActivity {
     public static final String PARTY_KEY = "PARTY";
     private ActivityInvitationDetailBinding binding;
 
-    private Toolbar toolbar;
     Invitation invite;
 
     @Override
@@ -39,7 +38,7 @@ public class InvitationDetailActivity extends AppCompatActivity {
 
     // Sets up Toolbar
     private void setUpToolbar() {
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

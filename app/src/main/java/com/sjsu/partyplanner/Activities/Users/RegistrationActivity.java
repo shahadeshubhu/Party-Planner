@@ -206,10 +206,7 @@ public class RegistrationActivity extends AppCompatActivity {
     boolean passB = pwd.length() > REQUIRED_PWD_LEN;
     boolean conpassB = confirmPwd.length() > REQUIRED_PWD_LEN || pwd.equals(confirmPwd);
 
-    if (fname && lname && emailB && passB && conpassB == true) {
-      return true;
-    }
-    return false;
+    return fname && lname && emailB && passB && conpassB;
   }
 
 }

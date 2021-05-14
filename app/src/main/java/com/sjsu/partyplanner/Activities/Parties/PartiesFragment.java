@@ -30,10 +30,6 @@ public class PartiesFragment extends Fragment implements PartyAdapter.PartyClick
 
 
     public static final int PARY_REQUEST = 520;
-    // RecyclerView
-    private View v;
-    private RecyclerView rView;
-    private PartyAdapter pAdapter;
     private ArrayList<Party> parties = new ArrayList<>();       // Get from activity
 
     // Constructor
@@ -73,7 +69,8 @@ public class PartiesFragment extends Fragment implements PartyAdapter.PartyClick
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        v = inflater.inflate(R.layout.fragment_parties, container, false);
+        // RecyclerView
+        View v = inflater.inflate(R.layout.fragment_parties, container, false);
 
         // Set text to empty string if there are parties
         if(parties != null && parties.size() > 0) {
@@ -81,8 +78,8 @@ public class PartiesFragment extends Fragment implements PartyAdapter.PartyClick
         }
 
         // Recycler View
-        rView = v.findViewById(R.id.partyRecyclerView);
-        pAdapter = new PartyAdapter(getContext(), parties, this);
+        RecyclerView rView = v.findViewById(R.id.partyRecyclerView);
+        PartyAdapter pAdapter = new PartyAdapter(getContext(), parties, this);
 
         rView.setLayoutManager(new LinearLayoutManager(getActivity()));
         rView.setAdapter(pAdapter);
@@ -90,11 +87,6 @@ public class PartiesFragment extends Fragment implements PartyAdapter.PartyClick
         return v;
     }
 
-    /**
-     * Party Item Click method for recycler view
-     * @param v
-     * @param position
-     */
     @Override
     public void onPartyClick(View v, int position) {
         Party party = parties.get(position);

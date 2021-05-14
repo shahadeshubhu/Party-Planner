@@ -25,13 +25,9 @@ import java.util.Calendar;
 
 public class EditPartyActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Toolbar toolbar;
     private Button btnDatePicker, btnTimePicker;
     private EditText txtDate, txtTime;
-    private int mYear, mMonth, mDay, mHour, mMinute;
     private PartyController partyController;
-
-    private Party party;
 
     private Calendar pickedDateTime;
     protected ActivityEditPartyBinding binding;
@@ -56,7 +52,7 @@ public class EditPartyActivity extends AppCompatActivity implements View.OnClick
 
     // Set up existing information
     private void setUpText() {
-        party = getIntent().getParcelableExtra("party");
+        Party party = getIntent().getParcelableExtra("party");
         binding.epNameText.setText(party.getName());
         binding.epTypeText.setText(party.getType());
         binding.epDescription.setText(party.getDescription());
@@ -80,7 +76,7 @@ public class EditPartyActivity extends AppCompatActivity implements View.OnClick
 
     // Sets up Toolbar
     public void setUpToolbar() {
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -127,14 +123,14 @@ public class EditPartyActivity extends AppCompatActivity implements View.OnClick
         // Date Picker
         if (view == btnDatePicker) {
             // Get Current Date
-            mYear = c.get(Calendar.YEAR);
-            mMonth = c.get(Calendar.MONTH);
-            mDay = c.get(Calendar.DAY_OF_MONTH);
+            int mYear = c.get(Calendar.YEAR);
+            int mMonth = c.get(Calendar.MONTH);
+            int mDay = c.get(Calendar.DAY_OF_MONTH);
             Log.d("calendar", ""+c );
 
             DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                     (view1, year, monthOfYear, dayOfMonth) -> {
-                        String dateSet = "";
+                        String dateSet;
                         pickedDateTime.set(Calendar.YEAR, year);
                         pickedDateTime.set(Calendar.MONTH, monthOfYear);
                         pickedDateTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -160,8 +156,8 @@ public class EditPartyActivity extends AppCompatActivity implements View.OnClick
 
             // Get Current Time
 //            final Calendar c = Calendar.getInstance();
-            mHour = c.get(Calendar.HOUR_OF_DAY);
-            mMinute = c.get(Calendar.MINUTE);
+            int mHour = c.get(Calendar.HOUR_OF_DAY);
+            int mMinute = c.get(Calendar.MINUTE);
 
             // Launch Time Picker Dialog
             TimePickerDialog timePickerDialog = new TimePickerDialog(this,
@@ -169,29 +165,25 @@ public class EditPartyActivity extends AppCompatActivity implements View.OnClick
                         pickedDateTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
                         pickedDateTime.set(Calendar.MINUTE, minute);
                         // Selecting Hour (AM/PM)
-                        String timeSet = "";
+                        String timeSet;
                         if (hourOfDay > 12) { hourOfDay -= 12; timeSet = "PM"; }
                         else if (hourOfDay == 0) { hourOfDay += 12; timeSet = "AM"; }
                         else if (hourOfDay == 12) timeSet = "PM";
                         else timeSet = "AM";
 
                         // Selecting Minute
-                        String min = "";
+                        String min;
                         if (minute < 10) min = "0" + minute;
                         else min = String.valueOf(minute);
                         String z = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(pickedDateTime.getTime());
                         Log.d("calendar", z);
 
                         // Append in a StringBuilder
-                        String time = new StringBuilder().append(hourOfDay).append(':').append(min ).append(" ").append(timeSet).toString();
+                        String time = String.valueOf(hourOfDay) + ':' + min + " " + timeSet;
                         txtTime.setText(time);
 
                     }, mHour, mMinute, false);
             timePickerDialog.show();
         }
-        String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(c.getTime());
-        Log.d("calendar", time );
-
-        time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(pickedDateTime.getTime());
     }
 }
