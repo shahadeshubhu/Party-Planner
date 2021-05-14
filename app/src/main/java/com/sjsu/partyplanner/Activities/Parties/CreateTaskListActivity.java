@@ -3,7 +3,6 @@ package com.sjsu.partyplanner.Activities.Parties;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -26,9 +25,8 @@ public class CreateTaskListActivity extends AppCompatActivity implements TaskAda
     public static final int DETAIL_REQUEST = 502;
     public static final String TASKLIST_KEY = "TASKLISTd";
     public static final String INDEX_KEY = "com.sjsu.partyplanner.Activities.Parties.index";
-    private static final String TAG = "OnCreateTaskList";
     private  ActivityCreateTaskListBinding binding;
-    private ArrayList<Task> taskList = new ArrayList<Task>();
+    private ArrayList<Task> taskList = new ArrayList<>();
 
 
     @Override
@@ -49,40 +47,23 @@ public class CreateTaskListActivity extends AppCompatActivity implements TaskAda
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         // making sure it receives the correct intent reply
-        Log.d("DebugSess", "onOptionsItemSelected: got a reply");
-        if (requestCode == TEXT_REQUEST)
-        {
-            Log.d("DebugSess", "onOptionsItemSelected:  gto a reply from CreateTaskActivity");
+        if (requestCode == TEXT_REQUEST) {
             // making sure reply is good
-            if (resultCode == RESULT_OK)
-            {
-                Log.d("DebugSess", "onOptionsItemSelected:  CreateTaskActivity is good. ");
-                Log.d("taskReceived", "taskReceived: Create Task List: Received Intent reply");
-
+            if (resultCode == RESULT_OK) {
                 taskList.add(data.getParcelableExtra(CreateTaskActivity.TASK_KEY));
                 setUpRecycler();
-                //mAdapter.notifyItemInserted(taskList.size() -1);
                 binding.noTasksTL.setVisibility(View.INVISIBLE);
-                Log.d("taskReceived", "onActivityResult: Successfully loaded task named: ");
-
             }
         }
-        else if ( requestCode == DETAIL_REQUEST)
-        {
-            if (resultCode == RESULT_OK)
-            {
-                Log.d(TAG, "onActivityResult: received information back from TaskDetailActivity");
+        else if ( requestCode == DETAIL_REQUEST) {
+            if (resultCode == RESULT_OK)  {
                 Bundle responseExtras = data.getExtras();
-                if (responseExtras != null)
-                {
+                if (responseExtras != null) {
                     Task temp =responseExtras.getParcelable(TaskDetailActivity.EXTRA_REPLY);
                     int usedIndex = responseExtras.getInt(TaskDetailActivity.INDEX_REPLY);
                     taskList.set(usedIndex,temp);
                     setUpRecycler();
-
-                    Log.d(TAG, "onActivityResult: Task recieved = " + temp.getName());
                 }
 
 
@@ -140,13 +121,10 @@ public class CreateTaskListActivity extends AppCompatActivity implements TaskAda
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.cpAdd:
-                Log.d(TAG, "createTasks: Launching CreateTaskActivity");
                 startActivityForResult(new Intent(this, CreateTaskActivity.class), TEXT_REQUEST);
-                Log.d(TAG, "createTasks: Launched CreateTaskActivity");
                 return true;
             case R.id.cpCheck:
-                Log.d("DebugSess", "onOptionsItemSelected:  going back to create party");
-                Intent rIntent =  new Intent(this, CreatePartyActivity.class);//new Intent(this, CreateTaskActivity.class);
+                Intent rIntent =  new Intent(this, CreatePartyActivity.class);
                 Bundle extra =  new Bundle();
                 extra.putParcelableArrayList(TASKLIST_KEY, taskList);
                 rIntent.putExtras(extra);

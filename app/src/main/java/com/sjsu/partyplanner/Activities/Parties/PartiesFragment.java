@@ -92,7 +92,6 @@ public class PartiesFragment extends Fragment implements PartyAdapter.PartyClick
         Party party = parties.get(position);
         Intent intent = new Intent(getContext(), PartyDetailActivity.class);
         intent.putExtra("party", party);
-        Log.d("Testing", "onPartyClick: starting party details");
         startActivityForResult(intent,PARY_REQUEST);
     }
 
@@ -105,24 +104,14 @@ public class PartiesFragment extends Fragment implements PartyAdapter.PartyClick
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == PARY_REQUEST)
-        {
+        if (requestCode == PARY_REQUEST) {
             if(resultCode == RESULT_OK) {
-                Log.d("Testing", "onActivityResult: recieved back a reply");
                 PartyActivity activity = (PartyActivity) getActivity();
-
                 Bundle bundleRecieved = data.getExtras();
-
-                if (bundleRecieved != null)
-                {
+                if (bundleRecieved != null){
                     Party temp = bundleRecieved.getParcelable(PartyDetailActivity.NEW_PARTY);
-
-                    if (temp != null)
-                    {
-                        Log.d("Testing", "onActivityResult: Recieved: Party name: " + temp.getName() + " id " + temp.getpId());
-                        Log.d("Testing", "onActivityResult: calling method UpdateParty on Party Activity");
+                    if (temp != null) {
                         activity.updateParty(temp);
-
                     }
 
 

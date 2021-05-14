@@ -151,7 +151,6 @@ public class PartyActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    Log.d("before pass upParties", ""+upcomingParties.size());
                     // Create Bundle of Parties
                     Bundle uBundle = new Bundle();
                     uBundle.putParcelableArrayList("key", upcomingParties);
@@ -213,23 +212,17 @@ public class PartyActivity extends AppCompatActivity {
         }
     }
 
-    public void updateParty(Party inputParty)
-    {
-        // resetting values
-        Log.d("Testing", "updateParty: Executing updateParty methdo on Party activity");
+    public void updateParty(Party inputParty) {
         pastParties = new ArrayList<>();
         upParties = new ArrayList<>();
-
-        Log.d("Testing", "updateParty: calling party controller to updae party");
         p.updateParty(this, inputParty);
     }
-    public void handleUpdateFailure()
-    {
+
+    public void handleUpdateFailure() {
         Toast.makeText(this, "Could not save changes to database!", Toast.LENGTH_SHORT).show();
     }
-    public void handleUpdateSuccess()
-    {
-        Log.d("Testing", "handleUpdateSuccess: On handleUpdateSuccess");
+
+    public void handleUpdateSuccess() {
         pastParties = new ArrayList<>();
         upParties = new ArrayList<>();
         p = PartyController.getInstance();

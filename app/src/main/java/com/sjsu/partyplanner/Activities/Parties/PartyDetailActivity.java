@@ -25,7 +25,6 @@ public class PartyDetailActivity extends AppCompatActivity {
     private Party party;
     public static final String GUEST_KEY = "GUEST_LIST";
     public static final String TASK_KEY = "TASK_LIST";
-    public static final String PARTY_ID = "com.sjsu.partyplanner.Activities.Parties.partyid";
     public static final String NEW_PARTY = "com.sjsu.partyplanner.Activities.Parties.newparty";
     public static final int DETAIL_REQUEST = 515;
     private static final String TAG = "OnPartyDetail";
@@ -36,7 +35,6 @@ public class PartyDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityPartyDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
 
         // Toolbar, TextView
         setUpToolbar();
@@ -136,31 +134,13 @@ public class PartyDetailActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d(TAG, "onActivityResult: recieved intent, request code: " + requestCode + " result code: " + resultCode);
-
-        if (requestCode == DETAIL_REQUEST)
-        {
-            if (resultCode == RESULT_OK)
-            {
+        if (requestCode == DETAIL_REQUEST) {
+            if (resultCode == RESULT_OK) {
                 Bundle bundle = data.getExtras();
-                //ArrayList<Task> temp2 = data.getParcelableArrayListExtra(TaskListActivity.REPLY_KEY);
-
-                if (bundle != null)
-                {
-                    Log.d(TAG, "onActivityResult: correctly recieved result intent");
+                if (bundle != null) {
                     ArrayList<Task> tempTaskList = bundle.getParcelableArrayList(TaskListActivity.REPLY_KEY);
                     party.setTasks(tempTaskList);
-
-                    for ( int i = 0; i < tempTaskList.size(); i++)
-                    {
-                        Log.d(TAG, "onActivityResult: " + tempTaskList.get(i));
-                    }
                 }
-                else
-                {
-                    Log.d(TAG, "onActivityResult: result list is empty");
-                }
-
             }
         }
     }
