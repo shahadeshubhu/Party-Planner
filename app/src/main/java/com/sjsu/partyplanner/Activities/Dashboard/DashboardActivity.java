@@ -45,7 +45,6 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 
         // Navigation View
         setupNavigation();
-
         navigationView.setNavigationItemSelectedListener(this);
     }
 
@@ -138,10 +137,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         return true;
     }
 
-    /**
-     * Testing onClick methods
-     * @param msg to toast
-     */
+    // Toast Message
     public void toastMsg(String msg) {
         Toast toast = Toast.makeText(this, msg, Toast.LENGTH_LONG);
         toast.show();

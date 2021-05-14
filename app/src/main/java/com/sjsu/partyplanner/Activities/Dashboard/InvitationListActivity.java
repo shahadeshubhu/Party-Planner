@@ -2,7 +2,6 @@ package com.sjsu.partyplanner.Activities.Dashboard;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -54,6 +53,11 @@ public class InvitationListActivity extends AppCompatActivity implements Invitat
         InvitationAdapter ia = new InvitationAdapter(invites, this);
         RecyclerView.Adapter<InvitationAdapter.ViewHolder> mAdapter = ia;
         binding.inviteListRecycler.setAdapter(mAdapter);
+
+        // Gets rid of extra text
+        if(invites.size() > 0) {
+            binding.noInvitations.setText("");
+        }
     }
 
     // Set up invitations
@@ -65,15 +69,7 @@ public class InvitationListActivity extends AppCompatActivity implements Invitat
     // Handles Get Invitation Success
     public void handleGetInvitationSuccess(ArrayList<Invitation> invites){
         this.invites = invites;
-        Log.d("Invitation", ""+invites.toString());
-
-        // Setup RecyclerView When you get all invitations
         setUpRecycler();
-
-        // Gets rid of extra text
-        if(invites.size() > 0) {
-            binding.noInvitations.setText("");
-        }
     }
 
     @Override

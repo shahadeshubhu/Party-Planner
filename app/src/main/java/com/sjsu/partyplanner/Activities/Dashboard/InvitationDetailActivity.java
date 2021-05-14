@@ -1,7 +1,11 @@
 package com.sjsu.partyplanner.Activities.Dashboard;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -31,6 +35,35 @@ public class InvitationDetailActivity extends AppCompatActivity {
         // TextViews, Toolbar
         setupTextViews();
         setUpToolbar();
+    }
+
+    // Sets up Toolbar
+    private void setUpToolbar() {
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle("Party Invitation");
+        toolbar.setNavigationOnClickListener(v -> finish());        // Closes Activity
+    }
+
+    // Adds Icons to Toolbar (other than back button)
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.help_menu, menu);
+        return true;
+    }
+
+    // Handles Menu Items on Toolbar
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.clHelp) {
+            toastMsg("The Accept/Decline Function is unimplemented.");
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     // Set up Text in Details
@@ -76,18 +109,12 @@ public class InvitationDetailActivity extends AppCompatActivity {
         }
         binding.idAcceptButton.setVisibility(View.INVISIBLE);
         binding.idDeclineButton.setVisibility(View.INVISIBLE);
-
-        // TODO: Repush invite to list and update list. repush list to firebase!
     }
 
-    // Sets up Toolbar
-    private void setUpToolbar() {
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle("Party Invitation");
-        toolbar.setNavigationOnClickListener(v -> finish());        // Closes Activity
+    // Toast Message
+    public void toastMsg(String msg) {
+        Toast toast = Toast.makeText(this, msg, Toast.LENGTH_LONG);
+        toast.show();
     }
 
 }

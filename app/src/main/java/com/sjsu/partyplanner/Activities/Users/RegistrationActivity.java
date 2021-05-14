@@ -6,7 +6,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -200,23 +199,17 @@ public class RegistrationActivity extends AppCompatActivity {
 
   private boolean validateInput(String firstName, String lastName, String email, String pwd, String confirmPwd){
     String emailAcceptedPattern = "[a-zA-z0-9._-]+@[a-z]+\\.+[a-z]+";
-    boolean isValid = true;
-    isValid = firstName.length() > 0;
-    isValid = lastName.length() > 0;
-    isValid = email.length() > 0 && email.matches(emailAcceptedPattern);
-    isValid = pwd.length() > REQUIRED_PWD_LEN;
-    isValid = confirmPwd.length() > REQUIRED_PWD_LEN || pwd.equals(confirmPwd);
-    Log.d("registration isValid", ""+isValid);
-    return isValid;
+
+    boolean fname = firstName.length() > 0;
+    boolean lname = lastName.length() > 0;
+    boolean emailB = email.length() > 0 && email.matches(emailAcceptedPattern);
+    boolean passB = pwd.length() > REQUIRED_PWD_LEN;
+    boolean conpassB = confirmPwd.length() > REQUIRED_PWD_LEN || pwd.equals(confirmPwd);
+
+    if (fname && lname && emailB && passB && conpassB == true) {
+      return true;
+    }
+    return false;
   }
-
-  // ERROR METHOD?
-  public void testingUserSign()
-  {
-    //TextView textView = findViewById(R.id.textView);
-    boolean result;
-
-  }
-
 
 }

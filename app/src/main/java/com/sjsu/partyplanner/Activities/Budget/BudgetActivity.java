@@ -31,19 +31,14 @@ public class BudgetActivity extends AppCompatActivity implements BudgetAdapter.B
         binding = ActivityBudgetBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Toolbar
-        setUpToolbar();
-
+        // Example Budgets
         budgetList.add(new Budget("Example1 Budget", "Halloween Party", 300));
         budgetList.add(new Budget("Example2 Budget", "Christmas Party", 500));
         budgetList.add(new Budget("Example3 Budget", "Birthday Party", 400));
 
+        // Toolbar, Recycler
+        setUpToolbar();
         setUpRecycler();
-
-        // Gets rid of extra text
-        if(budgetList.size() > 0) {
-            binding.noBudgets.setText("");
-        }
     }
 
     // Sets up Toolbar
@@ -82,6 +77,11 @@ public class BudgetActivity extends AppCompatActivity implements BudgetAdapter.B
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         binding.budgetRecycler.setLayoutManager(layoutManager);
         binding.budgetRecycler.setAdapter(new BudgetAdapter(budgetList, this));
+
+        // Gets rid of extra text
+        if(budgetList.size() > 0) {
+            binding.noBudgets.setText("");
+        }
     }
 
     @Override
@@ -98,5 +98,4 @@ public class BudgetActivity extends AppCompatActivity implements BudgetAdapter.B
         Toast toast = Toast.makeText(this, msg, Toast.LENGTH_LONG);
         toast.show();
     }
-
 }

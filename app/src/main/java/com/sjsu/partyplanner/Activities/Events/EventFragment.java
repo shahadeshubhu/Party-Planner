@@ -2,7 +2,6 @@ package com.sjsu.partyplanner.Activities.Events;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +38,6 @@ public class EventFragment extends Fragment implements PartyAdapter.PartyClick {
         Bundle extras = this.getArguments();
         if (extras != null) {
             parties = extras.getParcelableArrayList("key");
-            Log.d("parties in Frag", ""+ parties);
         }
     }
 
@@ -51,10 +49,7 @@ public class EventFragment extends Fragment implements PartyAdapter.PartyClick {
         Bundle extras = this.getArguments();
         if (extras != null) {
             parties = extras.getParcelableArrayList("key");
-            Log.d("parties in Frag", ""+ parties);
         }
-
-        //pAdapter.notifyDataSetChanged();
     }
 
 
@@ -77,11 +72,6 @@ public class EventFragment extends Fragment implements PartyAdapter.PartyClick {
         return v;
     }
 
-    /**
-     * Party Item Click method for recycler view
-     * @param v
-     * @param position
-     */
     @Override
     public void onPartyClick(View v, int position) {
         Party party = parties.get(position);

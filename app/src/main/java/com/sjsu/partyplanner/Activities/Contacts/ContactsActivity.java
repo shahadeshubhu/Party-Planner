@@ -63,7 +63,7 @@ public class ContactsActivity extends AppCompatActivity implements ContactAdapte
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.clHelp) {
-            toastMsg("Contacts are other users");
+            toastMsg("Your contacts are all other users.");
             return true;
         }
 

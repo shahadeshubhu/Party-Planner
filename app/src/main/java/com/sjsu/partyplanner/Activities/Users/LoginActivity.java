@@ -167,7 +167,6 @@ public class LoginActivity extends AppCompatActivity {
      * Goes to the 'reset password' page
      */
     public void forgotPWClick(View view) {
-        toastMsg("Forgot Password");
         Intent intent = new Intent(this, ForgotPasswordActivity.class);
         startActivity(intent);
     }
@@ -193,20 +192,10 @@ public class LoginActivity extends AppCompatActivity {
         toastMsg("Facebook Button");
     }
 
-    /**
-     * Testing onClick methods
-     * @param msg to toast
-     */
+    // Toast message
     public void toastMsg(String msg) {
         Toast toast = Toast.makeText(this, msg, Toast.LENGTH_LONG);
         toast.show();
     }
-
-
-
-
-
-
-
 
 }
