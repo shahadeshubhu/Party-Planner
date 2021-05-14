@@ -8,17 +8,16 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.sjsu.partyplanner.Models.Subtask;
 import com.sjsu.partyplanner.Models.Task;
 import com.sjsu.partyplanner.R;
 import com.sjsu.partyplanner.databinding.ActivityCreateTaskListBinding;
+
 import java.util.ArrayList;
 
 public class CreateTaskListActivity extends AppCompatActivity implements TaskAdapter.TaskClick {
@@ -28,7 +27,6 @@ public class CreateTaskListActivity extends AppCompatActivity implements TaskAda
     public static final String TASKLIST_KEY = "TASKLISTd";
     public static final String INDEX_KEY = "com.sjsu.partyplanner.Activities.Parties.index";
     private static final String TAG = "OnCreateTaskList";
-    private TextView noTasksAvailable;
     private  ActivityCreateTaskListBinding binding;
     private RecyclerView.Adapter<TaskAdapter.ViewHolder> mAdapter;
     private Toolbar toolbar;
@@ -68,7 +66,7 @@ public class CreateTaskListActivity extends AppCompatActivity implements TaskAda
                 taskList.add(data.getParcelableExtra(CreateTaskActivity.TASK_KEY));
                 setUpRecycler();
                 //mAdapter.notifyItemInserted(taskList.size() -1);
-                noTasksAvailable.setVisibility(View.INVISIBLE);
+                binding.noTasksTL.setVisibility(View.INVISIBLE);
                 Log.d("taskReceived", "onActivityResult: Successfully loaded task named: ");
 
             }
