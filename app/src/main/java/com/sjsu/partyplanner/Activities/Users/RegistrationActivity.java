@@ -1,7 +1,5 @@
 package com.sjsu.partyplanner.Activities.Users;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -13,7 +11,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.firebase.database.FirebaseDatabase;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.sjsu.partyplanner.Activities.Dashboard.DashboardActivity;
 import com.sjsu.partyplanner.Controllers.UserController;
 import com.sjsu.partyplanner.R;

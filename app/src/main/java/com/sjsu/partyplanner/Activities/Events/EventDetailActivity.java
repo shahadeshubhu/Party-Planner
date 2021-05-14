@@ -1,9 +1,9 @@
 package com.sjsu.partyplanner.Activities.Events;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
-import android.os.Bundle;
 
 import com.sjsu.partyplanner.Models.Party;
 import com.sjsu.partyplanner.R;

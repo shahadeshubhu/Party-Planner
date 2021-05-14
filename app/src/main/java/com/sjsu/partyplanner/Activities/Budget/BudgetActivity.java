@@ -1,10 +1,5 @@
 package com.sjsu.partyplanner.Activities.Budget;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,11 +8,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.sjsu.partyplanner.Activities.Contacts.ContactAdapter;
-import com.sjsu.partyplanner.Activities.Parties.TaskDetailActivity;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.sjsu.partyplanner.Models.Budget;
-import com.sjsu.partyplanner.Models.Task;
-import com.sjsu.partyplanner.Models.User;
 import com.sjsu.partyplanner.R;
 import com.sjsu.partyplanner.databinding.ActivityBudgetBinding;
 

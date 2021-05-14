@@ -1,24 +1,19 @@
 package com.sjsu.partyplanner.Activities.Parties;
 
+import android.app.Dialog;
+import android.os.Bundle;
+import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Dialog;
-import android.os.Bundle;
-import android.util.Log;
-import android.util.SparseBooleanArray;
-import android.view.View;
-
-import com.sjsu.partyplanner.Activities.Contacts.ContactAdapter;
 import com.sjsu.partyplanner.Activities.Contacts.ContactDialog;
 import com.sjsu.partyplanner.Models.Guest;
-import com.sjsu.partyplanner.Models.User;
 import com.sjsu.partyplanner.R;
 import com.sjsu.partyplanner.databinding.ActivityGuestListBinding;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class GuestListActivity extends AppCompatActivity implements GuestAdapter.GuestClick {

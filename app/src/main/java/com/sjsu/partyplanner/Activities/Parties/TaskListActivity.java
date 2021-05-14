@@ -1,11 +1,5 @@
 package com.sjsu.partyplanner.Activities.Parties;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,13 +7,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.sjsu.partyplanner.Models.Subtask;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.sjsu.partyplanner.Models.Task;
 import com.sjsu.partyplanner.R;
-import com.sjsu.partyplanner.databinding.ActivityCreateTaskListBinding;
 import com.sjsu.partyplanner.databinding.ActivityTaskListBinding;
 
 import java.util.ArrayList;

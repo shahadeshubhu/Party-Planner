@@ -2,7 +2,6 @@ package com.sjsu.partyplanner.Controllers;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.util.EventLog;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -12,7 +11,6 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FieldValue;
@@ -20,7 +18,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.WriteBatch;
-import com.sjsu.partyplanner.Activities.Dashboard.InvitationAdapter;
 import com.sjsu.partyplanner.Activities.Dashboard.InvitationDetailActivity;
 import com.sjsu.partyplanner.Activities.Dashboard.InvitationListActivity;
 import com.sjsu.partyplanner.Activities.Events.EventActivity;
@@ -29,15 +26,8 @@ import com.sjsu.partyplanner.Activities.Parties.PartyActivity;
 import com.sjsu.partyplanner.Models.Guest;
 import com.sjsu.partyplanner.Models.Invitation;
 import com.sjsu.partyplanner.Models.Party;
-import com.sjsu.partyplanner.Models.User;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 
 public class PartyController {
     public static final String EVENT_DB_NAME = "Parties";

@@ -1,10 +1,10 @@
 package com.sjsu.partyplanner.Activities.Dashboard;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.sjsu.partyplanner.R;
 import com.sjsu.partyplanner.databinding.ActivityDetailBinding;

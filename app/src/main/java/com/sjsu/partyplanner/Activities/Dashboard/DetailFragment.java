@@ -2,8 +2,6 @@ package com.sjsu.partyplanner.Activities.Dashboard;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
-
 public class DetailFragment extends AppCompatActivity {
 //
 //  @Override

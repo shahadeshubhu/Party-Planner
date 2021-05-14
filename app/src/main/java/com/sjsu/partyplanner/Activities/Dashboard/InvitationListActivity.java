@@ -1,25 +1,21 @@
 package com.sjsu.partyplanner.Activities.Dashboard;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-
-import com.sjsu.partyplanner.Activities.Parties.TaskDetailActivity;
 import com.sjsu.partyplanner.Controllers.PartyController;
 import com.sjsu.partyplanner.Models.Invitation;
-import com.sjsu.partyplanner.Models.Party;
-import com.sjsu.partyplanner.Models.Task;
 import com.sjsu.partyplanner.R;
-import java.util.ArrayList;
 import com.sjsu.partyplanner.databinding.ActivityInvitationListBinding;
+
+import java.util.ArrayList;
 
 public class InvitationListActivity extends AppCompatActivity implements InvitationAdapter.InvitationClick {
 

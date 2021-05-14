@@ -2,9 +2,7 @@ package com.sjsu.partyplanner.Models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 @com.google.firebase.firestore.IgnoreExtraProperties

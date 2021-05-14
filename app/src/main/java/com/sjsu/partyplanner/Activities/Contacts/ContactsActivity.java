@@ -1,10 +1,5 @@
 package com.sjsu.partyplanner.Activities.Contacts;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.Dialog;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,8 +8,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.sjsu.partyplanner.Controllers.UserController;
-import com.sjsu.partyplanner.Models.Guest;
 import com.sjsu.partyplanner.Models.User;
 import com.sjsu.partyplanner.R;
 import com.sjsu.partyplanner.databinding.ActivityContactsListBinding;

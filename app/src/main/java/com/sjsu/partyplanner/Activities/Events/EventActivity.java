@@ -1,5 +1,8 @@
 package com.sjsu.partyplanner.Activities.Events;
 
+import android.os.Bundle;
+import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -8,14 +11,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import android.os.Bundle;
-import android.os.Parcelable;
-import android.util.Log;
-import android.view.View;
-
 import com.google.android.material.tabs.TabLayout;
-import com.sjsu.partyplanner.Activities.Parties.PartiesFragment;
-import com.sjsu.partyplanner.Activities.Parties.PartyActivity;
 import com.sjsu.partyplanner.Controllers.PartyController;
 import com.sjsu.partyplanner.Models.Invitation;
 import com.sjsu.partyplanner.Models.Party;

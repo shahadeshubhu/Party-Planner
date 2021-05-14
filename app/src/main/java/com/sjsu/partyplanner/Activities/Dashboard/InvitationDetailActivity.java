@@ -1,18 +1,16 @@
 package com.sjsu.partyplanner.Activities.Dashboard;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.sjsu.partyplanner.Controllers.PartyController;
 import com.sjsu.partyplanner.Models.Invitation;
 import com.sjsu.partyplanner.Models.Party;
 import com.sjsu.partyplanner.R;
 import com.sjsu.partyplanner.databinding.ActivityInvitationDetailBinding;
-
-import java.util.ArrayList;
 
 public class InvitationDetailActivity extends AppCompatActivity {
 

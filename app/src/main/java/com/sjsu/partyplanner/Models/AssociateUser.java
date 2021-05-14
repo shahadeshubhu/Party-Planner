@@ -1,14 +1,10 @@
 package com.sjsu.partyplanner.Models;
 
-import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 @IgnoreExtraProperties
 public class AssociateUser {

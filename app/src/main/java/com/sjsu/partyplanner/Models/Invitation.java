@@ -3,8 +3,6 @@ package com.sjsu.partyplanner.Models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.sjsu.partyplanner.Controllers.PartyController;
-
 public class Invitation implements Parcelable {
 
     private String partyId;

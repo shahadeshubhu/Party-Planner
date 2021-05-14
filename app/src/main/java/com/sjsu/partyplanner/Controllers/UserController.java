@@ -11,11 +11,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseReference;
-
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -23,13 +18,11 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.sjsu.partyplanner.Activities.Contacts.ContactsActivity;
 import com.sjsu.partyplanner.Activities.Parties.CreatePartyActivity;
 import com.sjsu.partyplanner.Activities.Users.LoginActivity;
-import com.sjsu.partyplanner.Models.Guest;
-import com.sjsu.partyplanner.Models.Party;
-import com.sjsu.partyplanner.Models.User;
 import com.sjsu.partyplanner.Activities.Users.RegistrationActivity;
+import com.sjsu.partyplanner.Models.Guest;
+import com.sjsu.partyplanner.Models.User;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class UserController {
 

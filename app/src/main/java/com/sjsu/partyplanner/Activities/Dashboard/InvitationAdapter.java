@@ -2,18 +2,17 @@ package com.sjsu.partyplanner.Activities.Dashboard;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.sjsu.partyplanner.Controllers.PartyController;
 import com.sjsu.partyplanner.Models.Invitation;
-import com.sjsu.partyplanner.Models.Party;
 import com.sjsu.partyplanner.R;
+
 import java.util.ArrayList;
 
 public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.ViewHolder> {

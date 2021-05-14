@@ -12,6 +12,7 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
+
 import com.sjsu.partyplanner.R;
 
 public class SubtaskDialog extends AppCompatDialogFragment {

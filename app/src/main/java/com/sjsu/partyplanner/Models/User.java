@@ -1,16 +1,8 @@
 package com.sjsu.partyplanner.Models;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
-
 import java.io.Serializable;
 import java.util.ArrayList;
-
-import org.jetbrains.annotations.NotNull;
-
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @com.google.firebase.firestore.IgnoreExtraProperties

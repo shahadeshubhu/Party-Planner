@@ -1,30 +1,30 @@
 package com.sjsu.partyplanner.Activities.Dashboard;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
-import android.os.Bundle;
-import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.auth.FirebaseAuth;
 import com.sjsu.partyplanner.Activities.Budget.BudgetActivity;
 import com.sjsu.partyplanner.Activities.Contacts.ContactsActivity;
 import com.sjsu.partyplanner.Activities.Events.EventActivity;
 import com.sjsu.partyplanner.Activities.Parties.PartyActivity;
 import com.sjsu.partyplanner.Activities.Users.LoginActivity;
 import com.sjsu.partyplanner.Controllers.UserController;
-import com.sjsu.partyplanner.databinding.ActivityDashboardBinding;
 import com.sjsu.partyplanner.R;
+import com.sjsu.partyplanner.databinding.ActivityDashboardBinding;
 
 public class DashboardActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 

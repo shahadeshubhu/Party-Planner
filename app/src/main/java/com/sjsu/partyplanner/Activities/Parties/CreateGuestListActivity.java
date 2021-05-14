@@ -1,8 +1,5 @@
 package com.sjsu.partyplanner.Activities.Parties;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,15 +8,13 @@ import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
-import com.sjsu.partyplanner.Controllers.UserController;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import com.sjsu.partyplanner.Models.Guest;
-import com.sjsu.partyplanner.Models.Task;
-import com.sjsu.partyplanner.Models.User;
 import com.sjsu.partyplanner.R;
 
 import java.util.ArrayList;
