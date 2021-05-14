@@ -16,8 +16,8 @@ import java.util.ArrayList;
 
 public class SubtaskAdapter extends RecyclerView.Adapter<SubtaskAdapter.ViewHolder> {
 
-    private ArrayList<Subtask> mSubtasks;
-    private OnSubtaskListener mOnSubtaskListener;
+    private final ArrayList<Subtask> mSubtasks;
+    private final OnSubtaskListener mOnSubtaskListener;
 
     // Constructor
     public SubtaskAdapter(ArrayList<Subtask> mSubtasks, OnSubtaskListener onSubtaskListener) {
@@ -55,9 +55,9 @@ public class SubtaskAdapter extends RecyclerView.Adapter<SubtaskAdapter.ViewHold
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView stName;
-        private ImageView stStatus;
-        private OnSubtaskListener onSubtaskListener;
+        private final TextView stName;
+        private final ImageView stStatus;
+        private final OnSubtaskListener onSubtaskListener;
 
         public ViewHolder(@NonNull View itemView, OnSubtaskListener onSubtaskListener) {
             super(itemView);

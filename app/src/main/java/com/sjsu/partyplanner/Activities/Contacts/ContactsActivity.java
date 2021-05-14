@@ -24,7 +24,7 @@ public class ContactsActivity extends AppCompatActivity implements ContactAdapte
 
     private ActivityContactsListBinding binding;
     private Toolbar toolbar;
-    private ArrayList<User> contacts = new ArrayList<User>();
+    private ArrayList<User> contacts = new ArrayList<>();
     private Dialog myDialog;
 
     @Override
@@ -38,7 +38,7 @@ public class ContactsActivity extends AppCompatActivity implements ContactAdapte
 
         // Gets all users and sets up recycler view
         UserController userController = UserController.getInstance();
-        userController.getAllUsers(this);
+        UserController.getAllUsers(this);
     }
 
     // Sets up Toolbar
@@ -75,10 +75,7 @@ public class ContactsActivity extends AppCompatActivity implements ContactAdapte
         binding.contactRecycler.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         binding.contactRecycler.setLayoutManager(layoutManager);
-
-        ContactAdapter ca = new ContactAdapter(contacts, this);
-        RecyclerView.Adapter<ContactAdapter.ViewHolder> mAdapter = ca;
-        binding.contactRecycler.setAdapter(mAdapter);
+        binding.contactRecycler.setAdapter(new ContactAdapter(contacts, this));
     }
 
     // onClick on RecyclerView Item

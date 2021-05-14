@@ -52,7 +52,7 @@ public class PartyDetailActivity extends AppCompatActivity {
         if(v == findViewById(R.id.pdTaskButton)) {
             Intent intent = new Intent(this, TaskListActivity.class);
             Bundle uBundle = new Bundle();
-            uBundle.putParcelableArrayList(TASK_KEY, (ArrayList<? extends Parcelable>) party.getTasks());
+            uBundle.putParcelableArrayList(TASK_KEY, party.getTasks());
 
             intent.putExtras(uBundle);
             startActivityForResult(intent, DETAIL_REQUEST);
@@ -61,7 +61,7 @@ public class PartyDetailActivity extends AppCompatActivity {
         else if (v == findViewById(R.id.pdGuestButton)) {
             Intent intent = new Intent(this, GuestListActivity.class);
             Bundle uBundle = new Bundle();
-            uBundle.putParcelableArrayList(GUEST_KEY, (ArrayList<? extends Parcelable>) party.getGuests());
+            uBundle.putParcelableArrayList(GUEST_KEY, party.getGuests());
             intent.putExtras(uBundle);
             startActivity(intent);
         }

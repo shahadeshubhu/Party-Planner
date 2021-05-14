@@ -113,7 +113,7 @@ public class PartyActivity extends AppCompatActivity {
 
     // Initialize TabLayout
     private void initializeTabLayout() {
-        tabLayout = (TabLayout) findViewById(R.id.partiesTabLayout);
+        tabLayout = findViewById(R.id.partiesTabLayout);
         viewPager = findViewById(R.id.partiesViewPager);
         PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount(), pastParties,upParties);
         viewPager.setAdapter(pagerAdapter);
@@ -138,9 +138,9 @@ public class PartyActivity extends AppCompatActivity {
      */
     public class PagerAdapter extends FragmentStatePagerAdapter {
 
-        private int numOfTabs;
-        private ArrayList<Party> pastParties;
-        private ArrayList<Party> upcomingParties;
+        private final int numOfTabs;
+        private final ArrayList<Party> pastParties;
+        private final ArrayList<Party> upcomingParties;
 
         public PagerAdapter(FragmentManager fm, int numOfTabs, ArrayList<Party> pastParties,ArrayList<Party> upcomingParties) {
             super(fm, FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
@@ -157,7 +157,7 @@ public class PartyActivity extends AppCompatActivity {
                     Log.d("before pass upParties", ""+upcomingParties.size());
                     // Create Bundle of Parties
                     Bundle uBundle = new Bundle();
-                    uBundle.putParcelableArrayList("key", (ArrayList<? extends Parcelable>) upcomingParties);
+                    uBundle.putParcelableArrayList("key", upcomingParties);
 
 
                     // Create Fragment with Arguments
@@ -168,7 +168,7 @@ public class PartyActivity extends AppCompatActivity {
                 case 1:
                     // Create Bundle of Parties
                     Bundle pBundle = new Bundle();
-                    pBundle.putParcelableArrayList("key", (ArrayList<? extends Parcelable>) pastParties);
+                    pBundle.putParcelableArrayList("key", pastParties);
 
                     // Create Fragment with Arguments
                     PartiesFragment pastFrag = new PartiesFragment();
@@ -188,7 +188,7 @@ public class PartyActivity extends AppCompatActivity {
 
     // Set up Toolbar
     private void setupToolbar() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

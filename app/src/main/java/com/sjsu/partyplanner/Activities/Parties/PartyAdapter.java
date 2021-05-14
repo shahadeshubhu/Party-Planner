@@ -16,9 +16,9 @@ import java.util.ArrayList;
 
 public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.ViewHolder> {
 
-    private Context mContext;
-    private ArrayList<Party> mParties;
-    private PartyClick listener;
+    private final Context mContext;
+    private final ArrayList<Party> mParties;
+    private final PartyClick listener;
 
     public PartyAdapter(Context mContext, ArrayList<Party> mParties, PartyClick listener) {
         this.mContext = mContext;
@@ -30,8 +30,7 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.ViewHolder> 
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.party_layout, parent, false);
-        ViewHolder viewHolder = new ViewHolder(view, listener);
-        return viewHolder;
+        return new ViewHolder(view, listener);
     }
 
     @Override
@@ -53,10 +52,10 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.ViewHolder> 
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private TextView pName;
-        private TextView pType;
-        private TextView pDateTime;
-        private PartyClick pClick;
+        private final TextView pName;
+        private final TextView pType;
+        private final TextView pDateTime;
+        private final PartyClick pClick;
 
         public ViewHolder(@NonNull View itemView, PartyClick pClick) {
             super(itemView);

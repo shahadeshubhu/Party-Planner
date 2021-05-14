@@ -15,9 +15,9 @@ public class User implements Serializable {
   private ArrayList<String> invitation;
   private ArrayList<String> contacts;
 
-  public User(){};
+  public User(){}
 
-  public User(String firstName, String lastName, String email) {
+    public User(String firstName, String lastName, String email) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;

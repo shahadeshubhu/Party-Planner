@@ -1,7 +1,6 @@
 package com.sjsu.partyplanner.Activities.Events;
 
 import android.os.Bundle;
-import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +8,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
@@ -25,8 +25,8 @@ public class EventActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private ArrayList<Party> myParties = new ArrayList<>();
-    private ArrayList<Party> invitedParties = new ArrayList<>();
+    private final ArrayList<Party> myParties = new ArrayList<>();
+    private final ArrayList<Party> invitedParties = new ArrayList<>();
     private PartyController p;
 
     @Override
@@ -40,7 +40,7 @@ public class EventActivity extends AppCompatActivity {
 
     // Sets up toolbar
     private void setupToolbar() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -82,7 +82,7 @@ public class EventActivity extends AppCompatActivity {
 
     // Initialize TabLayout
     private void initializeTabLayout() {
-        tabLayout = (TabLayout) findViewById(R.id.partiesTabLayout);
+        tabLayout = findViewById(R.id.partiesTabLayout);
         viewPager = findViewById(R.id.partiesViewPager);
         EventActivity.PagerAdapter pagerAdapter = new EventActivity.PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount(), myParties, invitedParties);
         viewPager.setAdapter(pagerAdapter);
@@ -104,14 +104,14 @@ public class EventActivity extends AppCompatActivity {
     /**
      * Inner Class for ViewPager Adapter
      */
-    public class PagerAdapter extends FragmentPagerAdapter {
+    public class PagerAdapter extends FragmentStatePagerAdapter {
 
-        private int numOfTabs;
-        private ArrayList<Party> myParties;
-        private ArrayList<Party> invitedParties;
+        private final int numOfTabs;
+        private final ArrayList<Party> myParties;
+        private final ArrayList<Party> invitedParties;
 
         public PagerAdapter(FragmentManager fm, int numOfTabs, ArrayList<Party> myParties, ArrayList<Party> invitedParties) {
-            super(fm, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+            super(fm, FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
             this.numOfTabs = numOfTabs;
             this.myParties = myParties;
             this.invitedParties = invitedParties;
@@ -124,7 +124,7 @@ public class EventActivity extends AppCompatActivity {
                 case 0:
                     // Create Bundle of Parties
                     Bundle uBundle = new Bundle();
-                    uBundle.putParcelableArrayList("key", (ArrayList<? extends Parcelable>) myParties);
+                    uBundle.putParcelableArrayList("key", myParties);
 
                     // Create Fragment with Arguments
                     EventFragment myFrag = new EventFragment();
@@ -134,7 +134,7 @@ public class EventActivity extends AppCompatActivity {
                 case 1:
                     // Create Bundle of Parties
                     Bundle pBundle = new Bundle();
-                    pBundle.putParcelableArrayList("key", (ArrayList<? extends Parcelable>) invitedParties);
+                    pBundle.putParcelableArrayList("key", invitedParties);
 
                     // Create Fragment with Arguments
                     EventFragment inviteFrag = new EventFragment();

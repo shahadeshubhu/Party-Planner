@@ -220,7 +220,7 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
   // Sets up the autocomplete suggestions for party type
   public void setupAutoComplete() {
       ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, PARTY_TYPES);
-      AutoCompleteTextView partyTypeText = (AutoCompleteTextView) findViewById(R.id.cpPartyTypeTB);
+      AutoCompleteTextView partyTypeText = findViewById(R.id.cpPartyTypeTB);
       partyTypeText.setAdapter(adapter);
   }
 

@@ -66,7 +66,7 @@ public class BudgetDetailActivity extends AppCompatActivity implements AdapterVi
 
         binding.bdName.setText(budget.getName());
         binding.bdParty.setText(budget.getParty());
-        binding.bdAmount.setText("$" + String.valueOf(budget.getAmount()));
+        binding.bdAmount.setText("$" + budget.getAmount());
     }
 
     // Sets up the recycler

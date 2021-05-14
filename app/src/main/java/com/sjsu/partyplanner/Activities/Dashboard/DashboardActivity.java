@@ -64,7 +64,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         navigationView.bringToFront();
 
         // Set up toolbar
-        toolbar = (Toolbar) findViewById(R.id.dash_toolbar);
+        toolbar = findViewById(R.id.dash_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

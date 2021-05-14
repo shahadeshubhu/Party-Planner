@@ -23,7 +23,7 @@ public class BudgetActivity extends AppCompatActivity implements BudgetAdapter.B
 
     private ActivityBudgetBinding binding;
     private Toolbar toolbar;
-    private ArrayList<Budget> budgetList = new ArrayList<Budget>();
+    private final ArrayList<Budget> budgetList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,10 +81,7 @@ public class BudgetActivity extends AppCompatActivity implements BudgetAdapter.B
         binding.budgetRecycler.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         binding.budgetRecycler.setLayoutManager(layoutManager);
-
-        BudgetAdapter ba = new BudgetAdapter(budgetList, this);
-        RecyclerView.Adapter<BudgetAdapter.ViewHolder> mAdapter = ba;
-        binding.budgetRecycler.setAdapter(mAdapter);
+        binding.budgetRecycler.setAdapter(new BudgetAdapter(budgetList, this));
     }
 
     @Override

@@ -16,8 +16,8 @@ import java.util.ArrayList;
 
 public class GuestAdapter extends RecyclerView.Adapter<GuestAdapter.ViewHolder> {
 
-    private ArrayList<Guest> guests;
-    private GuestAdapter.GuestClick listener;
+    private final ArrayList<Guest> guests;
+    private final GuestAdapter.GuestClick listener;
 
     // Constructor
     public GuestAdapter(ArrayList<Guest> guests, GuestAdapter.GuestClick listener) {
@@ -49,14 +49,14 @@ public class GuestAdapter extends RecyclerView.Adapter<GuestAdapter.ViewHolder> 
     // Same As Contactadapter
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private ConstraintLayout dialogLayout;
-        private TextView cName;
-        private TextView cEmail;
-        private GuestAdapter.GuestClick rvClick;
+        private final ConstraintLayout dialogLayout;
+        private final TextView cName;
+        private final TextView cEmail;
+        private final GuestAdapter.GuestClick rvClick;
 
         public ViewHolder(@NonNull final View itemView, GuestAdapter.GuestClick rvClick) {
             super(itemView);
-            dialogLayout = (ConstraintLayout) itemView.findViewById(R.id.contact_item_id);
+            dialogLayout = itemView.findViewById(R.id.contact_item_id);
             cName = itemView.findViewById(R.id.cName);
             cEmail = itemView.findViewById(R.id.cEmail);
 

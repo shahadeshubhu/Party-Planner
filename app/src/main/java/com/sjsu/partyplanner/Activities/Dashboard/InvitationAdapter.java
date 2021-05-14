@@ -17,8 +17,8 @@ import java.util.ArrayList;
 
 public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.ViewHolder> {
 
-    private ArrayList<Invitation> invites;
-    private InvitationAdapter.InvitationClick listener;
+    private final ArrayList<Invitation> invites;
+    private final InvitationAdapter.InvitationClick listener;
     Invitation invite;
 
     // Constructor
@@ -65,10 +65,10 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private TextView pName;
-        private TextView pDateTime;
-        private TextView pHostName;
-        private InvitationAdapter.InvitationClick rvClick;
+        private final TextView pName;
+        private final TextView pDateTime;
+        private final TextView pHostName;
+        private final InvitationAdapter.InvitationClick rvClick;
 
         public ViewHolder(@NonNull final View itemView, InvitationAdapter.InvitationClick rvClick) {
             super(itemView);

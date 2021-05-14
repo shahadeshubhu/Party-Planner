@@ -16,8 +16,8 @@ import java.util.ArrayList;
 
 public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHolder> {
 
-    private ArrayList<Payment> mPayments;
-    private OnPaymentListener mOnPaymentListener;
+    private final ArrayList<Payment> mPayments;
+    private final OnPaymentListener mOnPaymentListener;
 
     // Constructor
     public PaymentAdapter(ArrayList<Payment> mPayments, OnPaymentListener onPaymentListener) {
@@ -39,13 +39,12 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
         final Payment payment = mPayments.get(position);
 
         holder.name.setText(payment.getName());
-        holder.amount.setText("$" + String.valueOf(payment.getAmount()));
+        holder.amount.setText("$" + payment.getAmount());
 
         // Status - Paid
         if (payment.getStatusBool()) {
             holder.status.setImageResource(R.drawable.subtask_done);
-        }
-        else {
+        } else {
             holder.status.setImageResource(R.drawable.subtask_empty);
         }
     }
@@ -58,10 +57,10 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
     // View Holder Class
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView name;
-        private TextView amount;
-        private ImageView status;
-        private OnPaymentListener onPaymentListener;
+        private final TextView name;
+        private final TextView amount;
+        private final ImageView status;
+        private final OnPaymentListener onPaymentListener;
 
         public ViewHolder(@NonNull View itemView, OnPaymentListener onPaymentListener) {
             super(itemView);
@@ -76,6 +75,6 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
 
     // Interface
     public interface OnPaymentListener {
-        public void OnPaymentClick(int position);
+        void OnPaymentClick(int position);
     }
 }

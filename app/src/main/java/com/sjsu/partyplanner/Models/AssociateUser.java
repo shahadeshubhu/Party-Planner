@@ -11,9 +11,9 @@ public class AssociateUser {
 
     private ArrayList<Party> parties;
 
-    public AssociateUser(){};
+    public AssociateUser(){}
 
-        public AssociateUser(ArrayList<Party> parties){
+    public AssociateUser(ArrayList<Party> parties){
 
             this.parties = new ArrayList<>();
 

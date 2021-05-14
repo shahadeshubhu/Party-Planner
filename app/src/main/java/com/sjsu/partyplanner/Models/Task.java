@@ -16,7 +16,7 @@ public class Task implements Parcelable {
     private int taskStatus;
     private int completedSubtasks;
 
-    public Task(){};
+    public Task(){}
 
     // Constructor
     public Task(String name, String taskCategory, String note, ArrayList<Subtask> subtasks) {
@@ -28,57 +28,33 @@ public class Task implements Parcelable {
     }
 
 
-    public String getNote() { return note; };
+    public String getNote() { return note; }
 
     @com.google.firebase.firestore.Exclude
-    public String getTaskID() { return taskID; };
+    public String getTaskID() { return taskID; }
 
-    /**
-     * Gets the task name (task adapter)
-     * @return name
-     */
     public String getName() {
         return name;
     }
 
-    /**
-     * Gets the task category (task adapter)
-     * @return taskCategory
-     */
     public String getTaskCategory() {
         return taskCategory;
     }
 
-    /**
-     * Sets the new subtasks
-     * @param subtasks
-     */
     public void setSubtasks(ArrayList<Subtask> subtasks) {
         this.subtasks = subtasks;
         setTaskStatus();
     }
 
 
-    /**
-     * Gets the arraylist of subtasks for this task
-     * @return subtasks
-     */
     public ArrayList<Subtask> getSubtasks() {
         return subtasks;
     }
 
-    /**
-     * Gets the number of completed subtasks
-     * @return completedSubtasks
-     */
     public int getCompletedSubtasks() {
         return completedSubtasks;
     }
 
-    /**
-     * Gets the amount of subtasks
-     * @return subtasks.size()
-     */
     public int getTotalSubtasks() {
         return subtasks.size();
     }
@@ -92,8 +68,8 @@ public class Task implements Parcelable {
         setTaskStatus();
 
         if (taskStatus == STATUS.NOT_STARTED) { s = "Subtasks: 0/"; }
-        else if (taskStatus != STATUS.NOT_STARTED){ s = "Subtasks: " + String.valueOf(completedSubtasks) + "/"; }
-        s = s + String.valueOf(getTotalSubtasks());
+        else if (taskStatus != STATUS.NOT_STARTED){ s = "Subtasks: " + completedSubtasks + "/"; }
+        s = s + getTotalSubtasks();
 
         return s;
     }
@@ -110,7 +86,6 @@ public class Task implements Parcelable {
 
 
     //-------------Private Methods----------------
-
 
     /**
      * Calculates the number of completed subtasks;
@@ -251,7 +226,7 @@ public class Task implements Parcelable {
         this.name = source.readString();
         this.taskCategory = source.readString();
         this.note = source.readString();
-        this.subtasks = new ArrayList<Subtask>();
+        this.subtasks = new ArrayList<>();
         source.readList(this.subtasks, Subtask.class.getClassLoader());
         this.taskStatus = source.readInt();
         this.completedSubtasks = source.readInt();
@@ -262,7 +237,7 @@ public class Task implements Parcelable {
         this.name = in.readString();
         this.taskCategory = in.readString();
         this.note = in.readString();
-        this.subtasks = new ArrayList<Subtask>();
+        this.subtasks = new ArrayList<>();
         in.readList(this.subtasks, Subtask.class.getClassLoader());
         this.taskStatus = in.readInt();
         this.completedSubtasks = in.readInt();

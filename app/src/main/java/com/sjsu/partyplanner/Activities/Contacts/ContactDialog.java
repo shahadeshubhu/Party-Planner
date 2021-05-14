@@ -17,8 +17,8 @@ public class ContactDialog extends AppCompatDialogFragment {
 
     private TextView contactName;
     private TextView contactEmail;
-    private String cName;
-    private String cEmail;
+    private final String cName;
+    private final String cEmail;
 
     public ContactDialog(String cName, String cEmail) {
         this.cName = cName;

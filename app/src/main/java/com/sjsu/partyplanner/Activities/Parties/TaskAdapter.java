@@ -16,8 +16,8 @@ import java.util.ArrayList;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
-    private ArrayList<Task> mTasks;
-    private TaskClick listener;
+    private final ArrayList<Task> mTasks;
+    private final TaskClick listener;
 
     // Constructor
     public TaskAdapter(ArrayList<Task> mTasks, TaskClick listener) {
@@ -56,10 +56,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private TextView tName;
-        private TextView tStatus;
-        private TextView tCompleted;    // completed subtasks / total
-        private TaskClick rvClick;
+        private final TextView tName;
+        private final TextView tStatus;
+        private final TextView tCompleted;    // completed subtasks / total
+        private final TaskClick rvClick;
 
         public ViewHolder(@NonNull final View itemView, TaskClick rvClick) {
             super(itemView);

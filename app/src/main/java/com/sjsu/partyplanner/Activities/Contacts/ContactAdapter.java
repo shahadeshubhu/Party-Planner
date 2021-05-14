@@ -17,8 +17,8 @@ import java.util.ArrayList;
 
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHolder> {
 
-    private ArrayList<User> contacts;
-    private ContactAdapter.ContactClick listener;
+    private final ArrayList<User> contacts;
+    private final ContactAdapter.ContactClick listener;
 
     // Constructor
     public ContactAdapter(ArrayList<User> contacts, ContactAdapter.ContactClick listener) {
@@ -48,14 +48,14 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private ConstraintLayout dialogLayout;
-        private TextView cName;
-        private TextView cEmail;
-        private ContactAdapter.ContactClick rvClick;
+        private final ConstraintLayout dialogLayout;
+        private final TextView cName;
+        private final TextView cEmail;
+        private final ContactAdapter.ContactClick rvClick;
 
         public ViewHolder(@NonNull final View itemView, ContactAdapter.ContactClick rvClick) {
             super(itemView);
-            dialogLayout = (ConstraintLayout) itemView.findViewById(R.id.contact_item_id);
+            dialogLayout = itemView.findViewById(R.id.contact_item_id);
             cName = itemView.findViewById(R.id.cName);
             cEmail = itemView.findViewById(R.id.cEmail);
 

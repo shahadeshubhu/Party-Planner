@@ -15,8 +15,8 @@ import java.util.ArrayList;
 
 public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder> {
 
-    private ArrayList<Budget> budgets;
-    private BudgetAdapter.BudgetClick listener;
+    private final ArrayList<Budget> budgets;
+    private final BudgetAdapter.BudgetClick listener;
 
     // Constructor
     public BudgetAdapter(ArrayList<Budget> budgets, BudgetAdapter.BudgetClick listener) {
@@ -37,7 +37,7 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
 
         final Budget budget = budgets.get(position);
         float amount = budget.getAmount();
-        String amountString = "$" + String.valueOf(amount);
+        String amountString = "$" + amount;
 
         holder.bName.setText(budget.getName());
         holder.bParty.setText(budget.getParty());
@@ -51,10 +51,10 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private TextView bName;
-        private TextView bParty;
-        private TextView blAmount;
-        private BudgetAdapter.BudgetClick rvClick;
+        private final TextView bName;
+        private final TextView bParty;
+        private final TextView blAmount;
+        private final BudgetAdapter.BudgetClick rvClick;
 
         public ViewHolder(@NonNull final View itemView, BudgetAdapter.BudgetClick rvClick) {
             super(itemView);

@@ -26,7 +26,7 @@ public class CreateGuestListActivity extends AppCompatActivity{
     private Toolbar toolbar;
     private ListView listview ;
     private SparseBooleanArray sparseBooleanArray;
-    private ArrayList<String> ListViewItems= new ArrayList<>();
+    private final ArrayList<String> ListViewItems= new ArrayList<>();
     private ArrayList<Guest> guestList = new ArrayList<>();
     private ArrayList<Guest> invitedGuests = new ArrayList<>();
     @Override
@@ -59,7 +59,7 @@ public class CreateGuestListActivity extends AppCompatActivity{
 
     // Sets up List View
     public void setUpListView() {
-        listview = (ListView)findViewById(R.id.glistView);
+        listview = findViewById(R.id.glistView);
         ArrayAdapter<String> adapter = new ArrayAdapter<> (CreateGuestListActivity.this, R.layout.guest_layout, ListViewItems );
 
         listview.setAdapter(adapter);
