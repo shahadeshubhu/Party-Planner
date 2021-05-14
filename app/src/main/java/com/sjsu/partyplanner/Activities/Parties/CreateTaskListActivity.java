@@ -65,8 +65,6 @@ public class CreateTaskListActivity extends AppCompatActivity implements TaskAda
                     taskList.set(usedIndex,temp);
                     setUpRecycler();
                 }
-
-
             }
         }
 
