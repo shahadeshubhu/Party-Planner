@@ -20,10 +20,6 @@ public class EditTaskActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_task);
 
         setUpToolbar();
-
-        //TODO: input task data into the edit task
-        // Allow you to change it
-
     }
 
 

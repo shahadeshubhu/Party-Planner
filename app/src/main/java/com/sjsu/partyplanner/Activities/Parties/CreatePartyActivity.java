@@ -212,7 +212,7 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
   }
 
   public void handleFailure(){
-    //    TODO: Display error message
+    toastMsg("Failed to create party");
   }
 
 

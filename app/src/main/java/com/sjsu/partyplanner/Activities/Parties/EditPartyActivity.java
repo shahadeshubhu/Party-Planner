@@ -66,18 +66,13 @@ public class EditPartyActivity extends AppCompatActivity implements View.OnClick
     }
 
 
-    /**
-     *
-     * @param view
-     */
+    // OnClick Method
     public void addClick(View view) {
         if (view == findViewById(R.id.cpGuestButton)) {
-            // TODO Send to Invite Guests Page
-
+            startActivity(new Intent(this, GuestListActivity.class));
         }
         else if (view == findViewById(R.id.cpTaskButton)) {
-            //TODO: add tasks of the party in here!
-            startActivity(new Intent(this, CreateTaskListActivity.class));
+            startActivity(new Intent(this, TaskListActivity.class));
         }
     }
 
