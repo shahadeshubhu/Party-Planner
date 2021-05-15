@@ -46,7 +46,7 @@ public class PartiesFragment extends Fragment implements PartyAdapter.PartyClick
         Bundle extras = this.getArguments();
         if (extras != null) {
             parties = extras.getParcelableArrayList("key");
-            Log.d("parties in Frag", ""+ parties);
+            //Log.d("parties in Frag", ""+ parties);
         }
 
     }
@@ -59,7 +59,7 @@ public class PartiesFragment extends Fragment implements PartyAdapter.PartyClick
         Bundle extras = this.getArguments();
         if (extras != null) {
             parties = extras.getParcelableArrayList("key");
-            Log.d("parties in Frag", ""+ parties);
+            //Log.d("parties in Frag", ""+ parties);
         }
 
         //pAdapter.notifyDataSetChanged();

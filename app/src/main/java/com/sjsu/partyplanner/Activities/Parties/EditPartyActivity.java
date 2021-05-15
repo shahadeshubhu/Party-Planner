@@ -126,7 +126,7 @@ public class EditPartyActivity extends AppCompatActivity implements View.OnClick
             int mYear = c.get(Calendar.YEAR);
             int mMonth = c.get(Calendar.MONTH);
             int mDay = c.get(Calendar.DAY_OF_MONTH);
-            Log.d("calendar", ""+c );
+            //Log.d("calendar", ""+c );
 
             DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                     (view1, year, monthOfYear, dayOfMonth) -> {
@@ -176,7 +176,7 @@ public class EditPartyActivity extends AppCompatActivity implements View.OnClick
                         if (minute < 10) min = "0" + minute;
                         else min = String.valueOf(minute);
                         String z = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(pickedDateTime.getTime());
-                        Log.d("calendar", z);
+                        //Log.d("calendar", z);
 
                         // Append in a StringBuilder
                         String time = String.valueOf(hourOfDay) + ':' + min + " " + timeSet;

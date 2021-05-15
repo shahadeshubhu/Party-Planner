@@ -50,7 +50,7 @@ public class PartyController {
 
     // Create Party in database
     public void createParty(CreatePartyActivity activity, Party p) {
-        Log.d("databaseDebug", "createParty: saving database");
+        //Log.d("databaseDebug", "createParty: saving database");
         String ownerId = UserController.currentUser.getUid();
         p.setOwnerID(ownerId);
         db.collection(EVENT_DB_NAME).add(p)
@@ -61,8 +61,8 @@ public class PartyController {
                                 .document(ownerId)
                                 .update("parties", FieldValue.arrayUnion(partyDocumentReference.getId()));
 
-                        Log.d("#EC createEvent success", "DocumentSnapshot written with ID: " + partyDocumentReference.getId());
-                        Log.d("databaseDebug", "createParty: saved successfuly with id: " + partyDocumentReference.getId());
+                        //Log.d("#EC createEvent success", "DocumentSnapshot written with ID: " + partyDocumentReference.getId());
+                        //Log.d("databaseDebug", "createParty: saved successfuly with id: " + partyDocumentReference.getId());
                         ArrayList<Guest> guests = p.getGuests();
                         if (guests == null || guests.size() <= 0){
                             activity.handleSuccess();
@@ -77,8 +77,8 @@ public class PartyController {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.w("#EC createEvent fail", "Error adding document", e);
-                        Log.d("databaseDebug", "createParty: failed to save");
+                        //Log.w("#EC createEvent fail", "Error adding document", e);
+                        //Log.d("databaseDebug", "createParty: failed to save");
                         activity.handleFailure();
                     }
                 });
@@ -96,15 +96,15 @@ public class PartyController {
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             Party p = document.toObject(Party.class);
-                            Log.d("#document data", "" + document.getId());
+                            //Log.d("#document data", "" + document.getId());
                             p.setpId(document.getId()); /// ***********changed;
                             parties.add(p);
                         }
                         activity.handleFetchParties(true, parties);
-                        Log.d("#getParties", "" + parties.size());
+                        //Log.d("#getParties", "" + parties.size());
 
                     } else {
-                        Log.d("#getParties error", "Error getting documents: ", task.getException());
+                        //Log.d("#getParties error", "Error getting documents: ", task.getException());
                         activity.handleFetchParties(false, parties);
 
                     }
@@ -125,15 +125,15 @@ public class PartyController {
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             Party p = document.toObject(Party.class);
-                            Log.d("#document data", "" + document.getId());
+                            //Log.d("#document data", "" + document.getId());
 
                             parties.add(p);
                         }
                         activity.handleFetchParties(true, parties);
-                        Log.d("#getParties", "" + parties.size());
+                        //Log.d("#getParties", "" + parties.size());
 
                     } else {
-                        Log.d("#getParties error", "Error getting documents: ", task.getException());
+                        //Log.d("#getParties error", "Error getting documents: ", task.getException());
                         activity.handleFetchParties(false, parties);
 
                     }
@@ -166,10 +166,10 @@ public class PartyController {
         try{
             activity.startActivity(emailLauncher);
         }catch(ActivityNotFoundException e){
-            Log.d("Error", e.getMessage());
+            //Log.d("Error", e.getMessage());
         }
 
-        Log.d("inviteGuestByEmail", ""+invitations.size());
+        //Log.d("inviteGuestByEmail", ""+invitations.size());
         if (invitations.size()>0) {
             WriteBatch batch = db.batch();
             for(Invitation i : invitations){
@@ -183,7 +183,7 @@ public class PartyController {
                 }
             });
         } else {
-            Log.d("inviteGuestByEmail", " No guest ");
+            //Log.d("inviteGuestByEmail", " No guest ");
             activity.handleSuccess();
         }
 
@@ -235,11 +235,11 @@ public class PartyController {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         Party p = document.toObject(Party.class);
                         p.setpId(document.getId());
-                        Log.d("#getParty", document.getId() + " => " + p.toString());
+                        //Log.d("#getParty", document.getId() + " => " + p.toString());
                         activity.handleGetPartySuccess(p);
                     }
                 } else {
-                    Log.d("#getParty error", "Error getting documents: ", task.getException());
+                    //Log.d("#getParty error", "Error getting documents: ", task.getException());
 
                 }
             }
@@ -256,11 +256,11 @@ public class PartyController {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         Party p = document.toObject(Party.class);
                         p.setpId(document.getId());
-                        Log.d("#getParty", document.getId() + " => " + p.toString());
+                        //Log.d("#getParty", document.getId() + " => " + p.toString());
                         activity.handleGetPartySuccess(p);
                     }
                 } else {
-                    Log.d("#getParty error", "Error getting documents: ", task.getException());
+                    //Log.d("#getParty error", "Error getting documents: ", task.getException());
 
                 }
             }
@@ -270,7 +270,7 @@ public class PartyController {
     public void updateParty(PartyActivity activity, Party inputParty)
     {
 
-        Log.d("Testing", "updateParty: executing updatePary in PartyController");
+        //Log.d("Testing", "updateParty: executing updatePary in PartyController");
         if (inputParty != null && inputParty.getpId() != null && !inputParty.getpId().isEmpty())
         {
             String documentId  = inputParty.getpId();
@@ -281,13 +281,13 @@ public class PartyController {
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful())
                     {
-                        Log.d("Testing", "onComplete: successfully updated document");
+                        //Log.d("Testing", "onComplete: successfully updated document");
                         //getParties(activity);
                         activity.handleUpdateSuccess();
                     }
                     else
                     {
-                        Log.d("Testing", "onComplete: failed to update document");
+                        //Log.d("Testing", "onComplete: failed to update document");
                         activity.handleUpdateFailure();
 
                     }
@@ -296,7 +296,7 @@ public class PartyController {
         }
         else
         {
-            Log.d("Testing", "updateParty: Failure, party or document ID are null or empty");
+            //Log.d("Testing", "updateParty: Failure, party or document ID are null or empty");
             activity.handleUpdateFailure();
         }
     }

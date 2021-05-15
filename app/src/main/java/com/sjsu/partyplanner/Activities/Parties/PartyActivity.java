@@ -82,7 +82,7 @@ public class PartyActivity extends AppCompatActivity {
             if(resultCode == RESULT_OK) {
                 Party newParty = data.getParcelableExtra("newParty");
                 upParties.add(newParty);
-                Log.d("return PArty\n", newParty.toString());
+                //Log.d("return PArty\n", newParty.toString());
             }
             initializeTabLayout();
         }

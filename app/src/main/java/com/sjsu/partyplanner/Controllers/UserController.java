@@ -59,7 +59,7 @@ public class UserController {
 
     // ** need to add a mechanism to see if it was successful or not.
     public void createAccount(RegistrationActivity activity, String email, String password, String firstName, String lastName) {
-        Log.d("#UC createAccount", email + password);
+        //Log.d("#UC createAccount", email + password);
 
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
             @Override
@@ -67,7 +67,7 @@ public class UserController {
                 if (task.isSuccessful()) {
                     currentUser = mAuth.getCurrentUser();
                     if (currentUser != null) {
-                        Log.d("#UC createAccount", currentUser.getUid());
+                        //Log.d("#UC createAccount", currentUser.getUid());
                         User user = new User(firstName, lastName, email);
                         db.collection(ASSOCIATE_DB_NAME).document(currentUser.getUid())
                             .set(user)
@@ -81,7 +81,7 @@ public class UserController {
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Log.w("#EC createEvent fail", "Error adding document", e);
+                                    //Log.w("#EC createEvent fail", "Error adding document", e);
                                 }
                             });
                     }
@@ -92,7 +92,7 @@ public class UserController {
                     if (e != null) {
                         activity.handleError(e.getMessage());
                     }
-                    Log.d("#UC createAccount", "" + task.getException());
+                    //Log.d("#UC createAccount", "" + task.getException());
                 }
             }
         });
@@ -107,7 +107,7 @@ public class UserController {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     currentUser = mAuth.getCurrentUser();
-                    Log.d("#signInUser", "************************"+ currentUser.getUid());
+                    //Log.d("#signInUser", "************************"+ currentUser.getUid());
 
                     getUserInfo();
                     activity.handleSuccess();
@@ -118,7 +118,7 @@ public class UserController {
                     if (e != null) {
                         activity.handleError(e.getMessage());
                     }
-                    Log.d("#UC signIn", "" + task.getException());
+                    //Log.d("#UC signIn", "" + task.getException());
                 }
             }
         });
@@ -140,7 +140,7 @@ public class UserController {
     }
 
     public static void getUserInfo() {
-        Log.d("#getUserInfo", "************************"+ currentUser.getUid());
+        //Log.d("#getUserInfo", "************************"+ currentUser.getUid());
 
         db.collection(ASSOCIATE_DB_NAME).whereEqualTo(FieldPath.documentId(), currentUser.getUid())
             .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -149,10 +149,10 @@ public class UserController {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         currentUserInfo = document.toObject(User.class);
                         currentUserInfo.setUid(document.getId());
-                        Log.d("#getUserInfo", document.getId() + " => " + currentUserInfo.toString());
+                        //Log.d("#getUserInfo", document.getId() + " => " + currentUserInfo.toString());
                     }
                 } else {
-                    Log.d("#getParties error", "Error getting documents: ", task.getException());
+                    //Log.d("#getParties error", "Error getting documents: ", task.getException());
 
                 }
             }
@@ -171,15 +171,15 @@ public class UserController {
                         if(!document.getId().equals(ownerId)) {
                             Guest g = document.toObject(Guest.class);
                             g.setUid(document.getId());
-                            Log.d("#User", g.toString());
+                            //Log.d("#User", g.toString());
                             allGuests.add(g);
                         }
-                        Log.d("#getAllUsers", document.getId() + " => " + document.getData());
+                        //Log.d("#getAllUsers", document.getId() + " => " + document.getData());
                     }
                     createPartyActivity.showInviteGuestPage(allGuests);
 
                 } else {
-                    Log.d("#getAllUsers", "Error getting documents: ", task.getException());
+                    //Log.d("#getAllUsers", "Error getting documents: ", task.getException());
                 }
             }
         });
@@ -197,15 +197,15 @@ public class UserController {
                         if(!document.getId().equals(ownerId)) {
                             User user = document.toObject(User.class);
                             user.setUid(document.getId());
-                            Log.d("#User", user.toString());
+                            //Log.d("#User", user.toString());
                             allUsers.add(user);
                         }
-                        Log.d("#getAllUsers", document.getId() + " => " + document.getData());
+                        //Log.d("#getAllUsers", document.getId() + " => " + document.getData());
                     }
                     ContactsActivity.getAllUsers(allUsers);
 
                 } else {
-                    Log.d("#getAllUsers", "Error getting documents: ", task.getException());
+                    //Log.d("#getAllUsers", "Error getting documents: ", task.getException());
                 }
             }
         });

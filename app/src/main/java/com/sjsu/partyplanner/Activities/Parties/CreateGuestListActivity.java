@@ -33,7 +33,7 @@ public class CreateGuestListActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_guest_list);
 
-        Log.d("create guest list", "creating the guest list");
+        //Log.d("create guest list", "creating the guest list");
         setUpToolbar();
         setUpList();
 
@@ -64,7 +64,7 @@ public class CreateGuestListActivity extends AppCompatActivity{
         listview.setAdapter(adapter);
         listview.setOnItemClickListener((parent, view, position, id) -> {
             sparseBooleanArray = listview.getCheckedItemPositions();
-            Log.d("onItemClick", ""+sparseBooleanArray.toString());
+            //Log.d("onItemClick", ""+sparseBooleanArray.toString());
         });
     }
 
@@ -78,7 +78,7 @@ public class CreateGuestListActivity extends AppCompatActivity{
             }
             i++ ;
         }
-        Log.d("invitedGuests", ""+ invitedGuests.toString());
+        //Log.d("invitedGuests", ""+ invitedGuests.toString());
         Intent rIntent =  new Intent(this, CreatePartyActivity.class);
         Bundle extra =  new Bundle();
         extra.putParcelableArrayList(GUEST_LIST_KEY, invitedGuests);

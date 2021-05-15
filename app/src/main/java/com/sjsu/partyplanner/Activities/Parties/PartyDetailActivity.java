@@ -90,7 +90,7 @@ public class PartyDetailActivity extends AppCompatActivity {
             Bundle extra = new Bundle();
             extra.putParcelable(NEW_PARTY, party);
             intent.putExtras(extra);
-            Log.d("Testing", "onOptionsItemSelected: setting a reply");
+            //Log.d("Testing", "onOptionsItemSelected: setting a reply");
             setResult(RESULT_OK, intent);
             finish();
             return true;

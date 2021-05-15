@@ -104,7 +104,7 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(@NonNull Place place) {
-                Log.d(TAG, "onPlaceSelected: Place: Address: "  + place.getAddress()) ;
+                //Log.d(TAG, "onPlaceSelected: Place: Address: "  + place.getAddress()) ;
                 location = place.getAddress();
                 autocompleteFragment.setText(location);
 
@@ -112,7 +112,7 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
 
             @Override
             public void onError(@NonNull Status status) {
-                Log.d(TAG, "onError: Error in Places API " + status.toString());
+                //Log.d(TAG, "onError: Error in Places API " + status.toString());
                 location = "";
             }
         });
@@ -121,8 +121,8 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.cpCheck) {
-            Log.d("date", txtDate.getText().toString());
-            Log.d("time", txtTime.getText().toString());
+            //Log.d("date", txtDate.getText().toString());
+            //Log.d("time", txtTime.getText().toString());
             if (pickedDateTime.getTime().compareTo(new Date()) <= 0) {
                 toastMsg("Date and Time is invalid");
                 return false;
@@ -148,13 +148,13 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d("COME_BACK!","CREATE_PARTY");
+        //Log.d("COME_BACK!","CREATE_PARTY");
 
         if (requestCode == VIEW_CODE && resultCode == Activity.RESULT_OK) {
 
             Bundle extras = data.getExtras();
             tasks = extras.getParcelableArrayList(CreateTaskListActivity.TASKLIST_KEY);
-            Log.d("TASK!","Task name: \n"  + tasks.size());
+            //Log.d("TASK!","Task name: \n"  + tasks.size());
 
         }
         else if (requestCode == GUEST_INVITE_VIEW_CODE && resultCode == Activity.RESULT_OK) {
@@ -164,7 +164,7 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
                 selectedGuests = new ArrayList<Guest>();
             }
             binding.cpGuestButton.setText(String.format("%s (%d)", "Invited Guests", selectedGuests.size()));
-            Log.d("Selected Guest size!", ""+ selectedGuests.size());
+            //Log.d("Selected Guest size!", ""+ selectedGuests.size());
         }
     }
 
@@ -241,7 +241,7 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
             int mYear = c.get(Calendar.YEAR);
             int mMonth = c.get(Calendar.MONTH);
             int mDay = c.get(Calendar.DAY_OF_MONTH);
-            Log.d("calendar", ""+c );
+            //Log.d("calendar", ""+c );
 
             DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                     (view1, year, monthOfYear, dayOfMonth) -> {
@@ -291,7 +291,7 @@ public class CreatePartyActivity extends AppCompatActivity implements View.OnCli
                         if (minute < 10) min = "0" + minute;
                         else min = String.valueOf(minute);
                         String z = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(pickedDateTime.getTime());
-                        Log.d("calendar", z);
+                        //Log.d("calendar", z);
 
                         // Append in a StringBuilder
                         String time = String.valueOf(hourOfDay) + ':' + min + " " + timeSet;
