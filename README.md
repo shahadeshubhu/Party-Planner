@@ -10,3 +10,5 @@ Firebase Authentication, Cloud Firestore, Google Map API, Android (Java)
 The APK  is called *partplanner.apk* and can found under the folder *submit_files* 
 ## Backlog
 The backlog file is called *Project Backlog_ Group #9.xlsx* and can be found under the folder *submit_files*
+## User Guide
+The user guide is called *Party Planner - User Guide.pdf* and can be found under the folder *submit_files*
